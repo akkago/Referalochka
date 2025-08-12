@@ -31,7 +31,9 @@ export const BREAKPOINTS = {
 
 export const ROUTES = {
   PROJECTS: 'projects',
-  PROFILE: 'profile'
+  PROFILE: 'profile',
+  APPLICATION: 'application',
+  INVESTOR_FORM: 'investor-form'
 } as const
 
 export const PROFILE_TABS = {

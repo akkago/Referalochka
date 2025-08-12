@@ -1,8 +1,12 @@
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import type { ProfileTab, InvestorProfile } from '@/types'
 import { profileTabs, investorProfile } from '@/data/mockData'
+import { ROUTES } from '@/constants'
 
 export function useProfile() {
+  const router = useRouter()
+  
   // Reactive state
   const activeTab = ref('investor')
   const currentProfile = ref<InvestorProfile>(investorProfile)
@@ -33,8 +37,8 @@ export function useProfile() {
         console.log('Adding organization...')
         break
       case 'verify':
-        // Логика верификации
-        console.log('Starting verification...')
+        // Переход к заполнению анкеты
+        router.push({ name: ROUTES.APPLICATION })
         break
       default:
         console.log('Unknown action:', actionId)

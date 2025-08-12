@@ -69,3 +69,76 @@ export interface ProfileAction {
   color: string
   icon?: string
 }
+
+export interface FormField {
+  id: string
+  label: string
+  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'file'
+  placeholder?: string
+  required: boolean
+  options?: string[]
+  validation?: string
+}
+
+export interface FormSection {
+  id: string
+  title: string
+  description?: string
+  fields: FormField[]
+}
+
+export interface ApplicationForm {
+  id: string
+  title: string
+  description: string
+  icon: string
+  iconColor: string
+  sections: FormSection[]
+  submitButton: {
+    text: string
+    variant: 'outlined' | 'filled'
+    color: string
+    icon?: string
+  }
+}
+
+export interface InvestorFormField {
+  id: string
+  label: string
+  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'radio' | 'checkbox' | 'number' | 'url'
+  placeholder?: string
+  required: boolean
+  options?: string[]
+  validation?: string
+  value?: any
+}
+
+export interface InvestorFormSection {
+  id: string
+  title: string
+  description?: string
+  fields: InvestorFormField[]
+}
+
+export interface InvestorForm {
+  id: string
+  status: string
+  sections: InvestorFormSection[]
+  submitButton: {
+    text: string
+    variant: 'outlined' | 'filled'
+    color: string
+  }
+}
+
+export interface ResourceLink {
+  id: string
+  type: string
+  url: string
+}
+
+export interface InvestmentCategory {
+  id: string
+  name: string
+  isSelected: boolean
+}
