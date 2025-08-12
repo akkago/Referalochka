@@ -4,18 +4,12 @@ import type { User } from '@/types'
 import { currentUser } from '@/data/mockData'
 import AppNavigation from '@/components/AppNavigation.vue'
 import AppHeader from '@/components/AppHeader.vue'
-import ProjectsView from '@/views/ProjectsView.vue'
-
-const handleNavigationClick = (id: string) => {
-  console.log('Navigation clicked:', id)
-  // Здесь будет логика навигации
-}
 </script>
 
 <template>
   <v-app>
     <!-- Navigation Drawer -->
-    <AppNavigation @navigation-click="handleNavigationClick" />
+    <AppNavigation />
     
     <!-- Main Content -->
     <v-main class="bg-gray-50">
@@ -23,7 +17,7 @@ const handleNavigationClick = (id: string) => {
       <AppHeader :user="currentUser" />
       
       <!-- Page Content -->
-      <ProjectsView />
+      <router-view />
     </v-main>
   </v-app>
 </template>

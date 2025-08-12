@@ -11,7 +11,7 @@
       
       <nav class="space-y-2">
         <v-list-item
-          v-for="item in navigationItems"
+          v-for="item in updatedNavigationItems"
           :key="item.id"
           :class="[
             'rounded-lg mb-1 transition-all duration-200',
@@ -37,17 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { NavigationItem } from '@/types'
-import { navigationItems } from '@/data/mockData'
+import { useNavigation } from '@/composables/useNavigation'
 import { APP_NAME } from '@/constants'
 
-const emit = defineEmits<{
-  navigationClick: [id: string]
-}>()
+const { updatedNavigationItems, navigateTo } = useNavigation()
 
 const handleNavigationClick = (id: string) => {
-  emit('navigationClick', id)
+  navigateTo(id)
 }
 </script>
 

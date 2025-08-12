@@ -1,4 +1,4 @@
-import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem } from '@/types'
+import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile } from '@/types'
 
 export const currentUser: User = {
   id: '1',
@@ -139,3 +139,45 @@ export const projects: Project[] = [
     type: projectTypes[2]
   }
 ]
+
+export const profileTabs: ProfileTab[] = [
+  {
+    id: 'investor',
+    title: 'Анкета инвестора',
+    isActive: true
+  },
+  {
+    id: 'partner',
+    title: 'Анкета партнера',
+    isActive: false
+  },
+  {
+    id: 'requisites',
+    title: 'Реквизиты',
+    isActive: false
+  }
+]
+
+export const investorProfile: InvestorProfile = {
+  status: 'pending',
+  title: 'Станьте инвестором',
+  description: 'Пройдите верификацию и заполните анкету. После проверки — доступ открыт!',
+  icon: 'mdi-cog',
+  iconColor: 'purple',
+  actions: [
+    {
+      id: 'add-organization',
+      title: 'Добавить организацию',
+      variant: 'outlined',
+      color: 'primary',
+      icon: 'mdi-plus'
+    },
+    {
+      id: 'verify',
+      title: 'Верифицироваться',
+      variant: 'filled',
+      color: 'primary',
+      icon: 'mdi-shield-check'
+    }
+  ]
+}

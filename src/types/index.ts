@@ -46,3 +46,26 @@ export interface FilterOption {
   name: string
   isSelected: boolean
 }
+
+export interface ProfileTab {
+  id: string
+  title: string
+  isActive: boolean
+}
+
+export interface InvestorProfile {
+  status: 'pending' | 'verified' | 'rejected'
+  title: string
+  description: string
+  icon: string
+  iconColor: string
+  actions: ProfileAction[]
+}
+
+export interface ProfileAction {
+  id: string
+  title: string
+  variant: 'outlined' | 'filled'
+  color: string
+  icon?: string
+}

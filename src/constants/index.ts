@@ -28,3 +28,14 @@ export const BREAKPOINTS = {
   TABLET: 960,
   DESKTOP: 1264
 } as const
+
+export const ROUTES = {
+  PROJECTS: 'projects',
+  PROFILE: 'profile'
+} as const
+
+export const PROFILE_TABS = {
+  INVESTOR: 'investor',
+  PARTNER: 'partner',
+  REQUISITES: 'requisites'
+} as const
