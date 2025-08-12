@@ -3,6 +3,7 @@ import ProjectsView from '@/views/ProjectsView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import ApplicationView from '@/views/ApplicationView.vue'
 import InvestorFormView from '@/views/InvestorFormView.vue'
+import PartnerFormView from '@/views/PartnerFormView.vue'
 import { ROUTES } from '@/constants'
 
 const router = createRouter({
@@ -38,6 +39,14 @@ const router = createRouter({
       component: InvestorFormView,
       meta: {
         title: 'Анкета инвестора'
+      }
+    },
+    {
+      path: '/partner-form',
+      name: ROUTES.PARTNER_FORM,
+      component: PartnerFormView,
+      meta: {
+        title: 'Анкета партнера'
       }
     },
     {

@@ -142,3 +142,53 @@ export interface InvestmentCategory {
   name: string
   isSelected: boolean
 }
+
+export interface PartnerFormField {
+  id: string
+  label: string
+  type: 'text' | 'email' | 'tel' | 'select' | 'textarea' | 'radio' | 'checkbox' | 'number' | 'url'
+  placeholder?: string
+  required: boolean
+  options?: string[]
+  validation?: string
+  value?: any
+}
+
+export interface PartnerFormSection {
+  id: string
+  title: string
+  description?: string
+  fields: PartnerFormField[]
+}
+
+export interface PartnerForm {
+  id: string
+  status: string
+  sections: PartnerFormSection[]
+  submitButton: {
+    text: string
+    variant: 'outlined' | 'filled'
+    color: string
+  }
+}
+
+export interface PartnerResourceLink {
+  id: string
+  type: string
+  url: string
+}
+
+export interface PartnerCategory {
+  id: string
+  name: string
+  isSelected: boolean
+}
+
+export interface PartnerProfile {
+  status: 'pending' | 'verified' | 'rejected'
+  title: string
+  description: string
+  icon: string
+  iconColor: string
+  actions: ProfileAction[]
+}

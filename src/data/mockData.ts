@@ -1,4 +1,4 @@
-import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory } from '@/types'
+import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory } from '@/types'
 
 export const currentUser: User = {
   id: '1',
@@ -588,6 +588,192 @@ export const investmentCategories: InvestmentCategory[] = [
     id: '3',
     name: 'Проекты на основе ИИ',
     isSelected: false
+  },
+  {
+    id: '4',
+    name: 'Бизнес-проекты (ранняя стадия)',
+    isSelected: false
+  }
+]
+
+export const partnerForm: PartnerForm = {
+  id: 'partner-form',
+  status: 'Статус партнера действителен до: 01.10.2025',
+  sections: [
+    {
+      id: 'general-info',
+      title: 'Общая информация',
+      fields: [
+        {
+          id: 'name',
+          label: 'Имя',
+          type: 'text',
+          placeholder: 'Введите имя',
+          required: true,
+          value: ''
+        },
+        {
+          id: 'surname',
+          label: 'Фамилия',
+          type: 'text',
+          placeholder: 'Введите фамилию',
+          required: true,
+          value: ''
+        },
+        {
+          id: 'phone',
+          label: 'Телефон',
+          type: 'tel',
+          placeholder: '+7-900-000-00-00',
+          required: true,
+          validation: 'phone',
+          value: ''
+        },
+        {
+          id: 'email',
+          label: 'E-Mail',
+          type: 'email',
+          placeholder: 'example@email.com',
+          required: true,
+          validation: 'email',
+          value: ''
+        },
+        {
+          id: 'brand',
+          label: 'Название (Бренд/Ник)',
+          type: 'text',
+          placeholder: 'Введите название бренда или ник',
+          required: false,
+          value: ''
+        },
+        {
+          id: 'company',
+          label: 'Компания',
+          type: 'text',
+          placeholder: 'Введите название компании',
+          required: false,
+          value: ''
+        },
+        {
+          id: 'inn',
+          label: 'ИНН',
+          type: 'text',
+          placeholder: 'Введите ИНН',
+          required: false,
+          validation: 'inn',
+          value: ''
+        }
+      ]
+    },
+    {
+      id: 'resources',
+      title: 'Ссылки на ресурсы',
+      fields: [
+        {
+          id: 'website-type',
+          label: 'Сайт',
+          type: 'select',
+          placeholder: 'Выберите тип ресурса',
+          required: false,
+          options: ['Личный сайт', 'Сайт компании', 'Блог', 'Социальная сеть', 'YouTube', 'Другое'],
+          value: ''
+        },
+        {
+          id: 'website-url',
+          label: 'Ссылка',
+          type: 'url',
+          placeholder: 'https://example.com',
+          required: false,
+          validation: 'url',
+          value: ''
+        }
+      ]
+    },
+    {
+      id: 'about',
+      title: 'О себе',
+      fields: [
+        {
+          id: 'headline',
+          label: 'Заголовок 3-4 слова',
+          type: 'text',
+          placeholder: 'Краткий заголовок о себе',
+          required: false,
+          value: ''
+        },
+        {
+          id: 'description',
+          label: 'Описание',
+          type: 'textarea',
+          placeholder: 'Расскажите о себе, своем опыте инвестирования, своей команде т.д.',
+          required: false,
+          value: ''
+        }
+      ]
+    },
+    {
+      id: 'categories',
+      title: 'Категории',
+      fields: [
+        {
+          id: 'tags',
+          label: 'Теги',
+          type: 'textarea',
+          placeholder: 'Ключевые слова по вашей тематике',
+          required: false,
+          value: ''
+        },
+        {
+          id: 'categories',
+          label: 'Интересующие категории',
+          type: 'checkbox',
+          required: false,
+          options: [
+            'Изобретения/ Патенты',
+            'Технологические проекты (стартапы, венчур)',
+            'Проекты на основе ИИ',
+            'Бизнес-проекты (ранняя стадия)'
+          ],
+          value: ['Технологические проекты (стартапы, венчур)', 'Проекты на основе ИИ']
+        }
+      ]
+    }
+  ],
+  submitButton: {
+    text: 'Отправить',
+    variant: 'filled',
+    color: 'purple'
+  }
+}
+
+export const partnerResourceLinks: PartnerResourceLink[] = [
+  {
+    id: '1',
+    type: 'Сайт',
+    url: 'https://example.com'
+  },
+  {
+    id: '2',
+    type: 'YouTube',
+    url: 'https://youtube.com/channel'
+  }
+]
+
+export const partnerCategories: PartnerCategory[] = [
+  {
+    id: '1',
+    name: 'Изобретения/ Патенты',
+    isSelected: false
+  },
+  {
+    id: '2',
+    name: 'Технологические проекты (стартапы, венчур)',
+    isSelected: true
+  },
+  {
+    id: '3',
+    name: 'Проекты на основе ИИ',
+    isSelected: true
   },
   {
     id: '4',

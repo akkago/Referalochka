@@ -33,7 +33,8 @@ export const ROUTES = {
   PROJECTS: 'projects',
   PROFILE: 'profile',
   APPLICATION: 'application',
-  INVESTOR_FORM: 'investor-form'
+  INVESTOR_FORM: 'investor-form',
+  PARTNER_FORM: 'partner-form'
 } as const
 
 export const PROFILE_TABS = {

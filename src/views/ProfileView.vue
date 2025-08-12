@@ -43,7 +43,7 @@
               Анкета партнера
             </h3>
             <p class="text-gray-500">
-              Здесь будет содержимое анкеты партнера
+              Переход на страницу анкеты партнера...
             </p>
           </div>
         </div>
@@ -67,8 +67,12 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useProfile } from '@/composables/useProfile'
 import InvestorProfileCard from '@/components/InvestorProfileCard.vue'
+import { ROUTES } from '@/constants'
+
+const router = useRouter()
 
 const {
   activeTab,
@@ -83,6 +87,11 @@ const {
 const handleTabClick = (tabId: string) => {
   setActiveTab(tabId)
   console.log('Tab clicked:', tabId)
+  
+  // Если кликнули на вкладку "Анкета партнера", переходим на отдельную страницу
+  if (tabId === 'partner') {
+    router.push({ name: ROUTES.PARTNER_FORM })
+  }
 }
 
 const handleActionClick = (actionId: string) => {
@@ -97,6 +106,10 @@ const handleActionClick = (actionId: string) => {
 }
 
 .investor-content {
+  min-height: 400px;
+}
+
+.partner-content {
   min-height: 400px;
 }
 </style>
