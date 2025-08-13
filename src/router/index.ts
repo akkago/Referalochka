@@ -45,6 +45,7 @@ const router = createRouter({
         title: 'Редактирование проекта'
       }
     },
+
     {
       path: '/profile',
       name: ROUTES.PROFILE,
@@ -77,18 +78,18 @@ const router = createRouter({
         title: 'Анкета партнера'
       }
     },
-    {
-      path: '/requisites',
-      name: ROUTES.REQUISITES,
-      component: RequisitesView,
-      meta: {
-        title: 'Реквизиты'
-      }
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      redirect: '/'
-    }
+                {
+              path: '/requisites',
+              name: ROUTES.REQUISITES,
+              component: RequisitesView,
+              meta: {
+                title: 'Реквизиты'
+              }
+            },
+            {
+              path: '/:pathMatch(.*)*',
+              redirect: '/'
+            }
   ]
 })
 

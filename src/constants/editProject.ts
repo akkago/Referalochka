@@ -1,6 +1,7 @@
 export const EDIT_PROJECT_SECTIONS = {
   EDIT_PROJECT: 'Редактирование проекта',
-  TRANSITION_COST_SETTINGS: 'Настройка стоимость перехода'
+  TRANSITION_COST_SETTINGS: 'Настройка стоимость перехода',
+  REFERRAL_LINKS: 'Реферальные ссылки'
 } as const
 
 export const EDIT_PROJECT_TABS = {

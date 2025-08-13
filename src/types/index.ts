@@ -363,3 +363,44 @@ export interface EditProjectFormState extends AddProjectFormState {
 }
 
 export interface EditProjectTab extends AddProjectTab {}
+
+// Referral Links interfaces
+export interface ReferralLink {
+  id: string
+  name: string
+  url: string
+  description: string
+  isActive: boolean
+  clicks: number
+  conversions: number
+  earnings: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ReferralLinkForm {
+  name: string
+  url: string
+  description: string
+  isActive: boolean
+}
+
+export interface ReferralLinkFormState {
+  isSubmitting: boolean
+  errors: Record<string, string>
+  isValid: boolean
+}
+
+export interface ReferralLinkTab {
+  id: string
+  title: string
+  isActive: boolean
+}
+
+export interface ReferralLinkStats {
+  totalLinks: number
+  activeLinks: number
+  totalClicks: number
+  totalConversions: number
+  totalEarnings: number
+}

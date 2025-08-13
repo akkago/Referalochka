@@ -46,7 +46,7 @@
       <!-- Form Content -->
       <div class="space-y-8">
         <!-- Edit Project Section -->
-        <div class="form-section">
+        <div v-if="activeTab === EDIT_PROJECT_TABS.DESCRIPTION.id" class="form-section">
           <h3 class="text-xl font-semibold text-gray-800 mb-6">
             {{ EDIT_PROJECT_SECTIONS.EDIT_PROJECT }}
           </h3>
@@ -327,6 +327,135 @@
             </div>
           </div>
         </div>
+        
+        <!-- Referral Links Section -->
+        <div v-if="activeTab === EDIT_PROJECT_TABS.REFERRAL_LINKS.id" class="form-section">
+          <h3 class="text-xl font-semibold text-gray-800 mb-6">
+            {{ EDIT_PROJECT_SECTIONS.REFERRAL_LINKS }}
+          </h3>
+          
+          <!-- Stats Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+            <v-card class="stats-card">
+              <v-card-text class="text-center">
+                <div class="text-2xl font-bold text-primary">{{ referralStats.totalLinks }}</div>
+                <div class="text-sm text-gray-600">Всего ссылок</div>
+              </v-card-text>
+            </v-card>
+            
+            <v-card class="stats-card">
+              <v-card-text class="text-center">
+                <div class="text-2xl font-bold text-green-600">{{ referralStats.activeLinks }}</div>
+                <div class="text-sm text-gray-600">Активных ссылок</div>
+              </v-card-text>
+            </v-card>
+            
+            <v-card class="stats-card">
+              <v-card-text class="text-center">
+                <div class="text-2xl font-bold text-blue-600">{{ referralStats.totalClicks }}</div>
+                <div class="text-sm text-gray-600">Всего переходов</div>
+              </v-card-text>
+            </v-card>
+            
+            <v-card class="stats-card">
+              <v-card-text class="text-center">
+                <div class="text-2xl font-bold text-purple-600">{{ referralStats.totalConversions }}</div>
+                <div class="text-sm text-gray-600">Всего конверсий</div>
+              </v-card-text>
+            </v-card>
+            
+            <v-card class="stats-card">
+              <v-card-text class="text-center">
+                <div class="text-2xl font-bold text-orange-600">{{ formatCurrency(referralStats.totalEarnings) }}</div>
+                <div class="text-sm text-gray-600">Общий заработок</div>
+              </v-card-text>
+            </v-card>
+          </div>
+
+          <!-- Referral Links List -->
+          <div class="space-y-4">
+            <div class="flex justify-between items-center mb-4">
+              <h4 class="text-lg font-semibold text-gray-800">Все реферальные ссылки</h4>
+              <v-btn
+                color="primary"
+                variant="elevated"
+                @click="handleCreateReferralLink"
+              >
+                Создать
+              </v-btn>
+            </div>
+
+            <div class="space-y-4">
+              <v-card 
+                v-for="link in referralLinks" 
+                :key="link.id"
+                class="link-card"
+              >
+                <v-card-text>
+                  <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                      <div class="flex items-center gap-3 mb-2">
+                        <h5 class="text-lg font-semibold text-gray-800">{{ link.name }}</h5>
+                        <v-chip
+                          :color="link.isActive ? 'success' : 'default'"
+                          size="small"
+                          variant="outlined"
+                        >
+                          {{ link.isActive ? 'Активна' : 'Неактивна' }}
+                        </v-chip>
+                      </div>
+                      
+                      <p class="text-gray-600 mb-2">{{ link.description }}</p>
+                      
+                      <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                        <span>Переходы: {{ link.clicks }}</span>
+                        <span>Конверсии: {{ link.conversions }}</span>
+                        <span>Заработок: {{ formatCurrency(link.earnings) }}</span>
+                      </div>
+                      
+                      <div class="flex items-center gap-2">
+                        <v-text-field
+                          :model-value="link.url"
+                          readonly
+                          variant="outlined"
+                          density="compact"
+                          class="flex-1"
+                        />
+                        <v-btn
+                          variant="outlined"
+                          color="default"
+                          size="small"
+                          @click="copyToClipboard(link.url)"
+                        >
+                          Копировать
+                        </v-btn>
+                      </div>
+                    </div>
+                    
+                    <div class="flex flex-col gap-2 ml-4">
+                      <v-btn
+                        variant="outlined"
+                        color="primary"
+                        size="small"
+                        @click="handleEditReferralLink(link)"
+                      >
+                        Редактировать
+                      </v-btn>
+                      <v-btn
+                        variant="outlined"
+                        color="error"
+                        size="small"
+                        @click="handleDeleteReferralLink(link)"
+                      >
+                        Удалить
+                      </v-btn>
+                    </div>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </div>
+          </div>
+        </div>
       </div>
       
       <!-- Action Buttons -->
@@ -366,7 +495,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from 'vue'
-import type { EditProjectForm, EditProjectFormState, EditProjectTab } from '@/types'
+import type { EditProjectForm, EditProjectFormState, EditProjectTab, ReferralLink, ReferralLinkStats } from '@/types'
 import {
   EDIT_PROJECT_SECTIONS,
   EDIT_PROJECT_TABS,
@@ -379,7 +508,8 @@ import {
   INDUSTRIES_EDIT,
   PROJECT_STAGES_EDIT
 } from '@/constants/editProject'
-import { editProjectFormData } from '@/data/mockData'
+import { editProjectFormData, referralLinks as mockReferralLinks, referralLinkStats } from '@/data/mockData'
+import { formatCurrency } from '@/utils/formatters'
 
 interface Props {
   initialData?: Partial<EditProjectForm>
@@ -415,6 +545,10 @@ const formState = reactive<EditProjectFormState>({
   isValid: false,
   isEnabled: form.isEnabled
 })
+
+// Referral Links Data
+const referralLinks = ref<ReferralLink[]>(mockReferralLinks)
+const referralStats = ref<ReferralLinkStats>(referralLinkStats)
 
 // Computed
 const tabs = computed<EditProjectTab[]>(() => [
@@ -489,6 +623,31 @@ const handleLaunchAdvertising = async () => {
     console.error('Failed to submit form:', error)
   } finally {
     formState.isSubmitting = false
+  }
+}
+
+// Referral Links Methods
+const handleCreateReferralLink = () => {
+  console.log('Create referral link')
+  // В реальном приложении здесь была бы логика создания ссылки
+}
+
+const handleEditReferralLink = (link: ReferralLink) => {
+  console.log('Edit referral link:', link)
+  // В реальном приложении здесь была бы логика редактирования ссылки
+}
+
+const handleDeleteReferralLink = (link: ReferralLink) => {
+  console.log('Delete referral link:', link)
+  // В реальном приложении здесь была бы логика удаления ссылки
+}
+
+const copyToClipboard = async (text: string) => {
+  try {
+    await navigator.clipboard.writeText(text)
+    console.log('Copied to clipboard:', text)
+  } catch (error) {
+    console.error('Failed to copy to clipboard:', error)
   }
 }
 

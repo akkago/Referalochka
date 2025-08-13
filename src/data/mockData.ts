@@ -1,4 +1,4 @@
-import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning, UserProject, AddProjectForm, EditProjectForm } from '@/types'
+import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning, UserProject, AddProjectForm, EditProjectForm, ReferralLink, ReferralLinkForm, ReferralLinkStats } from '@/types'
 import { REGIONS, PROJECT_TYPES_ADD, INDUSTRIES_ADD, PROJECT_STAGES_ADD } from '@/constants/addProject'
 import { REGIONS_EDIT, PROJECT_TYPES_EDIT, INDUSTRIES_EDIT, PROJECT_STAGES_EDIT } from '@/constants/editProject'
 
@@ -972,4 +972,71 @@ export const editProjectFormData: EditProjectForm = {
     totalCost: 2300,
     balance: 3000
   }
+}
+
+// Referral Links mock data
+export const referralLinks: ReferralLink[] = [
+  {
+    id: '1',
+    name: 'Основная реферальная ссылка',
+    url: 'https://referalochka.ru/ref/user123',
+    description: 'Основная ссылка для привлечения новых пользователей',
+    isActive: true,
+    clicks: 1250,
+    conversions: 45,
+    earnings: 22500,
+    createdAt: '2024-01-15',
+    updatedAt: '2024-12-01'
+  },
+  {
+    id: '2',
+    name: 'Ссылка для партнеров',
+    url: 'https://referalochka.ru/ref/partner456',
+    description: 'Специальная ссылка для партнерских программ',
+    isActive: true,
+    clicks: 890,
+    conversions: 32,
+    earnings: 16000,
+    createdAt: '2024-02-20',
+    updatedAt: '2024-11-28'
+  },
+  {
+    id: '3',
+    name: 'Промо ссылка',
+    url: 'https://referalochka.ru/ref/promo789',
+    description: 'Промо-ссылка для акций и специальных предложений',
+    isActive: false,
+    clicks: 567,
+    conversions: 18,
+    earnings: 9000,
+    createdAt: '2024-03-10',
+    updatedAt: '2024-10-15'
+  },
+  {
+    id: '4',
+    name: 'Тестовая ссылка',
+    url: 'https://referalochka.ru/ref/test101',
+    description: 'Тестовая ссылка для проверки функциональности',
+    isActive: true,
+    clicks: 234,
+    conversions: 8,
+    earnings: 4000,
+    createdAt: '2024-04-05',
+    updatedAt: '2024-12-01'
+  }
+]
+
+export const initialReferralLinkForm: ReferralLinkForm = {
+  name: '',
+  url: '',
+  description: '',
+  isActive: true
+}
+
+export const referralLinkStats: ReferralLinkStats = {
+  totalLinks: 4,
+  activeLinks: 3,
+  totalClicks: 2941,
+  totalConversions: 103,
+  totalEarnings: 51500
 }

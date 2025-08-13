@@ -16,6 +16,9 @@ export function useNavigation() {
       if (currentRoute.value === ROUTES.PROJECTS) {
         return item.id === 'search'
       }
+      if (currentRoute.value === ROUTES.USER_PROJECTS) {
+        return item.id === 'my-projects'
+      }
       if (currentRoute.value === ROUTES.PROFILE) {
         return item.id === 'profile'
       }
