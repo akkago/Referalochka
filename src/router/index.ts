@@ -8,6 +8,7 @@ import RequisitesView from '@/views/RequisitesView.vue'
 import UserProjectsView from '@/views/UserProjectsView.vue'
 import AddProjectView from '@/views/AddProjectView.vue'
 import EditProjectView from '@/views/EditProjectView.vue'
+import TransitionCostSettingsView from '@/views/TransitionCostSettingsView.vue'
 import { ROUTES } from '@/constants'
 
 const router = createRouter({
@@ -45,7 +46,14 @@ const router = createRouter({
         title: 'Редактирование проекта'
       }
     },
-
+    {
+      path: '/transition-cost-settings',
+      name: 'transition-cost-settings',
+      component: TransitionCostSettingsView,
+      meta: {
+        title: 'Настройка стоимости перехода'
+      }
+    },
     {
       path: '/profile',
       name: ROUTES.PROFILE,
@@ -78,18 +86,18 @@ const router = createRouter({
         title: 'Анкета партнера'
       }
     },
-                {
-              path: '/requisites',
-              name: ROUTES.REQUISITES,
-              component: RequisitesView,
-              meta: {
-                title: 'Реквизиты'
-              }
-            },
-            {
-              path: '/:pathMatch(.*)*',
-              redirect: '/'
-            }
+    {
+      path: '/requisites',
+      name: ROUTES.REQUISITES,
+      component: RequisitesView,
+      meta: {
+        title: 'Реквизиты'
+      }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/'
+    }
   ]
 })
 

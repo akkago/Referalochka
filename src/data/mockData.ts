@@ -922,6 +922,7 @@ export const initialAddProjectForm: AddProjectForm = {
     whoCanTransition: 'all',
     paymentStrategy: 'transitions',
     transitionsCount: 0,
+    publicationDays: 0,
     budgetLimit: 0,
     disableByDate: ''
   }
@@ -942,6 +943,7 @@ export const filledAddProjectForm: AddProjectForm = {
     whoCanTransition: 'authorized',
     paymentStrategy: 'transitions',
     transitionsCount: 150,
+    publicationDays: 0,
     budgetLimit: 50000,
     disableByDate: '31.12.2025'
   }
@@ -964,6 +966,7 @@ export const editProjectFormData: EditProjectForm = {
     whoCanTransition: 'all',
     paymentStrategy: 'transitions',
     transitionsCount: 0,
+    publicationDays: 0,
     budgetLimit: 0,
     disableByDate: 'ДД.ММ.ГГГГ'
   },
@@ -1039,4 +1042,52 @@ export const referralLinkStats: ReferralLinkStats = {
   totalClicks: 2941,
   totalConversions: 103,
   totalEarnings: 51500
+}
+
+// Transition Cost Settings mock data
+export const transitionCostSettingsData = {
+  // Вариант 1: Количество переходов без информации о стоимости
+  transitionsWithoutCost: {
+    whoCanTransition: 'all' as const,
+    paymentStrategy: 'transitions' as const,
+    transitionsCount: 0,
+    publicationDays: 0,
+    budgetLimit: 0,
+    disableByDate: '',
+    costInfo: {
+      costPerTransition: 100,
+      totalCost: 0,
+      balance: 3000
+    }
+  },
+  
+  // Вариант 2: Количество переходов с информацией о стоимости
+  transitionsWithCost: {
+    whoCanTransition: 'all' as const,
+    paymentStrategy: 'transitions' as const,
+    transitionsCount: 23,
+    publicationDays: 0,
+    budgetLimit: 0,
+    disableByDate: '',
+    costInfo: {
+      costPerTransition: 100,
+      totalCost: 2300,
+      balance: 3000
+    }
+  },
+  
+  // Вариант 3: Срок публикации с информацией о стоимости
+  publicationPeriodWithCost: {
+    whoCanTransition: 'all' as const,
+    paymentStrategy: 'publication-period' as const,
+    transitionsCount: 0,
+    publicationDays: 30,
+    budgetLimit: 0,
+    disableByDate: '',
+    costInfo: {
+      costPerTransition: 200,
+      totalCost: 6000,
+      balance: 3000
+    }
+  }
 }

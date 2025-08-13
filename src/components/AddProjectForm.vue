@@ -167,121 +167,11 @@
         
         <!-- Transition Cost Settings Section -->
         <div class="form-section">
-          <h3 class="text-xl font-semibold text-gray-800 mb-6">
-            {{ ADD_PROJECT_SECTIONS.TRANSITION_COST_SETTINGS }}
-          </h3>
-          
-          <div class="space-y-6">
-            <!-- Who can transition -->
-            <div class="field-group">
-              <div class="flex items-center gap-2 mb-3">
-                <label class="text-sm font-medium text-gray-700">
-                  {{ TRANSITION_SETTINGS.WHO_CAN_TRANSITION.label }}
-                </label>
-                <v-tooltip location="top">
-                  <template v-slot:activator="{ props }">
-                    <v-icon
-                      v-bind="props"
-                      size="small"
-                      color="primary"
-                      class="cursor-help"
-                    >
-                      mdi-help-circle
-                    </v-icon>
-                  </template>
-                  <span>Выберите, кто может переходить по ссылке</span>
-                </v-tooltip>
-              </div>
-              <v-radio-group
-                v-model="form.transitionSettings.whoCanTransition"
-                hide-details
-                @update:model-value="validateField('transitionSettings.whoCanTransition')"
-              >
-                <v-radio
-                  v-for="option in Object.values(TRANSITION_SETTINGS.WHO_CAN_TRANSITION.options)"
-                  :key="option.value"
-                  :value="option.value"
-                  :label="option.label"
-                  color="primary"
-                />
-              </v-radio-group>
-            </div>
-            
-            <!-- Payment Strategy -->
-            <div class="field-group">
-              <label class="text-sm font-medium text-gray-700 mb-3">
-                {{ TRANSITION_SETTINGS.PAYMENT_STRATEGY.label }}
-              </label>
-              <v-radio-group
-                v-model="form.transitionSettings.paymentStrategy"
-                hide-details
-                @update:model-value="validateField('transitionSettings.paymentStrategy')"
-              >
-                <v-radio
-                  v-for="option in Object.values(TRANSITION_SETTINGS.PAYMENT_STRATEGY.options)"
-                  :key="option.value"
-                  :value="option.value"
-                  :label="option.label"
-                  color="primary"
-                />
-              </v-radio-group>
-            </div>
-            
-            <!-- Transitions Count -->
-            <div class="field-group">
-              <div class="flex items-center gap-2">
-                <v-text-field
-                  v-model.number="form.transitionSettings.transitionsCount"
-                  type="number"
-                  :placeholder="TRANSITION_SETTINGS.TRANSITIONS_COUNT.placeholder"
-                  variant="outlined"
-                  density="compact"
-                  hide-details
-                  class="max-w-32"
-                  @update:model-value="validateField('transitionSettings.transitionsCount')"
-                />
-                <span class="text-sm text-gray-600">
-                  {{ TRANSITION_SETTINGS.TRANSITIONS_COUNT.label }}
-                </span>
-              </div>
-            </div>
-            
-            <!-- Budget Limit -->
-            <div class="field-group">
-              <div class="flex items-center gap-2">
-                <v-text-field
-                  v-model.number="form.transitionSettings.budgetLimit"
-                  type="number"
-                  :placeholder="TRANSITION_SETTINGS.BUDGET_LIMIT.placeholder"
-                  variant="outlined"
-                  density="compact"
-                  hide-details
-                  class="max-w-32"
-                  @update:model-value="validateField('transitionSettings.budgetLimit')"
-                />
-                <span class="text-sm text-gray-600">
-                  {{ TRANSITION_SETTINGS.BUDGET_LIMIT.suffix }}
-                </span>
-              </div>
-            </div>
-            
-            <!-- Disable by Date -->
-            <div class="field-group">
-              <label class="text-sm font-medium text-gray-700 mb-2">
-                {{ TRANSITION_SETTINGS.DISABLE_BY_DATE.label }}
-              </label>
-              <v-text-field
-                v-model="form.transitionSettings.disableByDate"
-                :placeholder="TRANSITION_SETTINGS.DISABLE_BY_DATE.placeholder"
-                variant="outlined"
-                density="compact"
-                hide-details
-                class="max-w-48"
-                prepend-inner-icon="mdi-calendar"
-                @update:model-value="validateField('transitionSettings.disableByDate')"
-              />
-            </div>
-          </div>
+          <TransitionCostSettings
+            :initial-data="form.transitionSettings"
+            :cost-info="transitionCostInfo"
+            @update="handleTransitionSettingsUpdate"
+          />
         </div>
         
         <!-- Referral Links Section -->
@@ -442,7 +332,8 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from 'vue'
-import type { AddProjectForm, AddProjectFormState, AddProjectTab, ReferralLink, ReferralLinkStats } from '@/types'
+import TransitionCostSettings from '@/components/TransitionCostSettings.vue'
+import type { AddProjectForm, AddProjectFormState, AddProjectTab, ReferralLink, ReferralLinkStats, TransitionCostInfo } from '@/types'
 import {
   ADD_PROJECT_SECTIONS,
   ADD_PROJECT_TABS,
@@ -488,6 +379,13 @@ const formState = reactive<AddProjectFormState>({
 // Referral Links Data
 const referralLinks = ref<ReferralLink[]>(mockReferralLinks)
 const referralStats = ref<ReferralLinkStats>(referralLinkStats)
+
+// Transition Cost Info
+const transitionCostInfo = reactive<TransitionCostInfo>({
+  costPerTransition: 100,
+  totalCost: 0,
+  balance: 3000
+})
 
 // Computed
 const tabs = computed<AddProjectTab[]>(() => [
@@ -552,6 +450,11 @@ const handleSubmit = async () => {
 
 const handleCancel = () => {
   emit('cancel')
+}
+
+const handleTransitionSettingsUpdate = (data: any) => {
+  Object.assign(form.transitionSettings, data)
+  validateForm()
 }
 
 // Referral Links Methods

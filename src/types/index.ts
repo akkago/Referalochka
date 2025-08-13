@@ -315,6 +315,7 @@ export interface AddProjectForm {
     whoCanTransition: 'all' | 'authorized' | 'investors'
     paymentStrategy: 'transitions' | 'publication-period'
     transitionsCount: number
+    publicationDays: number
     budgetLimit: number
     disableByDate: string
   }
@@ -348,6 +349,7 @@ export interface EditProjectForm {
     whoCanTransition: 'all' | 'authorized' | 'investors'
     paymentStrategy: 'transitions' | 'publication-period'
     transitionsCount: number
+    publicationDays: number
     budgetLimit: number
     disableByDate: string
   }
@@ -403,4 +405,36 @@ export interface ReferralLinkStats {
   totalClicks: number
   totalConversions: number
   totalEarnings: number
+}
+
+// Transition Cost Settings interfaces
+export interface TransitionCostInfo {
+  costPerTransition: number
+  totalCost: number
+  balance: number
+}
+
+export interface TransitionCostSettings {
+  whoCanTransition: 'all' | 'authorized' | 'investors'
+  paymentStrategy: 'transitions' | 'publication-period'
+  transitionsCount: number
+  publicationDays: number
+  budgetLimit: number
+  disableByDate: string
+  costInfo: TransitionCostInfo
+}
+
+export interface TransitionCostSettingsForm {
+  whoCanTransition: 'all' | 'authorized' | 'investors'
+  paymentStrategy: 'transitions' | 'publication-period'
+  transitionsCount: number
+  publicationDays: number
+  budgetLimit: number
+  disableByDate: string
+}
+
+export interface TransitionCostSettingsState {
+  isSubmitting: boolean
+  errors: Record<string, string>
+  isValid: boolean
 }
