@@ -224,3 +224,17 @@ export interface RequisitesData {
   head: HeadDetails
   bankRequisites: BankRequisite[]
 }
+
+export interface DeleteModalData {
+  id: string
+  title: string
+  message: string
+  itemName?: string
+}
+
+export interface DeleteModalConfig {
+  isOpen: boolean
+  data: DeleteModalData | null
+  onConfirm: (id: string) => void
+  onCancel: () => void
+}

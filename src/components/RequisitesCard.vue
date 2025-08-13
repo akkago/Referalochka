@@ -1,5 +1,12 @@
 <template>
   <div class="requisites-card">
+    <!-- Delete Modal -->
+    <DeleteRequisitesModal
+      :config="deleteModalConfig"
+      @confirm="handleDeleteConfirm"
+      @cancel="handleDeleteCancel"
+      @close="handleDeleteClose"
+    />
     <!-- Header with title and update button -->
     <div class="flex justify-between items-center mb-8">
       <h2 class="text-2xl font-bold text-gray-800">{{ REQUISITES_SECTIONS.COMPANY }}</h2>
@@ -150,7 +157,7 @@
                 variant="text"
                 color="error"
                 size="small"
-                @click="removeRequisite(requisite.id)"
+                @click="openDeleteRequisiteModal(requisite.id)"
               >
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
@@ -238,12 +245,15 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import type { RequisitesData, BankRequisite } from '@/types'
+import DeleteRequisitesModal from './DeleteRequisitesModal.vue'
+import { useDeleteModal } from '@/composables/useDeleteModal'
 import { 
   REQUISITES_FIELD_LABELS, 
   REQUISITES_SECTIONS, 
   REQUISITES_ACTIONS, 
   REQUISITES_PLACEHOLDERS 
 } from '@/constants/requisites'
+import { DELETE_MODAL_MESSAGES } from '@/constants/modals'
 import { 
   validateInn, 
   validateKpp, 
@@ -292,6 +302,9 @@ const formData = ref<RequisitesData>({
 
 // Default requisite tracking
 const defaultRequisiteId = ref<string>('')
+
+// Delete modal state
+const { deleteModalConfig, openDeleteModal, closeDeleteModal, setDeleteModalCallbacks } = useDeleteModal()
 
 // Initialize form data
 const initializeFormData = () => {
@@ -360,6 +373,28 @@ const addRequisite = (): void => {
   }
   
   formData.value.bankRequisites.push(newRequisite)
+}
+
+const handleDeleteConfirm = (id: string): void => {
+  removeRequisite(id)
+  closeDeleteModal()
+}
+
+const handleDeleteCancel = (): void => {
+  closeDeleteModal()
+}
+
+const handleDeleteClose = (): void => {
+  closeDeleteModal()
+}
+
+const openDeleteRequisiteModal = (id: string): void => {
+  openDeleteModal(
+    id,
+    DELETE_MODAL_MESSAGES.REQUISITES.TITLE,
+    DELETE_MODAL_MESSAGES.REQUISITES.MESSAGE
+  )
+  setDeleteModalCallbacks(handleDeleteConfirm, handleDeleteCancel)
 }
 
 const removeRequisite = (id: string): void => {

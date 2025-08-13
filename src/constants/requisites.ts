@@ -50,3 +50,10 @@ export const REQUISITES_VALIDATION_MESSAGES = {
   INVALID_OGRN: 'Неверный формат ОГРН',
   INVALID_BIC: 'Неверный формат БИК'
 } as const
+
+export const DELETE_MODAL = {
+  TITLE: 'Удалить реквизиты',
+  MESSAGE: 'Вы действительно хотите безвозвратно удалить эти реквизиты?',
+  CONFIRM_BUTTON: 'Удалить',
+  CANCEL_BUTTON: 'Отмена'
+} as const

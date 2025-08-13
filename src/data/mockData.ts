@@ -26,11 +26,6 @@ export const navigationItems: NavigationItem[] = [
     icon: 'mdi-account'
   },
   {
-    id: 'requisites',
-    title: 'Реквизиты',
-    icon: 'mdi-bank'
-  },
-  {
     id: 'documents',
     title: 'Документы',
     icon: 'mdi-file-document',
