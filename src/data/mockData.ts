@@ -1,4 +1,4 @@
-import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory } from '@/types'
+import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData } from '@/types'
 
 export const currentUser: User = {
   id: '1',
@@ -24,6 +24,11 @@ export const navigationItems: NavigationItem[] = [
     id: 'profile',
     title: 'Личный профиль',
     icon: 'mdi-account'
+  },
+  {
+    id: 'requisites',
+    title: 'Реквизиты',
+    icon: 'mdi-bank'
   },
   {
     id: 'documents',
@@ -175,7 +180,7 @@ export const investorProfile: InvestorProfile = {
     {
       id: 'verify',
       title: 'Верифицироваться',
-      variant: 'filled',
+      variant: 'elevated',
       color: 'primary',
       icon: 'mdi-shield-check'
     }
@@ -379,7 +384,7 @@ export const applicationForm: ApplicationForm = {
   ],
   submitButton: {
     text: 'Заполнить анкету',
-    variant: 'filled',
+    variant: 'elevated',
     color: 'primary',
     icon: 'mdi-send'
   }
@@ -560,7 +565,7 @@ export const investorForm: InvestorForm = {
   ],
   submitButton: {
     text: 'Отправить',
-    variant: 'filled',
+    variant: 'elevated',
     color: 'purple'
   }
 }
@@ -741,7 +746,7 @@ export const partnerForm: PartnerForm = {
   ],
   submitButton: {
     text: 'Отправить',
-    variant: 'filled',
+    variant: 'elevated',
     color: 'purple'
   }
 }
@@ -781,3 +786,39 @@ export const partnerCategories: PartnerCategory[] = [
     isSelected: false
   }
 ]
+
+// Requisites mock data
+export const requisitesData: RequisitesData = {
+  company: {
+    fullName: 'Общество с ограниченной ответственностью «Сибирский Логистический Центр»',
+    shortName: 'ООО «СЛЦ»',
+    inn: '5401234567',
+    kpp: '540101001',
+    ogrn: '1145476192001',
+    legalAddress: '630102, г. Новосибирск, ул. Ленина, д. 12, оф. 34',
+    mailingAddress: '630102, г. Новосибирск, ул. Ленина, д. 12, оф. 34'
+  },
+  head: {
+    position: 'Генеральны директор',
+    fullName: 'Иванов Сергей Петрович',
+    basis: 'Нет данных'
+  },
+  bankRequisites: [
+    {
+      id: '1',
+      bic: '',
+      currentAccount: '',
+      bank: '',
+      correspondentAccount: '',
+      isDefault: true
+    },
+    {
+      id: '2',
+      bic: '',
+      currentAccount: '',
+      bank: '',
+      correspondentAccount: '',
+      isDefault: false
+    }
+  ]
+}

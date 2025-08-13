@@ -49,17 +49,12 @@
         </div>
         
         <div v-else-if="isRequisitesTabActive" class="requisites-content">
-          <div class="text-center py-12">
-            <v-icon size="64" color="grey" class="mb-4">
-              mdi-bank
-            </v-icon>
-            <h3 class="text-lg font-medium text-gray-600 mb-2">
-              Реквизиты
-            </h3>
-            <p class="text-gray-500">
-              Здесь будут отображаться реквизиты
-            </p>
-          </div>
+          <RequisitesCard
+            :initial-data="requisitesData"
+            @submit="handleRequisitesSubmit"
+            @cancel="handleRequisitesCancel"
+            @update="handleRequisitesUpdate"
+          />
         </div>
       </div>
     </div>
@@ -69,8 +64,12 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useProfile } from '@/composables/useProfile'
+import { useRequisites } from '@/composables/useRequisites'
 import InvestorProfileCard from '@/components/InvestorProfileCard.vue'
+import RequisitesCard from '@/components/RequisitesCard.vue'
 import { ROUTES } from '@/constants'
+import { requisitesData } from '@/data/mockData'
+import type { RequisitesData } from '@/types'
 
 const router = useRouter()
 
@@ -83,6 +82,8 @@ const {
   setActiveTab,
   handleProfileAction
 } = useProfile()
+
+const { saveRequisites, updateRequisites } = useRequisites()
 
 const handleTabClick = (tabId: string) => {
   setActiveTab(tabId)
@@ -97,6 +98,28 @@ const handleTabClick = (tabId: string) => {
 const handleActionClick = (actionId: string) => {
   handleProfileAction(actionId)
 }
+
+const handleRequisitesSubmit = async (data: RequisitesData) => {
+  const result = await saveRequisites(data)
+  if (result.success) {
+    console.log('Requisites saved successfully')
+  } else {
+    console.error('Failed to save requisites:', result.error)
+  }
+}
+
+const handleRequisitesCancel = () => {
+  console.log('Requisites form cancelled')
+}
+
+const handleRequisitesUpdate = async () => {
+  const result = await updateRequisites()
+  if (result.success) {
+    console.log('Requisites updated successfully')
+  } else {
+    console.error('Failed to update requisites:', result.error)
+  }
+}
 </script>
 
 <style scoped>
@@ -110,6 +133,10 @@ const handleActionClick = (actionId: string) => {
 }
 
 .partner-content {
+  min-height: 400px;
+}
+
+.requisites-content {
   min-height: 400px;
 }
 </style>

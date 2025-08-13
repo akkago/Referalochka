@@ -65,7 +65,7 @@ export interface InvestorProfile {
 export interface ProfileAction {
   id: string
   title: string
-  variant: 'outlined' | 'filled'
+  variant: 'outlined' | 'elevated' | 'flat' | 'text' | 'tonal' | 'plain'
   color: string
   icon?: string
 }
@@ -96,7 +96,7 @@ export interface ApplicationForm {
   sections: FormSection[]
   submitButton: {
     text: string
-    variant: 'outlined' | 'filled'
+    variant: 'outlined' | 'elevated' | 'flat' | 'text' | 'tonal' | 'plain'
     color: string
     icon?: string
   }
@@ -126,7 +126,7 @@ export interface InvestorForm {
   sections: InvestorFormSection[]
   submitButton: {
     text: string
-    variant: 'outlined' | 'filled'
+    variant: 'outlined' | 'elevated' | 'flat' | 'text' | 'tonal' | 'plain'
     color: string
   }
 }
@@ -167,7 +167,7 @@ export interface PartnerForm {
   sections: PartnerFormSection[]
   submitButton: {
     text: string
-    variant: 'outlined' | 'filled'
+    variant: 'outlined' | 'elevated' | 'flat' | 'text' | 'tonal' | 'plain'
     color: string
   }
 }
@@ -191,4 +191,36 @@ export interface PartnerProfile {
   icon: string
   iconColor: string
   actions: ProfileAction[]
+}
+
+// Requisites interfaces
+export interface BankRequisite {
+  id: string
+  bic: string
+  currentAccount: string
+  bank: string
+  correspondentAccount: string
+  isDefault: boolean
+}
+
+export interface CompanyDetails {
+  fullName: string
+  shortName: string
+  inn: string
+  kpp: string
+  ogrn: string
+  legalAddress: string
+  mailingAddress: string
+}
+
+export interface HeadDetails {
+  position: string
+  fullName: string
+  basis: string
+}
+
+export interface RequisitesData {
+  company: CompanyDetails
+  head: HeadDetails
+  bankRequisites: BankRequisite[]
 }

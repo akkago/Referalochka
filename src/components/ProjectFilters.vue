@@ -134,14 +134,14 @@ const emit = defineEmits<{
 const searchQuery = ref('')
 const selectedStage = ref<string | null>(null)
 const selectedIndustries = ref<string[]>([])
-const selectedLocation = ref<string | null>(null)
+const selectedLocation = ref<typeof LOCATIONS[number] | null>(null)
 const selectedType = ref<string | null>(null)
 const industryMenuOpen = ref(false)
 const industrySearch = ref('')
 
 // Available locations
 import { LOCATIONS } from '@/constants'
-const locations = LOCATIONS
+const locations = [...LOCATIONS]
 
 // Computed
 const filteredIndustries = computed(() => {

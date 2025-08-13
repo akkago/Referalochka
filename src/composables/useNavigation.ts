@@ -19,6 +19,9 @@ export function useNavigation() {
       if (currentRoute.value === ROUTES.PROFILE) {
         return item.id === 'profile'
       }
+      if (currentRoute.value === ROUTES.REQUISITES) {
+        return item.id === 'requisites'
+      }
       return item.isActive
     })
   })
@@ -38,6 +41,9 @@ export function useNavigation() {
         break
       case 'profile':
         router.push({ name: ROUTES.PROFILE })
+        break
+      case 'requisites':
+        router.push({ name: ROUTES.REQUISITES })
         break
       default:
         console.log('Navigation to:', itemId)
