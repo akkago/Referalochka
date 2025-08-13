@@ -300,3 +300,34 @@ export interface ProjectFiltersState {
   region: typeof import('@/constants/userProjects').PROJECT_REGIONS[number]
   type: typeof import('@/constants/userProjects').PROJECT_TYPES[number]
 }
+
+export interface AddProjectForm {
+  region: typeof import('@/constants/addProject').REGIONS[number]
+  projectType: typeof import('@/constants/addProject').PROJECT_TYPES_ADD[number]
+  industry: typeof import('@/constants/addProject').INDUSTRIES_ADD[number]
+  projectStage: typeof import('@/constants/addProject').PROJECT_STAGES_ADD[number]
+  about: {
+    headline: string
+    description: string
+  }
+  projectLink: string
+  transitionSettings: {
+    whoCanTransition: 'all' | 'authorized' | 'investors'
+    paymentStrategy: 'transitions' | 'publication-period'
+    transitionsCount: number
+    budgetLimit: number
+    disableByDate: string
+  }
+}
+
+export interface AddProjectFormState {
+  isSubmitting: boolean
+  errors: Record<string, string>
+  isValid: boolean
+}
+
+export interface AddProjectTab {
+  id: string
+  title: string
+  isActive: boolean
+}

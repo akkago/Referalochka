@@ -1,4 +1,5 @@
-import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning, UserProject } from '@/types'
+import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning, UserProject, AddProjectForm } from '@/types'
+import { REGIONS, PROJECT_TYPES_ADD, INDUSTRIES_ADD, PROJECT_STAGES_ADD } from '@/constants/addProject'
 
 export const currentUser: User = {
   id: '1',
@@ -904,3 +905,23 @@ export const userProjects: UserProject[] = [
     isEnabled: false
   }
 ]
+
+// Add project form mock data
+export const initialAddProjectForm: AddProjectForm = {
+  region: REGIONS[0],
+  projectType: PROJECT_TYPES_ADD[0],
+  industry: INDUSTRIES_ADD[0],
+  projectStage: PROJECT_STAGES_ADD[0],
+  about: {
+    headline: '',
+    description: ''
+  },
+  projectLink: '',
+  transitionSettings: {
+    whoCanTransition: 'all',
+    paymentStrategy: 'transitions',
+    transitionsCount: 0,
+    budgetLimit: 0,
+    disableByDate: ''
+  }
+}

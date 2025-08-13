@@ -1,8 +1,12 @@
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import type { UserProject, ProjectFiltersState } from '@/types'
 import { userProjects } from '@/data/mockData'
+import { ROUTES } from '@/constants'
 
 export function useUserProjects() {
+  const router = useRouter()
+  
   const isLoading = ref<boolean>(false)
   const projects = ref<UserProject[]>([])
   const filters = ref<ProjectFiltersState>({
@@ -54,8 +58,8 @@ export function useUserProjects() {
   }
 
   const addProject = (): void => {
-    // В реальном приложении здесь был бы переход на страницу создания проекта
-    console.log('Add new project')
+    // Переход на страницу создания проекта
+    router.push({ name: ROUTES.ADD_PROJECT })
   }
 
   const copyToClipboard = async (text: string): Promise<{ success: boolean; error?: string }> => {

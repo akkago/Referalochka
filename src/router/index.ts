@@ -6,6 +6,7 @@ import InvestorFormView from '@/views/InvestorFormView.vue'
 import PartnerFormView from '@/views/PartnerFormView.vue'
 import RequisitesView from '@/views/RequisitesView.vue'
 import UserProjectsView from '@/views/UserProjectsView.vue'
+import AddProjectView from '@/views/AddProjectView.vue'
 import { ROUTES } from '@/constants'
 
 const router = createRouter({
@@ -25,6 +26,14 @@ const router = createRouter({
       component: UserProjectsView,
       meta: {
         title: 'Мои проекты'
+      }
+    },
+    {
+      path: '/add-project',
+      name: ROUTES.ADD_PROJECT,
+      component: AddProjectView,
+      meta: {
+        title: 'Добавление проекта'
       }
     },
     {
