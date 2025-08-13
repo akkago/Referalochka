@@ -1,34 +1,7 @@
 <template>
   <div class="referral-links-form">
-    <!-- Statistics Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-      <div class="bg-white rounded-lg p-6 shadow-sm border">
-        <div class="text-sm text-gray-600 mb-2">Всего ссылок</div>
-        <div class="text-2xl font-bold text-primary">{{ stats.totalLinks }}</div>
-      </div>
-      
-      <div class="bg-white rounded-lg p-6 shadow-sm border">
-        <div class="text-sm text-gray-600 mb-2">Активных ссылок</div>
-        <div class="text-2xl font-bold text-green-600">{{ stats.activeLinks }}</div>
-      </div>
-      
-      <div class="bg-white rounded-lg p-6 shadow-sm border">
-        <div class="text-sm text-gray-600 mb-2">Всего переходов</div>
-        <div class="text-2xl font-bold text-blue-600">{{ stats.totalClicks }}</div>
-      </div>
-      
-      <div class="bg-white rounded-lg p-6 shadow-sm border">
-        <div class="text-sm text-gray-600 mb-2">Конверсий</div>
-        <div class="text-2xl font-bold text-purple-600">{{ stats.totalConversions }}</div>
-      </div>
-      
-      <div class="bg-white rounded-lg p-6 shadow-sm border">
-        <div class="text-sm text-gray-600 mb-2">Заработано</div>
-        <div class="text-2xl font-bold text-orange-600">{{ formatCurrency(stats.totalEarnings) }}</div>
-      </div>
-    </div>
+    <StatsCards :stats="stats" class="mb-8" />
 
-    <!-- Create New Link Section -->
     <div class="bg-white rounded-lg p-6 shadow-sm border mb-8">
       <h3 class="text-xl font-semibold text-gray-800 mb-4">
         Создать новую ссылку
@@ -84,7 +57,6 @@
       </v-form>
     </div>
 
-    <!-- Existing Links Section -->
     <div class="bg-white rounded-lg p-6 shadow-sm border">
       <h3 class="text-xl font-semibold text-gray-800 mb-4">
         Мои реферальные ссылки
@@ -167,8 +139,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import StatsCards from '@/components/StatsCards.vue'
 import { useReferralLinks } from '@/composables/useReferralLinks'
 import { formatCurrency } from '@/utils/formatters'
+import { copyToClipboard } from '@/utils/clipboard'
+import { isValidUrl } from '@/utils/validation'
 
 const {
   links,
@@ -183,38 +158,17 @@ const {
 
 const formRef = ref()
 
-const isValidUrl = (url: string): boolean => {
-  try {
-    new URL(url)
-    return true
-  } catch {
-    return false
-  }
-}
-
-const copyToClipboard = async (text: string) => {
-  try {
-    await navigator.clipboard.writeText(text)
-    // Можно добавить уведомление об успешном копировании
-  } catch (err) {
-    console.error('Failed to copy to clipboard:', err)
-  }
-}
-
 const handleCreateLink = async () => {
   const result = await createLink(form)
   
   if (result.success) {
     resetForm()
-    // Можно добавить уведомление об успешном создании
   } else {
-    // Можно добавить уведомление об ошибке
     console.error('Failed to create link:', result.error)
   }
 }
 
 const handleEditLink = (link: any) => {
-  // Заполняем форму данными для редактирования
   Object.assign(form, {
     name: link.name,
     url: link.url,
@@ -222,7 +176,6 @@ const handleEditLink = (link: any) => {
     isActive: link.isActive
   })
   
-  // Прокручиваем к форме
   formRef.value?.$el?.scrollIntoView({ behavior: 'smooth' })
 }
 
@@ -230,10 +183,7 @@ const handleDeleteLink = async (link: any) => {
   if (confirm('Вы уверены, что хотите удалить эту ссылку?')) {
     const result = await deleteLink(link.id)
     
-    if (result.success) {
-      // Можно добавить уведомление об успешном удалении
-    } else {
-      // Можно добавить уведомление об ошибке
+    if (!result.success) {
       console.error('Failed to delete link:', result.error)
     }
   }
