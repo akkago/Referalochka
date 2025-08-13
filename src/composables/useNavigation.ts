@@ -37,6 +37,9 @@ export function useNavigation() {
       case 'search':
         router.push({ name: ROUTES.PROJECTS })
         break
+      case 'my-projects':
+        router.push({ name: ROUTES.USER_PROJECTS })
+        break
       case 'profile':
         router.push({ name: ROUTES.PROFILE })
         break

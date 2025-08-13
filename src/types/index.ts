@@ -273,3 +273,30 @@ export interface RejectionWarning {
   reason: string
   details: string
 }
+
+export interface UserProject {
+  id: string
+  title: string
+  date: string
+  status: 'moderation' | 'active' | 'draft' | 'rejected'
+  statusText: string
+  projectLink: string
+  views: number
+  shares: number
+  isEnabled: boolean
+}
+
+export interface ProjectFilter {
+  stage: string
+  industry: string
+  region: string
+  type: string
+}
+
+export interface ProjectFiltersState {
+  search: string
+  stage: typeof import('@/constants/userProjects').PROJECT_STAGES[number]
+  industry: typeof import('@/constants/userProjects').PROJECT_INDUSTRIES[number]
+  region: typeof import('@/constants/userProjects').PROJECT_REGIONS[number]
+  type: typeof import('@/constants/userProjects').PROJECT_TYPES[number]
+}

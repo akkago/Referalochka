@@ -5,6 +5,7 @@ import ApplicationView from '@/views/ApplicationView.vue'
 import InvestorFormView from '@/views/InvestorFormView.vue'
 import PartnerFormView from '@/views/PartnerFormView.vue'
 import RequisitesView from '@/views/RequisitesView.vue'
+import UserProjectsView from '@/views/UserProjectsView.vue'
 import { ROUTES } from '@/constants'
 
 const router = createRouter({
@@ -16,6 +17,14 @@ const router = createRouter({
       component: ProjectsView,
       meta: {
         title: 'Проекты'
+      }
+    },
+    {
+      path: '/user-projects',
+      name: ROUTES.USER_PROJECTS,
+      component: UserProjectsView,
+      meta: {
+        title: 'Мои проекты'
       }
     },
     {

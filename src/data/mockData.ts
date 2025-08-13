@@ -1,4 +1,4 @@
-import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning } from '@/types'
+import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning, UserProject } from '@/types'
 
 export const currentUser: User = {
   id: '1',
@@ -856,3 +856,51 @@ export const rejectionWarning: RejectionWarning = {
   reason: 'Недостаточно информации для верификации',
   details: 'Пожалуйста, предоставьте дополнительные документы и уточните информацию о вашей деятельности. Это поможет нам быстрее завершить процесс верификации.'
 }
+
+// User projects mock data
+export const userProjects: UserProject[] = [
+  {
+    id: '000342',
+    title: 'Надежные сварочные аппараты',
+    date: '15.09.2025',
+    status: 'moderation',
+    statusText: 'На модерации',
+    projectLink: 'http://linkprogect1.ru',
+    views: 254,
+    shares: 7,
+    isEnabled: false
+  },
+  {
+    id: '000343',
+    title: 'Эффективные решения для мойки окон',
+    date: '15.09.2025',
+    status: 'moderation',
+    statusText: 'На модерации',
+    projectLink: 'http://linkprogect2.ru',
+    views: 0,
+    shares: 0,
+    isEnabled: false
+  },
+  {
+    id: '000344',
+    title: 'Профессиональные агрегаты для любых задач',
+    date: '15.09.2025',
+    status: 'moderation',
+    statusText: 'На модерации',
+    projectLink: 'http://linkprogect3.ru',
+    views: 0,
+    shares: 0,
+    isEnabled: false
+  },
+  {
+    id: '000345',
+    title: 'Современные тракторы',
+    date: '15.09.2025',
+    status: 'moderation',
+    statusText: 'На модерации',
+    projectLink: 'http://linkprogect4.ru',
+    views: 149,
+    shares: 12,
+    isEnabled: false
+  }
+]
