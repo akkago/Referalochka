@@ -7,6 +7,7 @@ import PartnerFormView from '@/views/PartnerFormView.vue'
 import RequisitesView from '@/views/RequisitesView.vue'
 import UserProjectsView from '@/views/UserProjectsView.vue'
 import AddProjectView from '@/views/AddProjectView.vue'
+import EditProjectView from '@/views/EditProjectView.vue'
 import { ROUTES } from '@/constants'
 
 const router = createRouter({
@@ -34,6 +35,14 @@ const router = createRouter({
       component: AddProjectView,
       meta: {
         title: 'Добавление проекта'
+      }
+    },
+    {
+      path: '/edit-project/:id',
+      name: ROUTES.EDIT_PROJECT,
+      component: EditProjectView,
+      meta: {
+        title: 'Редактирование проекта'
       }
     },
     {

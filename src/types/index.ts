@@ -331,3 +331,35 @@ export interface AddProjectTab {
   title: string
   isActive: boolean
 }
+
+export interface EditProjectForm {
+  id: string
+  isEnabled: boolean
+  region: typeof import('@/constants/editProject').REGIONS_EDIT[number]
+  projectType: typeof import('@/constants/editProject').PROJECT_TYPES_EDIT[number]
+  industry: typeof import('@/constants/editProject').INDUSTRIES_EDIT[number]
+  projectStage: typeof import('@/constants/editProject').PROJECT_STAGES_EDIT[number]
+  about: {
+    headline: string
+    description: string
+  }
+  projectLink: string
+  transitionSettings: {
+    whoCanTransition: 'all' | 'authorized' | 'investors'
+    paymentStrategy: 'transitions' | 'publication-period'
+    transitionsCount: number
+    budgetLimit: number
+    disableByDate: string
+  }
+  transitionCost: {
+    costPerTransition: number
+    totalCost: number
+    balance: number
+  }
+}
+
+export interface EditProjectFormState extends AddProjectFormState {
+  isEnabled: boolean
+}
+
+export interface EditProjectTab extends AddProjectTab {}

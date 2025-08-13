@@ -1,13 +1,13 @@
 import { ref, reactive, computed } from 'vue'
 import type { AddProjectForm, AddProjectFormState } from '@/types'
-import { initialAddProjectForm } from '@/data/mockData'
+import { filledAddProjectForm } from '@/data/mockData'
 
 export function useAddProject() {
   const isLoading = ref<boolean>(false)
   const error = ref<string | null>(null)
   
   const form = reactive<AddProjectForm>({
-    ...initialAddProjectForm
+    ...filledAddProjectForm
   })
   
   const formState = reactive<AddProjectFormState>({
@@ -75,7 +75,7 @@ export function useAddProject() {
   }
   
   const resetForm = (): void => {
-    Object.assign(form, initialAddProjectForm)
+    Object.assign(form, filledAddProjectForm)
     formState.errors = {}
     formState.isValid = false
     error.value = null

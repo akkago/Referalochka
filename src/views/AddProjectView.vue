@@ -12,12 +12,13 @@
 import { useRouter } from 'vue-router'
 import type { AddProjectForm as AddProjectFormType } from '@/types'
 import { ROUTES } from '@/constants'
+import { filledAddProjectForm } from '@/data/mockData'
 import AddProjectForm from '@/components/AddProjectForm.vue'
 
 const router = useRouter()
 
-// Initial form data (можно передавать из предыдущей страницы)
-const initialFormData: Partial<AddProjectFormType> = {}
+// Initial form data with filled values for demonstration
+const initialFormData: Partial<AddProjectFormType> = filledAddProjectForm
 
 const handleSubmit = async (form: AddProjectFormType) => {
   try {

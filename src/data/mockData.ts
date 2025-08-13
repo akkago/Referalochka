@@ -1,5 +1,6 @@
-import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning, UserProject, AddProjectForm } from '@/types'
+import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning, UserProject, AddProjectForm, EditProjectForm } from '@/types'
 import { REGIONS, PROJECT_TYPES_ADD, INDUSTRIES_ADD, PROJECT_STAGES_ADD } from '@/constants/addProject'
+import { REGIONS_EDIT, PROJECT_TYPES_EDIT, INDUSTRIES_EDIT, PROJECT_STAGES_EDIT } from '@/constants/editProject'
 
 export const currentUser: User = {
   id: '1',
@@ -923,5 +924,52 @@ export const initialAddProjectForm: AddProjectForm = {
     transitionsCount: 0,
     budgetLimit: 0,
     disableByDate: ''
+  }
+}
+
+// Filled add project form mock data for demonstration
+export const filledAddProjectForm: AddProjectForm = {
+  region: 'Москва',
+  projectType: 'Стартап',
+  industry: 'Технологии',
+  projectStage: 'Разработка',
+  about: {
+    headline: 'Инновационная платформа для управления задачами',
+    description: 'Современное веб-приложение для эффективного управления проектами и задачами в команде. Платформа включает в себя планировщик задач, систему уведомлений, аналитику производительности и интеграцию с популярными инструментами разработки.'
+  },
+  projectLink: 'https://taskmanager-pro.ru',
+  transitionSettings: {
+    whoCanTransition: 'authorized',
+    paymentStrategy: 'transitions',
+    transitionsCount: 150,
+    budgetLimit: 50000,
+    disableByDate: '31.12.2025'
+  }
+}
+
+// Edit project form mock data for demonstration
+export const editProjectFormData: EditProjectForm = {
+  id: '000342',
+  isEnabled: true,
+  region: REGIONS_EDIT[0],
+  projectType: PROJECT_TYPES_EDIT[6], // 'Проекты на основе ИИ'
+  industry: INDUSTRIES_EDIT[2], // 'Технологии'
+  projectStage: PROJECT_STAGES_EDIT[3], // 'Масштабирование'
+  about: {
+    headline: 'Надежные сварочные аппараты',
+    description: 'Производство и продажа стыковых сварочных аппаратов.'
+  },
+  projectLink: 'linkprogect1.ru',
+  transitionSettings: {
+    whoCanTransition: 'all',
+    paymentStrategy: 'transitions',
+    transitionsCount: 0,
+    budgetLimit: 0,
+    disableByDate: 'ДД.ММ.ГГГГ'
+  },
+  transitionCost: {
+    costPerTransition: 100,
+    totalCost: 2300,
+    balance: 3000
   }
 }

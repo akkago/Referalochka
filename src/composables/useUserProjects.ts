@@ -53,8 +53,8 @@ export function useUserProjects() {
   }
 
   const editProject = (projectId: string): void => {
-    // В реальном приложении здесь был бы переход на страницу редактирования
-    console.log('Edit project:', projectId)
+    // Переход на страницу редактирования проекта
+    router.push({ name: ROUTES.EDIT_PROJECT, params: { id: projectId } })
   }
 
   const addProject = (): void => {

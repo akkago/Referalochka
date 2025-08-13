@@ -1,6 +1,29 @@
 <template>
-  <div class="add-project-form">
+  <div class="edit-project-form">
     <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+      <!-- Header with Project ID and Enable Toggle -->
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-4">
+          <h2 class="text-2xl font-bold text-gray-800">
+            {{ EDIT_PROJECT_SECTIONS.EDIT_PROJECT }}
+          </h2>
+          <span class="text-lg text-gray-600">
+            {{ EDIT_PROJECT_FIELDS.PROJECT_ID.prefix }}{{ form.id }}
+          </span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-gray-600">
+            {{ EDIT_PROJECT_FIELDS.ENABLE_PROJECT.label }}
+          </span>
+          <v-switch
+            v-model="form.isEnabled"
+            color="primary"
+            hide-details
+            @change="handleToggleChange"
+          />
+        </div>
+      </div>
+
       <!-- Tabs -->
       <div class="mb-8">
         <v-tabs
@@ -22,10 +45,10 @@
       
       <!-- Form Content -->
       <div class="space-y-8">
-        <!-- Add Project Section -->
+        <!-- Edit Project Section -->
         <div class="form-section">
           <h3 class="text-xl font-semibold text-gray-800 mb-6">
-            {{ ADD_PROJECT_SECTIONS.ADD_PROJECT }}
+            {{ EDIT_PROJECT_SECTIONS.EDIT_PROJECT }}
           </h3>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -33,7 +56,7 @@
             <div class="field-group">
               <div class="flex items-center gap-2 mb-2">
                 <label class="text-sm font-medium text-gray-700">
-                  {{ ADD_PROJECT_FIELDS.REGION.label }}
+                  {{ EDIT_PROJECT_FIELDS.REGION.label }}
                 </label>
                 <v-tooltip location="top">
                   <template v-slot:activator="{ props }">
@@ -51,8 +74,8 @@
               </div>
               <v-select
                 v-model="form.region"
-                :items="REGIONS"
-                :placeholder="ADD_PROJECT_FIELDS.REGION.placeholder"
+                :items="REGIONS_EDIT"
+                :placeholder="EDIT_PROJECT_FIELDS.REGION.placeholder"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -63,12 +86,12 @@
             <!-- Project Type -->
             <div class="field-group">
               <label class="text-sm font-medium text-gray-700 mb-2">
-                {{ ADD_PROJECT_FIELDS.PROJECT_TYPE.label }}
+                {{ EDIT_PROJECT_FIELDS.PROJECT_TYPE.label }}
               </label>
               <v-select
                 v-model="form.projectType"
-                :items="PROJECT_TYPES_ADD"
-                :placeholder="ADD_PROJECT_FIELDS.PROJECT_TYPE.placeholder"
+                :items="PROJECT_TYPES_EDIT"
+                :placeholder="EDIT_PROJECT_FIELDS.PROJECT_TYPE.placeholder"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -79,12 +102,12 @@
             <!-- Industry -->
             <div class="field-group">
               <label class="text-sm font-medium text-gray-700 mb-2">
-                {{ ADD_PROJECT_FIELDS.INDUSTRY.label }}
+                {{ EDIT_PROJECT_FIELDS.INDUSTRY.label }}
               </label>
               <v-select
                 v-model="form.industry"
-                :items="INDUSTRIES_ADD"
-                :placeholder="ADD_PROJECT_FIELDS.INDUSTRY.placeholder"
+                :items="INDUSTRIES_EDIT"
+                :placeholder="EDIT_PROJECT_FIELDS.INDUSTRY.placeholder"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -95,12 +118,12 @@
             <!-- Project Stage -->
             <div class="field-group">
               <label class="text-sm font-medium text-gray-700 mb-2">
-                {{ ADD_PROJECT_FIELDS.PROJECT_STAGE.label }}
+                {{ EDIT_PROJECT_FIELDS.PROJECT_STAGE.label }}
               </label>
               <v-select
                 v-model="form.projectStage"
-                :items="PROJECT_STAGES_ADD"
-                :placeholder="ADD_PROJECT_FIELDS.PROJECT_STAGE.placeholder"
+                :items="PROJECT_STAGES_EDIT"
+                :placeholder="EDIT_PROJECT_FIELDS.PROJECT_STAGE.placeholder"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -112,12 +135,12 @@
           <!-- About Project -->
           <div class="mt-6">
             <label class="text-sm font-medium text-gray-700 mb-2">
-              {{ ADD_PROJECT_FIELDS.ABOUT.label }}
+              {{ EDIT_PROJECT_FIELDS.ABOUT.label }}
             </label>
             <div class="space-y-4">
               <v-text-field
                 v-model="form.about.headline"
-                :placeholder="ADD_PROJECT_FIELDS.ABOUT.headline.placeholder"
+                :placeholder="EDIT_PROJECT_FIELDS.ABOUT.headline.placeholder"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -125,7 +148,7 @@
               />
               <v-textarea
                 v-model="form.about.description"
-                :placeholder="ADD_PROJECT_FIELDS.ABOUT.description.placeholder"
+                :placeholder="EDIT_PROJECT_FIELDS.ABOUT.description.placeholder"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -139,10 +162,10 @@
           <!-- Project Link -->
           <div class="mt-6">
             <label class="text-sm font-medium text-gray-700 mb-2">
-              {{ ADD_PROJECT_FIELDS.PROJECT_LINK.label }}
+              {{ EDIT_PROJECT_FIELDS.PROJECT_LINK.label }}
             </label>
             <p class="text-sm text-gray-500 mb-3">
-              {{ ADD_PROJECT_FIELDS.PROJECT_LINK.description }}
+              {{ EDIT_PROJECT_FIELDS.PROJECT_LINK.description }}
             </p>
             <div class="flex">
               <div class="flex-shrink-0 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg px-3 py-2 text-sm text-gray-600">
@@ -150,7 +173,7 @@
               </div>
               <v-text-field
                 v-model="form.projectLink"
-                :placeholder="ADD_PROJECT_FIELDS.PROJECT_LINK.placeholder"
+                :placeholder="EDIT_PROJECT_FIELDS.PROJECT_LINK.placeholder"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -168,7 +191,7 @@
         <!-- Transition Cost Settings Section -->
         <div class="form-section">
           <h3 class="text-xl font-semibold text-gray-800 mb-6">
-            {{ ADD_PROJECT_SECTIONS.TRANSITION_COST_SETTINGS }}
+            {{ EDIT_PROJECT_SECTIONS.TRANSITION_COST_SETTINGS }}
           </h3>
           
           <div class="space-y-6">
@@ -176,7 +199,7 @@
             <div class="field-group">
               <div class="flex items-center gap-2 mb-3">
                 <label class="text-sm font-medium text-gray-700">
-                  {{ TRANSITION_SETTINGS.WHO_CAN_TRANSITION.label }}
+                  {{ TRANSITION_SETTINGS_EDIT.WHO_CAN_TRANSITION.label }}
                 </label>
                 <v-tooltip location="top">
                   <template v-slot:activator="{ props }">
@@ -198,7 +221,7 @@
                 @update:model-value="validateField('transitionSettings.whoCanTransition')"
               >
                 <v-radio
-                  v-for="option in Object.values(TRANSITION_SETTINGS.WHO_CAN_TRANSITION.options)"
+                  v-for="option in Object.values(TRANSITION_SETTINGS_EDIT.WHO_CAN_TRANSITION.options)"
                   :key="option.value"
                   :value="option.value"
                   :label="option.label"
@@ -210,7 +233,7 @@
             <!-- Payment Strategy -->
             <div class="field-group">
               <label class="text-sm font-medium text-gray-700 mb-3">
-                {{ TRANSITION_SETTINGS.PAYMENT_STRATEGY.label }}
+                {{ TRANSITION_SETTINGS_EDIT.PAYMENT_STRATEGY.label }}
               </label>
               <v-radio-group
                 v-model="form.transitionSettings.paymentStrategy"
@@ -218,7 +241,7 @@
                 @update:model-value="validateField('transitionSettings.paymentStrategy')"
               >
                 <v-radio
-                  v-for="option in Object.values(TRANSITION_SETTINGS.PAYMENT_STRATEGY.options)"
+                  v-for="option in Object.values(TRANSITION_SETTINGS_EDIT.PAYMENT_STRATEGY.options)"
                   :key="option.value"
                   :value="option.value"
                   :label="option.label"
@@ -233,7 +256,7 @@
                 <v-text-field
                   v-model.number="form.transitionSettings.transitionsCount"
                   type="number"
-                  :placeholder="TRANSITION_SETTINGS.TRANSITIONS_COUNT.placeholder"
+                  :placeholder="TRANSITION_SETTINGS_EDIT.TRANSITIONS_COUNT.placeholder"
                   variant="outlined"
                   density="compact"
                   hide-details
@@ -241,8 +264,29 @@
                   @update:model-value="validateField('transitionSettings.transitionsCount')"
                 />
                 <span class="text-sm text-gray-600">
-                  {{ TRANSITION_SETTINGS.TRANSITIONS_COUNT.label }}
+                  {{ TRANSITION_SETTINGS_EDIT.TRANSITIONS_COUNT.label }}
                 </span>
+              </div>
+            </div>
+
+            <!-- Transition Cost Info Box -->
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <h4 class="text-sm font-medium text-purple-800 mb-3">
+                {{ TRANSITION_COST_INFO.TITLE }}
+              </h4>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-purple-700">{{ TRANSITION_COST_INFO.COST_PER_TRANSITION }}</span>
+                  <span class="text-purple-800 font-medium">{{ form.transitionCost.costPerTransition }} {{ TRANSITION_COST_INFO.CURRENCY }}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-purple-700">{{ TRANSITION_COST_INFO.TOTAL_COST }}</span>
+                  <span class="text-purple-800 font-medium">{{ form.transitionCost.totalCost }} {{ TRANSITION_COST_INFO.CURRENCY }}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-purple-700">{{ TRANSITION_COST_INFO.BALANCE }}</span>
+                  <span class="text-purple-800 font-medium">{{ form.transitionCost.balance }} {{ TRANSITION_COST_INFO.CURRENCY }}</span>
+                </div>
               </div>
             </div>
             
@@ -252,7 +296,7 @@
                 <v-text-field
                   v-model.number="form.transitionSettings.budgetLimit"
                   type="number"
-                  :placeholder="TRANSITION_SETTINGS.BUDGET_LIMIT.placeholder"
+                  :placeholder="TRANSITION_SETTINGS_EDIT.BUDGET_LIMIT.placeholder"
                   variant="outlined"
                   density="compact"
                   hide-details
@@ -260,7 +304,7 @@
                   @update:model-value="validateField('transitionSettings.budgetLimit')"
                 />
                 <span class="text-sm text-gray-600">
-                  {{ TRANSITION_SETTINGS.BUDGET_LIMIT.suffix }}
+                  {{ TRANSITION_SETTINGS_EDIT.BUDGET_LIMIT.suffix }}
                 </span>
               </div>
             </div>
@@ -268,11 +312,11 @@
             <!-- Disable by Date -->
             <div class="field-group">
               <label class="text-sm font-medium text-gray-700 mb-2">
-                {{ TRANSITION_SETTINGS.DISABLE_BY_DATE.label }}
+                {{ TRANSITION_SETTINGS_EDIT.DISABLE_BY_DATE.label }}
               </label>
               <v-text-field
                 v-model="form.transitionSettings.disableByDate"
-                :placeholder="TRANSITION_SETTINGS.DISABLE_BY_DATE.placeholder"
+                :placeholder="TRANSITION_SETTINGS_EDIT.DISABLE_BY_DATE.placeholder"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -288,12 +332,21 @@
       <!-- Action Buttons -->
       <div class="flex justify-end gap-4 pt-8 border-t border-gray-200 mt-8">
         <v-btn
-          variant="outlined"
+          variant="text"
           color="gray"
           size="large"
           @click="handleCancel"
         >
-          {{ ADD_PROJECT_ACTIONS.CANCEL }}
+          {{ EDIT_PROJECT_ACTIONS.CANCEL }}
+        </v-btn>
+        
+        <v-btn
+          variant="text"
+          color="gray"
+          size="large"
+          @click="handleStopAdvertising"
+        >
+          {{ EDIT_PROJECT_ACTIONS.STOP_ADVERTISING }}
         </v-btn>
         
         <v-btn
@@ -302,9 +355,9 @@
           size="large"
           :disabled="!formState.isValid || formState.isSubmitting"
           :loading="formState.isSubmitting"
-          @click="handleSubmit"
+          @click="handleLaunchAdvertising"
         >
-          {{ ADD_PROJECT_ACTIONS.CREATE_PROJECT }}
+          {{ EDIT_PROJECT_ACTIONS.LAUNCH_ADVERTISING }}
         </v-btn>
       </div>
     </div>
@@ -313,52 +366,60 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from 'vue'
-import type { AddProjectForm, AddProjectFormState, AddProjectTab } from '@/types'
+import type { EditProjectForm, EditProjectFormState, EditProjectTab } from '@/types'
 import {
-  ADD_PROJECT_SECTIONS,
-  ADD_PROJECT_TABS,
-  ADD_PROJECT_FIELDS,
-  TRANSITION_SETTINGS,
-  ADD_PROJECT_ACTIONS,
-  REGIONS,
-  PROJECT_TYPES_ADD,
-  INDUSTRIES_ADD,
-  PROJECT_STAGES_ADD
-} from '@/constants/addProject'
-import { filledAddProjectForm } from '@/data/mockData'
+  EDIT_PROJECT_SECTIONS,
+  EDIT_PROJECT_TABS,
+  EDIT_PROJECT_FIELDS,
+  TRANSITION_SETTINGS_EDIT,
+  EDIT_PROJECT_ACTIONS,
+  TRANSITION_COST_INFO,
+  REGIONS_EDIT,
+  PROJECT_TYPES_EDIT,
+  INDUSTRIES_EDIT,
+  PROJECT_STAGES_EDIT
+} from '@/constants/editProject'
+import { editProjectFormData } from '@/data/mockData'
 
 interface Props {
-  initialData?: Partial<AddProjectForm>
+  initialData?: Partial<EditProjectForm>
+  projectId?: string
 }
 
 interface Emits {
-  (e: 'submit', form: AddProjectForm): void
+  (e: 'submit', form: EditProjectForm): void
   (e: 'cancel'): void
+  (e: 'toggle', isEnabled: boolean): void
+  (e: 'stop-advertising'): void
+  (e: 'launch-advertising'): void
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  initialData: () => ({})
+  initialData: () => ({}),
+  projectId: ''
 })
 
 const emit = defineEmits<Emits>()
 
 // State
-const activeTab = ref<string>(ADD_PROJECT_TABS.DESCRIPTION.id)
-const form = reactive<AddProjectForm>({
-  ...filledAddProjectForm,
-  ...props.initialData
+const activeTab = ref<string>(EDIT_PROJECT_TABS.DESCRIPTION.id)
+const form = reactive<EditProjectForm>({
+  ...editProjectFormData,
+  ...props.initialData,
+  id: props.projectId || editProjectFormData.id
 })
 
-const formState = reactive<AddProjectFormState>({
+const formState = reactive<EditProjectFormState>({
   isSubmitting: false,
   errors: {},
-  isValid: false
+  isValid: false,
+  isEnabled: form.isEnabled
 })
 
 // Computed
-const tabs = computed<AddProjectTab[]>(() => [
-  { ...ADD_PROJECT_TABS.DESCRIPTION, isActive: activeTab.value === ADD_PROJECT_TABS.DESCRIPTION.id },
-  { ...ADD_PROJECT_TABS.REFERRAL_LINKS, isActive: activeTab.value === ADD_PROJECT_TABS.REFERRAL_LINKS.id }
+const tabs = computed<EditProjectTab[]>(() => [
+  { ...EDIT_PROJECT_TABS.DESCRIPTION, isActive: activeTab.value === EDIT_PROJECT_TABS.DESCRIPTION.id },
+  { ...EDIT_PROJECT_TABS.REFERRAL_LINKS, isActive: activeTab.value === EDIT_PROJECT_TABS.REFERRAL_LINKS.id }
 ])
 
 // Methods
@@ -396,7 +457,21 @@ const getNestedValue = (obj: any, path: string): any => {
   return path.split('.').reduce((current, key) => current?.[key], obj)
 }
 
-const handleSubmit = async () => {
+const handleToggleChange = (value: boolean) => {
+  form.isEnabled = value
+  formState.isEnabled = value
+  emit('toggle', value)
+}
+
+const handleCancel = () => {
+  emit('cancel')
+}
+
+const handleStopAdvertising = () => {
+  emit('stop-advertising')
+}
+
+const handleLaunchAdvertising = async () => {
   if (!validateForm()) {
     console.error('Form validation failed')
     return
@@ -408,16 +483,13 @@ const handleSubmit = async () => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000))
     
+    emit('launch-advertising')
     emit('submit', { ...form })
   } catch (error) {
     console.error('Failed to submit form:', error)
   } finally {
     formState.isSubmitting = false
   }
-}
-
-const handleCancel = () => {
-  emit('cancel')
 }
 
 // Watch for form changes to validate
@@ -430,7 +502,7 @@ validateForm()
 </script>
 
 <style scoped>
-.add-project-form {
+.edit-project-form {
   min-height: 100vh;
   background-color: #f9fafb;
   padding: 2rem 0;

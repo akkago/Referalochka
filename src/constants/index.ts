@@ -33,6 +33,7 @@ export const ROUTES = {
   PROJECTS: 'projects',
   USER_PROJECTS: 'user-projects',
   ADD_PROJECT: 'add-project',
+  EDIT_PROJECT: 'edit-project',
   PROFILE: 'profile',
   APPLICATION: 'application',
   INVESTOR_FORM: 'investor-form',
