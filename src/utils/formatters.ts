@@ -1,5 +1,10 @@
-export const formatCurrency = (amount: number, currency = '₽'): string => {
-  return `${amount.toLocaleString('ru-RU')} ${currency}`
+export const formatCurrency = (amount: number, currency: string = 'RUB', locale: string = 'ru-RU'): string => {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(amount)
 }
 
 export const formatDate = (date: string): string => {

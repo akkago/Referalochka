@@ -238,3 +238,38 @@ export interface DeleteModalConfig {
   onConfirm: (id: string) => void
   onCancel: () => void
 }
+
+export interface FilledInvestorFormData {
+  generalInfo: {
+    name: string
+    surname: string
+    phone: string
+    email: string
+    brand: string
+    company: string
+    inn: string
+  }
+  resources: {
+    websiteType: string
+    websiteUrl: string
+  }
+  about: {
+    headline: string
+    description: string
+  }
+  investments: {
+    format: string
+    min: number
+    max: number
+  }
+  categories: {
+    tags: string
+    selectedCategories: string[]
+  }
+}
+
+export interface RejectionWarning {
+  isVisible: boolean
+  reason: string
+  details: string
+}

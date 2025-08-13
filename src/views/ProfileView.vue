@@ -31,7 +31,13 @@
         
         <!-- Tab Content -->
         <div v-if="isInvestorTabActive" class="investor-content">
-          <InvestorProfileCard @action-click="handleActionClick" />
+          <InvestorProfileCard 
+            :form-data="investorFormData"
+            :rejection-warning="investorRejectionWarning"
+            @action-click="handleActionClick"
+            @edit="handleInvestorEdit"
+            @resubmit="handleInvestorResubmit"
+          />
         </div>
         
         <div v-else-if="isPartnerTabActive" class="partner-content">
@@ -65,6 +71,7 @@
 import { useRouter } from 'vue-router'
 import { useProfile } from '@/composables/useProfile'
 import { useRequisites } from '@/composables/useRequisites'
+import { useFilledInvestorForm } from '@/composables/useFilledInvestorForm'
 import InvestorProfileCard from '@/components/InvestorProfileCard.vue'
 import RequisitesCard from '@/components/RequisitesCard.vue'
 import { ROUTES } from '@/constants'
@@ -85,6 +92,13 @@ const {
 
 const { saveRequisites, updateRequisites } = useRequisites()
 
+// Filled investor form data
+const {
+  formData: investorFormData,
+  warning: investorRejectionWarning,
+  resubmitForm
+} = useFilledInvestorForm()
+
 const handleTabClick = (tabId: string) => {
   setActiveTab(tabId)
   console.log('Tab clicked:', tabId)
@@ -97,6 +111,21 @@ const handleTabClick = (tabId: string) => {
 
 const handleActionClick = (actionId: string) => {
   handleProfileAction(actionId)
+}
+
+const handleInvestorEdit = () => {
+  // Navigate to edit form
+  router.push({ name: ROUTES.INVESTOR_FORM })
+}
+
+const handleInvestorResubmit = async () => {
+  const result = await resubmitForm()
+  
+  if (result.success) {
+    console.log('Investor form resubmitted successfully')
+  } else {
+    console.error('Failed to resubmit investor form:', result.error)
+  }
 }
 
 const handleRequisitesSubmit = async (data: RequisitesData) => {

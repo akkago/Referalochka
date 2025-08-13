@@ -24,7 +24,8 @@ src/
 │   ├── ProjectCard.vue
 │   ├── ProjectFilters.vue
 │   ├── RequisitesCard.vue      # 🆕 Новый компонент реквизитов
-│   └── DeleteRequisitesModal.vue # 🆕 Модальное окно удаления
+│   ├── DeleteRequisitesModal.vue # 🆕 Модальное окно удаления
+│   └── InvestorProfileCard.vue # 🆕 Обновлен для отображения заполненной анкеты
 ├── composables/         # Vue composables
 │   ├── useApplicationForm.ts
 │   ├── useInvestorForm.ts
@@ -34,11 +35,13 @@ src/
 │   ├── useProjects.ts
 │   ├── useRequisites.ts        # 🆕 Composable для реквизитов
 │   ├── useDeleteModal.ts       # 🆕 Composable для модальных окон
+│   ├── useFilledInvestorForm.ts # 🆕 Composable для заполненной анкеты
 │   └── useUser.ts
 ├── constants/           # Константы приложения
 │   ├── index.ts
 │   ├── requisites.ts           # 🆕 Константы для реквизитов
-│   └── modals.ts               # 🆕 Константы для модальных окон
+│   ├── modals.ts               # 🆕 Константы для модальных окон
+│   └── investorForm.ts         # 🆕 Константы для анкеты инвестора
 ├── data/               # Mock данные
 │   └── mockData.ts
 ├── router/             # Vue Router конфигурация
@@ -48,7 +51,8 @@ src/
 ├── utils/              # Утилиты
 │   ├── formatters.ts
 │   ├── validation.ts
-│   └── requisitesValidation.ts # 🆕 Валидация реквизитов
+│   ├── requisitesValidation.ts # 🆕 Валидация реквизитов
+│   └── formValidation.ts       # 🆕 Валидация форм
 ├── views/              # Vue страницы
 │   ├── ApplicationView.vue
 │   ├── InvestorFormView.vue
@@ -120,6 +124,44 @@ src/
 ### Composable для управления модальными окнами
 ```typescript
 const { deleteModalConfig, openDeleteModal, closeDeleteModal, setDeleteModalCallbacks } = useDeleteModal()
+```
+
+## 🆕 Обновленный InvestorProfileCard
+
+### Описание
+Компонент `InvestorProfileCard` был расширен для отображения как пустого состояния (призыв к заполнению анкеты), так и заполненного состояния анкеты инвестора с предупреждением об отклонении.
+
+### Функциональность
+- ✅ **Пустое состояние**: Отображение призыва к заполнению анкеты с кнопками действий
+- ✅ **Заполненное состояние**: Отображение всех заполненных полей анкеты
+- ✅ Предупреждение об отклонении с причиной
+- ✅ Форматирование валюты для инвестиционных сумм
+- ✅ Отображение выбранных категорий с иконками
+- ✅ Возможность редактирования и повторной отправки
+- ✅ Адаптивный дизайн
+- ✅ Автоматическое переключение между состояниями
+
+### Использование
+```vue
+<template>
+  <InvestorProfileCard 
+    :form-data="investorFormData"
+    :rejection-warning="rejectionWarning"
+    @action-click="handleActionClick"
+    @edit="handleEdit"
+    @resubmit="handleResubmit"
+  />
+</template>
+```
+
+### Логика переключения состояний
+Компонент автоматически определяет, какое состояние отображать:
+- **Пустое состояние**: когда `formData` не передан или равен `undefined`
+- **Заполненное состояние**: когда `formData` передан с данными
+
+### Composable для управления заполненной анкетой
+```typescript
+const { formData, warning, resubmitForm } = useFilledInvestorForm()
 ```
 
 ## 🛠 Установка и запуск

@@ -1,4 +1,4 @@
-import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData } from '@/types'
+import type { User, Project, ProjectStage, Industry, ProjectType, NavigationItem, ProfileTab, InvestorProfile, ApplicationForm, InvestorForm, ResourceLink, InvestmentCategory, PartnerForm, PartnerResourceLink, PartnerCategory, RequisitesData, FilledInvestorFormData, RejectionWarning } from '@/types'
 
 export const currentUser: User = {
   id: '1',
@@ -816,4 +816,43 @@ export const requisitesData: RequisitesData = {
       isDefault: false
     }
   ]
+}
+
+// Filled investor form mock data
+export const filledInvestorFormData: FilledInvestorFormData = {
+  generalInfo: {
+    name: 'Михаил',
+    surname: 'Петров',
+    phone: '+7-900-123-45-67',
+    email: 'mikhail.petrov@example.com',
+    brand: 'TechInvestor',
+    company: 'ООО "Технологические инвестиции"',
+    inn: '7701234567'
+  },
+  resources: {
+    websiteType: 'Сайт компании',
+    websiteUrl: 'https://techinvestor.ru'
+  },
+  about: {
+    headline: 'Опытный инвестор в IT',
+    description: 'Более 5 лет опыта инвестирования в технологические стартапы. Специализируюсь на проектах в области искусственного интеллекта и машинного обучения. Успешно вывел на рынок 3 проекта с общей капитализацией более 50 млн рублей.'
+  },
+  investments: {
+    format: 'Доля',
+    min: 1000000,
+    max: 10000000
+  },
+  categories: {
+    tags: 'AI, машинное обучение, стартапы, венчурные инвестиции',
+    selectedCategories: [
+      'Технологические проекты (стартапы, венчур)',
+      'Проекты на основе ИИ'
+    ]
+  }
+}
+
+export const rejectionWarning: RejectionWarning = {
+  isVisible: true,
+  reason: 'Недостаточно информации для верификации',
+  details: 'Пожалуйста, предоставьте дополнительные документы и уточните информацию о вашей деятельности. Это поможет нам быстрее завершить процесс верификации.'
 }
