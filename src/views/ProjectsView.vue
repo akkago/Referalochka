@@ -1,60 +1,65 @@
 <template>
   <div class="projects-view">
-    <div class="pa-6">
-      <!-- Page Header -->
-      <div class="mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">
-          Проекты
-        </h1>
+    <!-- Page Header - над белой панелью -->
+    <div class="pa-6 pb-2">
+      <h1 class="text-2xl font-bold text-gray-800">
+        Проекты
+      </h1>
+    </div>
+    
+    <!-- White Panel with rounded top corners -->
+    <div class="white-panel">
+      <!-- Filters -->
+      <div class="pa-6 pb-4">
+        <ProjectFilters
+          @search="handleSearch"
+          @stage-change="handleStageChange"
+          @industry-change="handleIndustryChange"
+          @location-change="handleLocationChange"
+          @type-change="handleTypeChange"
+          @add-project="handleAddProject"
+        />
       </div>
       
-      <!-- Filters -->
-      <ProjectFilters
-        @search="handleSearch"
-        @stage-change="handleStageChange"
-        @industry-change="handleIndustryChange"
-        @location-change="handleLocationChange"
-        @type-change="handleTypeChange"
-        @add-project="handleAddProject"
-      />
-      
       <!-- Projects Grid -->
-      <v-row>
-        <v-col
-          v-for="project in filteredProjects"
-          :key="project.id"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
+      <div class="pa-6 pt-0">
+        <v-row>
+          <v-col
+            v-for="project in filteredProjects"
+            :key="project.id"
+            cols="12"
+            sm="6"
+            md="4"
+            lg="3"
+          >
+            <ProjectCard
+              :project="project"
+              @card-click="handleProjectClick"
+              @favorite-toggle="handleFavoriteToggle"
+              @details-click="handleProjectDetails"
+            />
+          </v-col>
+        </v-row>
+        
+        <!-- Empty State -->
+        <div
+          v-if="filteredProjects.length === 0"
+          class="text-center py-12"
         >
-          <ProjectCard
-            :project="project"
-            @card-click="handleProjectClick"
-            @favorite-toggle="handleFavoriteToggle"
-            @details-click="handleProjectDetails"
-          />
-        </v-col>
-      </v-row>
-      
-      <!-- Empty State -->
-      <div
-        v-if="filteredProjects.length === 0"
-        class="text-center py-12"
-      >
-        <v-icon
-          size="64"
-          color="grey"
-          class="mb-4"
-        >
-          mdi-folder-open
-        </v-icon>
-        <h3 class="text-lg font-medium text-gray-600 mb-2">
-          Проекты не найдены
-        </h3>
-        <p class="text-gray-500">
-          Попробуйте изменить параметры поиска
-        </p>
+          <v-icon
+            size="64"
+            color="grey"
+            class="mb-4"
+          >
+            mdi-folder-open
+          </v-icon>
+          <h3 class="text-lg font-medium text-gray-600 mb-2">
+            Проекты не найдены
+          </h3>
+          <p class="text-gray-500">
+            Попробуйте изменить параметры поиска
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -120,7 +125,19 @@ const handleProjectDetails = (project: Project) => {
 
 <style scoped>
 .projects-view {
-  min-height: 100vh;
+  height: calc(100vh - 64px); /* Учитываем высоту верхнего хедера */
   background-color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Предотвращаем скролл на контейнере */
+}
+
+.white-panel {
+  background-color: white;
+  border-radius: 16px 16px 0 0; /* Скругленные верхние углы */
+  margin: 0 24px; /* Отступы по бокам */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Легкая тень */
+  flex: 1; /* Растягиваем панель до низа */
+  overflow-y: auto; /* Скролл только внутри панели при необходимости */
 }
 </style>
