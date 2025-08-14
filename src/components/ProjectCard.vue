@@ -6,16 +6,18 @@
   >
     <!-- Card Header -->
     <div class="pa-4 pb-2">
+      <!-- Title and Heart icon row -->
       <div class="d-flex justify-space-between align-start mb-2">
-        <div class="text-sm text-gray-500">
-          {{ project.date }}
-        </div>
+        <h3 class="text-lg font-semibold text-gray-800 line-clamp-2 flex-grow-1 mr-2">
+          {{ project.title }}
+        </h3>
         <v-btn
           icon
           variant="text"
           size="small"
           :color="project.isFavorite ? 'red' : 'grey'"
           @click.stop="handleFavoriteToggle"
+          class="flex-shrink-0"
         >
           <v-icon>
             {{ project.isFavorite ? 'mdi-heart' : 'mdi-heart-outline' }}
@@ -23,14 +25,17 @@
         </v-btn>
       </div>
       
-      <div class="text-sm text-gray-500 mb-1">
-        ID: {{ project.id }}
+      <!-- Date and ID row -->
+      <div class="d-flex justify-space-between align-center mb-2">
+        <div class="text-sm date-id-text">
+          {{ project.date }}
+        </div>
+        <div class="text-sm date-id-text">
+          ID: {{ project.id }}
+        </div>
       </div>
       
-      <h3 class="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-        {{ project.title }}
-      </h3>
-      
+      <!-- Description -->
       <p class="text-sm text-gray-600 line-clamp-3">
         {{ project.description }}
       </p>
@@ -39,8 +44,7 @@
     <!-- Card Footer -->
     <div class="pa-4 pt-2 mt-auto">
       <v-btn
-        color="primary"
-        variant="outlined"
+        class="custom-button"
         size="small"
         block
         @click.stop="handleDetailsClick"
@@ -83,11 +87,29 @@ const handleDetailsClick = () => {
 .project-card {
   cursor: pointer;
   border: 1px solid #e5e7eb;
+  border-radius: 12px !important; /* Более скругленные углы как на макете */
 }
 
 .project-card:hover {
   border-color: #3b82f6;
   transform: translateY(-2px);
+}
+
+.custom-button {
+  background-color: #7587F4 !important;
+  color: white !important;
+  border: none !important;
+  height: 120% !important; /* Увеличиваем высоту на 20% */
+  min-height: 36px !important; /* Минимальная высота для кнопки small */
+}
+
+.custom-button:hover {
+  background-color: #6b7ae8 !important;
+  color: white !important;
+}
+
+.date-id-text {
+  color: #9ca3af !important; /* Более блеклый серый цвет */
 }
 
 .line-clamp-2 {
