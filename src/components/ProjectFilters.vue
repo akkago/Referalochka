@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-    <div class="d-flex align-center gap-2 flex-wrap">
+  <div class="filters-container">
+    <div class="filters-row">
       <!-- Search -->
       <v-text-field
         v-model="searchQuery"
@@ -9,7 +9,7 @@
         variant="outlined"
         density="compact"
         hide-details
-        class="flex-grow-1 min-w-64"
+        class="search-input"
         @update:model-value="handleSearch"
       />
       
@@ -23,7 +23,7 @@
         variant="outlined"
         density="compact"
         hide-details
-        class="min-w-48"
+        class="filter-select"
         @update:model-value="handleStageChange"
       />
       
@@ -37,7 +37,7 @@
           <v-btn
             v-bind="props"
             variant="outlined"
-            class="min-w-48 justify-start"
+            class="filter-btn"
             :class="selectedIndustries.length > 0 ? 'text-blue-600' : ''"
           >
             <span class="truncate">
@@ -85,7 +85,7 @@
         variant="outlined"
         density="compact"
         hide-details
-        class="min-w-40"
+        class="filter-select"
         @update:model-value="handleLocationChange"
       />
       
@@ -99,15 +99,14 @@
         variant="outlined"
         density="compact"
         hide-details
-        class="min-w-40"
+        class="filter-select"
         @update:model-value="handleTypeChange"
       />
       
       <!-- Add Project Button -->
       <v-btn
         color="primary"
-        prepend-icon="mdi-plus"
-        class="ml-auto"
+        class="add-project-btn"
         @click="handleAddProject"
       >
         Добавить проект
@@ -188,3 +187,43 @@ watch(selectedIndustries, (newValue) => {
   emit('industryChange', newValue)
 })
 </script>
+
+<style scoped>
+.filters-container {
+  padding: 0;
+}
+
+.filters-row {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Отступы между элементами */
+  flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+}
+
+.search-input {
+  min-width: 350px !important; /* Немного уменьшаем для размещения всех элементов */
+  max-width: 350px !important;
+}
+
+.filter-select {
+  min-width: 160px !important; /* Немного уменьшаем ширину */
+  max-width: 160px !important;
+}
+
+.filter-btn {
+  min-width: 160px !important; /* Немного уменьшаем ширину */
+  max-width: 160px !important;
+  justify-content: flex-start !important;
+}
+
+.add-project-btn {
+  margin-left: auto !important;
+  background-color: #7587F4 !important;
+  color: white !important;
+  white-space: nowrap !important; /* Запрещаем перенос текста в кнопке */
+}
+
+.add-project-btn:hover {
+  background-color: #6b7ae8 !important;
+}
+</style>
