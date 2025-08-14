@@ -205,141 +205,150 @@
                </h3>
              </div>
              
-             <!-- Resources Content -->
-             <div class="flex-1 w-2/3">
-               <div class="space-y-4">
-                 <!-- Website Type and URL on one line -->
-                 <div class="flex gap-6">
-                   <div class="field-group flex-1">
-                     <label class="text-sm font-medium text-gray-700 mb-2">
-                       {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_TYPE }}
-                     </label>
-                     <v-select
-                       v-model="newResourceLink.type"
-                       :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
-                       placeholder="Выберите тип"
-                       variant="outlined"
-                       density="comfortable"
-                       class="field-input"
-                     />
-                   </div>
-                   
-                   <div class="field-group flex-1">
-                     <label class="text-sm font-medium text-gray-700 mb-2">
-                       {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_URL }}
-                     </label>
-                     <v-text-field
-                       v-model="newResourceLink.url"
-                       placeholder="https://example.com"
-                       type="url"
-                       variant="outlined"
-                       density="comfortable"
-                       class="field-input"
-                     />
-                   </div>
-                 </div>
-                 
-                 <!-- Add Link Button -->
-                 <div class="flex justify-start">
-                   <v-btn
-                     color="grey"
-                     variant="outlined"
-                     size="large"
-                     class="px-8"
-                     @click="addResourceLink"
-                   >
-                     + Добавить ссылку
-                   </v-btn>
-                 </div>
-                 
-                               <!-- Existing Links as Input Fields -->
-              <div v-if="resourceLinks.length > 0" class="space-y-4">
-                <div
-                  v-for="(link, index) in resourceLinks"
-                  :key="index"
-                  class="flex gap-6"
-                >
-                  <div class="field-group flex-1">
-                    <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_TYPE }}
-                    </label>
-                    <v-select
-                      v-model="link.type"
-                      :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
-                      placeholder="Выберите тип"
-                      variant="outlined"
-                      density="comfortable"
-                      class="field-input"
-                    />
-                  </div>
-                  
-                  <div class="field-group flex-1">
-                    <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_URL }}
-                    </label>
-                    <v-text-field
-                      v-model="link.url"
-                      placeholder="https://example.com"
-                      type="url"
-                      variant="outlined"
-                      density="comfortable"
-                      class="field-input"
-                    />
-                  </div>
-                  
-                  <div class="field-group flex-shrink-0 self-end">
-                    <v-btn
-                      icon
-                      variant="text"
-                      color="error"
-                      size="small"
-                      @click="removeResourceLink(index)"
+                           <!-- Resources Content -->
+              <div class="flex-1 w-2/3">
+                <div class="space-y-4">
+                  <!-- Existing Links as Input Fields -->
+                  <div v-if="resourceLinks.length > 0" class="space-y-4">
+                    <div
+                      v-for="(link, index) in resourceLinks"
+                      :key="index"
+                      class="flex gap-6"
                     >
-                      <v-icon>mdi-delete</v-icon>
+                      <div class="field-group flex-1">
+                        <label class="text-sm font-medium text-gray-700 mb-2">
+                          {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_TYPE }}
+                        </label>
+                        <v-select
+                          v-model="link.type"
+                          :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
+                          placeholder="Выберите тип"
+                          variant="outlined"
+                          density="comfortable"
+                          class="field-input"
+                        />
+                      </div>
+                      
+                      <div class="field-group flex-1">
+                        <label class="text-sm font-medium text-gray-700 mb-2">
+                          {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_URL }}
+                        </label>
+                        <v-text-field
+                          v-model="link.url"
+                          placeholder="https://example.com"
+                          type="url"
+                          variant="outlined"
+                          density="comfortable"
+                          class="field-input"
+                        />
+                      </div>
+                      
+                      <div class="field-group flex-shrink-0 self-end">
+                        <v-btn
+                          icon
+                          variant="text"
+                          color="error"
+                          size="small"
+                          @click="removeResourceLink(index)"
+                        >
+                          <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Website Type and URL on one line -->
+                  <div class="flex gap-6">
+                    <div class="field-group flex-1">
+                      <label class="text-sm font-medium text-gray-700 mb-2">
+                        {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_TYPE }}
+                      </label>
+                      <v-select
+                        v-model="newResourceLink.type"
+                        :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
+                        placeholder="Выберите тип"
+                        variant="outlined"
+                        density="comfortable"
+                        class="field-input"
+                      />
+                    </div>
+                    
+                    <div class="field-group flex-1">
+                      <label class="text-sm font-medium text-gray-700 mb-2">
+                        {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_URL }}
+                      </label>
+                      <v-text-field
+                        v-model="newResourceLink.url"
+                        placeholder="https://example.com"
+                        type="url"
+                        variant="outlined"
+                        density="comfortable"
+                        class="field-input"
+                      />
+                    </div>
+                  </div>
+                  
+                  <!-- Add Link Button -->
+                  <div class="flex justify-start">
+                    <v-btn
+                      color="grey"
+                      variant="outlined"
+                      size="large"
+                      class="w-full"
+                      @click="addResourceLink"
+                    >
+                      + Добавить ссылку
                     </v-btn>
                   </div>
                 </div>
               </div>
-               </div>
-             </div>
            </div>
          </div>
 
-                 <!-- About Section -->
-         <div class="form-section">
-           <h3 class="text-xl font-semibold text-gray-800 mb-6">
-             {{ FILLED_INVESTOR_FORM_SECTIONS.ABOUT }}
-           </h3>
-           <div class="space-y-6">
-             <div class="field-group">
-               <label class="text-sm font-medium text-gray-700 mb-2">
-                 {{ FILLED_INVESTOR_FORM_LABELS.ABOUT.HEADLINE }}
-               </label>
-               <v-text-field
-                 v-model="formData.about.headline"
-                 placeholder="Краткое описание о себе"
-                 type="text"
-                 variant="outlined"
-                 density="comfortable"
-                 class="field-input"
-               />
-             </div>
-             
-             <div class="field-group">
-               <label class="text-sm font-medium text-gray-700 mb-2">
-                 {{ FILLED_INVESTOR_FORM_LABELS.ABOUT.DESCRIPTION }}
-               </label>
-               <v-textarea
-                 v-model="formData.about.description"
-                 placeholder="Подробное описание о себе и опыте"
-                 variant="outlined"
-                 density="comfortable"
-                 rows="6"
-                 class="field-input"
-               />
-             </div>
-           </div>
-         </div>
+                                   <!-- About Section -->
+          <div class="form-section">
+            <div class="flex items-start gap-8">
+              <!-- About Label -->
+              <div class="flex-shrink-0 pt-6 w-1/3">
+                <h3 class="text-xl font-semibold text-gray-800">
+                  {{ FILLED_INVESTOR_FORM_SECTIONS.ABOUT }}
+                </h3>
+              </div>
+              
+              <!-- About Content -->
+              <div class="flex-1 w-2/3">
+                <div class="space-y-6">
+                  <div class="field-group">
+                    <label class="text-sm font-medium text-gray-700 mb-2">
+                      {{ FILLED_INVESTOR_FORM_LABELS.ABOUT.HEADLINE }}
+                    </label>
+                    <v-text-field
+                      v-model="formData.about.headline"
+                      placeholder="Краткое описание о себе"
+                      type="text"
+                      variant="outlined"
+                      density="comfortable"
+                      class="field-input"
+                    />
+                  </div>
+                  
+                  <div class="field-group">
+                    <label class="text-sm font-medium text-gray-700 mb-2">
+                      {{ FILLED_INVESTOR_FORM_LABELS.ABOUT.DESCRIPTION }}
+                    </label>
+                    <v-textarea
+                      v-model="formData.about.description"
+                      placeholder="Подробное описание о себе и опыте"
+                      variant="outlined"
+                      density="comfortable"
+                      rows="6"
+                      class="field-input"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
                  <!-- Investments Section -->
          <div class="form-section">
