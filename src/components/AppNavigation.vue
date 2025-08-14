@@ -37,7 +37,7 @@
           :class="[
             'rounded-lg mb-1 transition-all duration-200',
             item.isActive 
-              ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' 
+              ? 'bg-blue-50 text-blue-600' 
               : 'text-gray-600 hover:bg-gray-50'
           ]"
           :prepend-icon="item.icon"
@@ -64,7 +64,7 @@
           :class="[
             'collapsed-nav-item rounded-lg mb-1 transition-all duration-200 cursor-pointer',
             item.isActive 
-              ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-500' 
+              ? 'bg-blue-50 text-blue-600' 
               : 'text-gray-600 hover:bg-gray-50'
           ]"
           :title="item.title"
@@ -121,7 +121,6 @@ onMounted(() => {
 .v-navigation-drawer:deep(.v-list-item.bg-blue-50) {
   background-color: #eff6ff !important; /* bg-blue-50 */
   color: #2563eb !important; /* text-blue-600 */
-  border-left: 4px solid #3b82f6 !important; /* border-blue-500 */
 }
 
 .v-navigation-drawer:deep(.v-list-item.bg-blue-50 .v-list-item__prepend .v-icon) {
@@ -158,7 +157,6 @@ onMounted(() => {
 .collapsed-nav-item.bg-blue-50 {
   background-color: #eff6ff !important; /* bg-blue-50 */
   color: #2563eb !important; /* text-blue-600 */
-  border-left: 4px solid #3b82f6 !important; /* border-blue-500 */
 }
 
 /* Специфичные стили для иконок в свёрнутом состоянии */
@@ -185,7 +183,6 @@ onMounted(() => {
 .v-list-item.bg-blue-50 {
   background-color: #eff6ff !important;
   color: #2563eb !important;
-  border-left: 4px solid #3b82f6 !important;
 }
 
 .v-list-item.bg-blue-50 .v-icon {
@@ -199,7 +196,6 @@ onMounted(() => {
 .collapsed-nav-item.bg-blue-50 {
   background-color: #eff6ff !important;
   color: #2563eb !important;
-  border-left: 4px solid #3b82f6 !important;
 }
 
 .collapsed-nav-item.bg-blue-50 .v-icon {
