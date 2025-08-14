@@ -435,6 +435,7 @@ onMounted(() => {
 <style scoped>
 .requisites-card {
   min-height: 400px;
+  padding: 2rem;
 }
 
 .form-section {

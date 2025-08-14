@@ -1,15 +1,8 @@
 <template>
   <div class="profile-view">
     <div class="pa-6">
-      <!-- Page Header -->
-      <div class="mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">
-          Личный профиль
-        </h1>
-      </div>
-      
-      <!-- Profile Content with Border -->
-      <div class="border-2 border-dashed border-blue-400 rounded-lg p-6 bg-white">
+      <!-- Profile Content -->
+      <div class="bg-white">
         <!-- Tabs -->
         <div class="mb-8">
           <v-tabs
@@ -40,19 +33,16 @@
           />
         </div>
         
-        <div v-else-if="isPartnerTabActive" class="partner-content">
-          <div class="text-center py-12">
-            <v-icon size="64" color="grey" class="mb-4">
-              mdi-account-group
-            </v-icon>
-            <h3 class="text-lg font-medium text-gray-600 mb-2">
-              Анкета партнера
-            </h3>
-            <p class="text-gray-500">
-              Переход на страницу анкеты партнера...
-            </p>
-          </div>
-        </div>
+                 <div v-else-if="isPartnerTabActive" class="partner-content">
+           <div class="text-center py-12">
+             <v-icon size="64" color="grey" class="mb-4">
+               mdi-account-group
+             </v-icon>
+             <p class="text-gray-500">
+               Переход на страницу анкеты партнера...
+             </p>
+           </div>
+         </div>
         
         <div v-else-if="isRequisitesTabActive" class="requisites-content">
           <RequisitesCard

@@ -11,91 +11,203 @@
     <v-form ref="form" v-model="isFormValid" class="space-y-8">
       <!-- General Information Section -->
       <div class="form-section">
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">
-          {{ partnerForm.sections[0].title }}
-        </h3>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div
-            v-for="field in partnerForm.sections[0].fields"
-            :key="field.id"
-            class="field-wrapper"
-          >
-            <v-text-field
-              v-model="formData[field.id]"
-              :label="field.label"
-              :placeholder="field.placeholder"
-              :type="field.type"
-              :rules="getFieldRules(field)"
-              variant="outlined"
-              density="comfortable"
-              class="field-input"
-            />
+        <div class="flex items-start gap-8">
+          <!-- Profile Label -->
+          <div class="flex-shrink-0 pt-6 w-1/3">
+            <h3 class="text-xl font-semibold text-gray-800">
+              Профиль
+            </h3>
           </div>
+          
+                     <!-- Form Fields -->
+           <div class="flex-1 w-2/3">
+                                         <!-- Name and Surname on one line -->
+              <div class="name-surname-row">
+                <div class="field-wrapper flex-1">
+                  <v-text-field
+                    v-model="formData.name"
+                    label="Имя"
+                    placeholder="Введите имя"
+                    type="text"
+                    :rules="getFieldRules({ id: 'name', required: true })"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+                
+                <div class="field-wrapper flex-1">
+                  <v-text-field
+                    v-model="formData.surname"
+                    label="Фамилия"
+                    placeholder="Введите фамилию"
+                    type="text"
+                    :rules="getFieldRules({ id: 'surname', required: true })"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+              </div>
+              
+              <!-- Phone and Email on one line -->
+               <div class="phone-email-row">
+                <div class="field-wrapper flex-1">
+                  <v-text-field
+                    v-model="formData.phone"
+                    label="Телефон"
+                    placeholder="+7-900-000-00-00"
+                    type="tel"
+                    :rules="getFieldRules({ id: 'phone', required: true })"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+                
+                <div class="field-wrapper flex-1">
+                  <v-text-field
+                    v-model="formData.email"
+                    label="E-Mail"
+                    placeholder="example@email.com"
+                    type="email"
+                    :rules="getFieldRules({ id: 'email', required: true })"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+              </div>
+              
+              <!-- Other fields in grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div
+                  v-for="field in partnerForm.sections[0].fields.filter(f => f.id !== 'name' && f.id !== 'surname' && f.id !== 'phone' && f.id !== 'email')"
+                  :key="field.id"
+                  class="field-wrapper"
+                >
+                  <v-text-field
+                    v-model="formData[field.id]"
+                    :label="field.label"
+                    :placeholder="field.placeholder"
+                    :type="field.type"
+                    :rules="getFieldRules(field)"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+              </div>
+           </div>
         </div>
       </div>
 
       <!-- Resources Section -->
       <div class="form-section">
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">
-          {{ partnerForm.sections[1].title }}
-        </h3>
-        
-        <div class="space-y-4">
-          <!-- Existing Links -->
-          <div
-            v-for="link in resourceLinksData"
-            :key="link.id"
-            class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg"
-          >
-            <v-select
-              v-model="link.type"
-              :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
-              variant="outlined"
-              density="comfortable"
-              class="flex-1"
-            />
-            <v-text-field
-              v-model="link.url"
-              placeholder="Ссылка"
-              variant="outlined"
-              density="comfortable"
-              class="flex-1"
-            />
-            <v-btn
-              icon
-              variant="text"
-              color="error"
-              @click="removeLink(link.id)"
-            >
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
+        <div class="flex items-start gap-8">
+          <!-- Resources Label -->
+          <div class="flex-shrink-0 pt-6 w-1/3">
+            <h3 class="text-xl font-semibold text-gray-800">
+              {{ partnerForm.sections[1].title }}
+            </h3>
           </div>
-
-          <!-- Add New Link -->
-          <div class="flex items-center gap-4">
-            <v-select
-              v-model="newLinkType"
-              :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
-              placeholder="Выберите тип"
-              variant="outlined"
-              density="comfortable"
-              class="flex-1"
-            />
-            <v-text-field
-              v-model="newLinkUrl"
-              placeholder="Ссылка"
-              variant="outlined"
-              density="comfortable"
-              class="flex-1"
-            />
-            <v-btn
-              color="primary"
-              variant="outlined"
-              @click="addLink"
-            >
-              + Добавить ссылку
-            </v-btn>
+          
+          <!-- Resources Content -->
+          <div class="flex-1 w-2/3">
+            <div class="space-y-4">
+              <!-- Website Type and URL on one line -->
+              <div class="flex gap-6">
+                <div class="field-group flex-1">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    Тип сайта
+                  </label>
+                  <v-select
+                    v-model="partnerNewResourceLink.type"
+                    :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
+                    placeholder="Выберите тип"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+                
+                <div class="field-group flex-1">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    URL сайта
+                  </label>
+                  <v-text-field
+                    v-model="partnerNewResourceLink.url"
+                    placeholder="https://example.com"
+                    type="url"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+              </div>
+              
+              <!-- Add Link Button -->
+              <div class="flex justify-start">
+                <v-btn
+                  color="grey"
+                  variant="outlined"
+                  size="large"
+                  class="px-8"
+                  @click="addResourceLink"
+                >
+                  + Добавить ссылку
+                </v-btn>
+              </div>
+              
+              <!-- Existing Links as Input Fields -->
+              <div v-if="partnerResourceLinks.length > 0" class="space-y-4">
+                <div
+                  v-for="(link, index) in partnerResourceLinks"
+                  :key="index"
+                  class="flex gap-6"
+                >
+                  <div class="field-group flex-1">
+                    <label class="text-sm font-medium text-gray-700 mb-2">
+                      Тип сайта
+                    </label>
+                    <v-select
+                      v-model="link.type"
+                      :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
+                      placeholder="Выберите тип"
+                      variant="outlined"
+                      density="comfortable"
+                      class="field-input"
+                    />
+                  </div>
+                  
+                  <div class="field-group flex-1">
+                    <label class="text-sm font-medium text-gray-700 mb-2">
+                      URL сайта
+                    </label>
+                    <v-text-field
+                      v-model="link.url"
+                      placeholder="https://example.com"
+                      type="url"
+                      variant="outlined"
+                      density="comfortable"
+                      class="field-input"
+                    />
+                  </div>
+                  
+                  <div class="field-group flex-shrink-0 self-end">
+                    <v-btn
+                      icon
+                      variant="text"
+                      color="error"
+                      size="small"
+                      @click="removeResourceLink(index)"
+                    >
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -180,6 +292,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { usePartnerForm } from '@/composables/usePartnerForm'
 
 const {
@@ -197,6 +310,14 @@ const {
   handleSubmit
 } = usePartnerForm()
 
+// Resource links management for partner form
+const partnerNewResourceLink = ref({
+  type: '',
+  url: ''
+})
+
+const partnerResourceLinks = ref<Array<{ type: string; url: string }>>([])
+
 const emit = defineEmits<{
   submit: [data: any]
 }>()
@@ -208,11 +329,28 @@ const onSubmit = async () => {
     emit('submit', result.data)
   }
 }
+
+const addResourceLink = (): void => {
+  if (partnerNewResourceLink.value.type && partnerNewResourceLink.value.url) {
+    partnerResourceLinks.value.push({
+      type: partnerNewResourceLink.value.type,
+      url: partnerNewResourceLink.value.url
+    })
+    // Очищаем поля после добавления
+    partnerNewResourceLink.value.type = ''
+    partnerNewResourceLink.value.url = ''
+  }
+}
+
+const removeResourceLink = (index: number): void => {
+  partnerResourceLinks.value.splice(index, 1)
+}
 </script>
 
 <style scoped>
 .partner-form-card {
   min-height: 400px;
+  padding: 2rem;
 }
 
 .form-section {
@@ -228,8 +366,21 @@ const onSubmit = async () => {
   min-height: 80px;
 }
 
+.field-group {
+  display: flex;
+  flex-direction: column;
+}
+
 .field-input {
   width: 100%;
+}
+
+/* Custom row styles for better spacing */
+.name-surname-row,
+.phone-email-row {
+  display: flex;
+  gap: 4rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Custom purple button */

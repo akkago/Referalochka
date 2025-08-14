@@ -1,22 +1,15 @@
 <template>
   <div class="partner-form-view">
     <div class="pa-6">
-      <!-- Page Header -->
-      <div class="mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">
-          Анкета партнера
-        </h1>
-      </div>
-      
-      <!-- Form Content with Border -->
-      <div class="border-2 border-dashed border-blue-400 rounded-lg p-6 bg-white">
-        <!-- Tabs -->
-        <div class="mb-8">
-          <v-tabs
-            v-model="activeTab"
-            color="primary"
-            class="border-b border-gray-200"
-          >
+             <!-- Form Content -->
+       <div>
+         <!-- Tabs -->
+         <div class="mb-8">
+           <v-tabs
+             v-model="activeTab"
+             color="primary"
+             class="border-b border-gray-200"
+           >
             <v-tab
               value="investor"
               class="text-sm font-medium"
@@ -40,8 +33,10 @@
           </v-tabs>
         </div>
 
-        <!-- Partner Form -->
-        <PartnerFormCard @submit="handleSubmit" />
+                 <!-- Partner Form -->
+         <div class="bg-white rounded-3xl">
+           <PartnerFormCard @submit="handleSubmit" />
+         </div>
       </div>
     </div>
   </div>

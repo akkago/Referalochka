@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ProjectsView from '@/views/ProjectsView.vue'
-import ProfileView from '@/views/ProfileView.vue'
 import ApplicationView from '@/views/ApplicationView.vue'
 import InvestorFormView from '@/views/InvestorFormView.vue'
 import PartnerFormView from '@/views/PartnerFormView.vue'
@@ -56,14 +55,7 @@ const router = createRouter({
         title: 'Настройка стоимости перехода'
       }
     },
-    {
-      path: '/profile',
-      name: ROUTES.PROFILE,
-      component: ProfileView,
-      meta: {
-        title: 'Личный профиль'
-      }
-    },
+
     {
       path: '/application',
       name: ROUTES.APPLICATION,

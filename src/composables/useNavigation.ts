@@ -20,7 +20,7 @@ export function useNavigation() {
     // Для других маршрутов
     const routeToItemMap: Record<string, string> = {
       [ROUTES.USER_PROJECTS]: 'my-projects',
-      [ROUTES.PROFILE]: 'profile',
+      [ROUTES.PROFILE]: 'investor-form',
       [ROUTES.DOCUMENTS]: 'documents',
       [ROUTES.EMPLOYEES]: 'employees'
     }
@@ -55,8 +55,8 @@ export function useNavigation() {
       case 'my-projects':
         router.push({ name: ROUTES.USER_PROJECTS })
         break
-      case 'profile':
-        router.push({ name: ROUTES.PROFILE })
+          case 'profile':
+      router.push({ name: ROUTES.INVESTOR_FORM })
         break
       case 'documents':
         router.push({ name: ROUTES.DOCUMENTS })
