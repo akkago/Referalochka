@@ -20,7 +20,6 @@ export function useUserProjects() {
   const loadProjects = async (): Promise<void> => {
     isLoading.value = true
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       projects.value = [...userProjects]
     } catch (error) {
@@ -36,10 +35,8 @@ export function useUserProjects() {
 
   const toggleProject = async (projectId: string, isEnabled: boolean): Promise<{ success: boolean; error?: string }> => {
     try {
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 500))
       
-      // Update local state
       const project = projects.value.find(p => p.id === projectId)
       if (project) {
         project.isEnabled = isEnabled
@@ -53,12 +50,10 @@ export function useUserProjects() {
   }
 
   const editProject = (projectId: string): void => {
-    // Переход на страницу редактирования проекта
     router.push({ name: ROUTES.EDIT_PROJECT, params: { id: projectId } })
   }
 
   const addProject = (): void => {
-    // Переход на страницу создания проекта
     router.push({ name: ROUTES.ADD_PROJECT })
   }
 
@@ -73,12 +68,9 @@ export function useUserProjects() {
   }
 
   return {
-    // State
     isLoading,
     projects,
     filters,
-    
-    // Methods
     loadProjects,
     updateFilters,
     toggleProject,

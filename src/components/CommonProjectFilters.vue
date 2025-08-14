@@ -1,7 +1,6 @@
 <template>
   <div class="filters-container">
     <div class="filters-row">
-      <!-- Search -->
       <v-text-field
         v-model="searchQuery"
         :placeholder="searchPlaceholder"
@@ -13,7 +12,6 @@
         @update:model-value="handleSearch"
       />
       
-      <!-- Stage Filter -->
       <v-select
         v-model="selectedStage"
         :items="PROJECT_STAGES"
@@ -25,7 +23,6 @@
         @update:model-value="handleStageChange"
       />
       
-      <!-- Industry Filter -->
       <v-select
         v-model="selectedIndustry"
         :items="PROJECT_INDUSTRIES"
@@ -37,7 +34,6 @@
         @update:model-value="handleIndustryChange"
       />
       
-      <!-- Region Filter -->
       <v-select
         v-model="selectedRegion"
         :items="PROJECT_REGIONS"
@@ -49,7 +45,6 @@
         @update:model-value="handleRegionChange"
       />
       
-      <!-- Type Filter -->
       <v-select
         v-model="selectedType"
         :items="PROJECT_TYPES"
@@ -61,7 +56,6 @@
         @update:model-value="handleTypeChange"
       />
       
-      <!-- Add Project Button -->
       <v-btn
         v-if="showAddButton"
         color="primary"
@@ -114,14 +108,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 
-// Reactive data
 const searchQuery = ref(props.initialFilters?.search || '')
 const selectedStage = ref(props.initialFilters?.stage || PROJECT_STAGES[0])
 const selectedIndustry = ref(props.initialFilters?.industry || PROJECT_INDUSTRIES[0])
 const selectedRegion = ref(props.initialFilters?.region || PROJECT_REGIONS[0])
 const selectedType = ref(props.initialFilters?.type || PROJECT_TYPES[0])
 
-// Methods
 const handleSearch = (query: string) => {
   emit('search', query)
 }
@@ -146,7 +138,6 @@ const handleAddProject = () => {
   emit('add-project')
 }
 
-// Watch for external filter changes
 watch(() => props.initialFilters, (newFilters) => {
   if (newFilters) {
     if (newFilters.search !== undefined) searchQuery.value = newFilters.search
@@ -166,18 +157,18 @@ watch(() => props.initialFilters, (newFilters) => {
 .filters-row {
   display: flex;
   align-items: center;
-  gap: 16px; /* Отступы между элементами */
-  flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+  gap: 16px;
+  flex-wrap: nowrap;
   width: 100%;
 }
 
 .search-input {
-  flex: 2 !important; /* Занимает в 2 раза больше пространства */
+  flex: 2 !important;
   min-width: 300px !important;
 }
 
 .filter-select {
-  flex: 1 !important; /* Занимает доступное пространство */
+  flex: 1 !important;
   min-width: 120px !important;
 }
 
@@ -185,7 +176,7 @@ watch(() => props.initialFilters, (newFilters) => {
   margin-left: auto !important;
   background-color: #7587F4 !important;
   color: white !important;
-  white-space: nowrap !important; /* Запрещаем перенос текста в кнопке */
+  white-space: nowrap !important;
 }
 
 .add-project-btn:hover {

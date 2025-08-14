@@ -1,15 +1,13 @@
 <template>
   <div class="investor-form-view">
     <div class="pa-6">
-             <!-- Profile Content -->
-       <div>
-         <!-- Tabs -->
-         <div class="mb-8">
-           <v-tabs
-             v-model="activeTab"
-             color="primary"
-             class="border-b border-gray-200"
-           >
+      <div>
+        <div class="mb-8">
+          <v-tabs
+            v-model="activeTab"
+            color="primary"
+            class="border-b border-gray-200"
+          >
             <v-tab
               v-for="tab in currentTabs"
               :key="tab.id"
@@ -22,39 +20,38 @@
           </v-tabs>
         </div>
         
-                          <!-- Tab Content -->
-         <div v-if="isInvestorTabActive" class="investor-content">
-           <div class="bg-white rounded-3xl">
-             <InvestorProfileCard 
-               :form-data="investorFormData"
-               :rejection-warning="investorRejectionWarning"
-               @action-click="handleActionClick"
-               @resubmit="handleInvestorResubmit"
-             />
-           </div>
-         </div>
-         
-         <div v-else-if="isPartnerTabActive" class="partner-content">
-           <div class="text-center py-12">
-             <v-icon size="64" color="grey" class="mb-4">
-               mdi-account-group
-             </v-icon>
-             <p class="text-gray-500">
-               Переход на страницу анкеты партнера...
-             </p>
-           </div>
-         </div>
-         
-         <div v-else-if="isRequisitesTabActive" class="requisites-content">
-           <div class="bg-white rounded-3xl">
-             <RequisitesCard
-               :initial-data="requisitesData"
-               @submit="handleRequisitesSubmit"
-               @cancel="handleRequisitesCancel"
-               @update="handleRequisitesUpdate"
-             />
-           </div>
-         </div>
+        <div v-if="isInvestorTabActive" class="investor-content">
+          <div class="bg-white rounded-3xl">
+            <InvestorProfileCard 
+              :form-data="investorFormData"
+              :rejection-warning="investorRejectionWarning"
+              @action-click="handleActionClick"
+              @resubmit="handleInvestorResubmit"
+            />
+          </div>
+        </div>
+        
+        <div v-else-if="isPartnerTabActive" class="partner-content">
+          <div class="text-center py-12">
+            <v-icon size="64" color="grey" class="mb-4">
+              mdi-account-group
+            </v-icon>
+            <p class="text-gray-500">
+              Переход на страницу анкеты партнера...
+            </p>
+          </div>
+        </div>
+        
+        <div v-else-if="isRequisitesTabActive" class="requisites-content">
+          <div class="bg-white rounded-3xl">
+            <RequisitesCard
+              :initial-data="requisitesData"
+              @submit="handleRequisitesSubmit"
+              @cancel="handleRequisitesCancel"
+              @update="handleRequisitesUpdate"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -85,7 +82,6 @@ const {
 
 const { saveRequisites, updateRequisites } = useRequisites()
 
-// Filled investor form data
 const {
   formData: investorFormData,
   warning: investorRejectionWarning,
@@ -96,7 +92,6 @@ const handleTabClick = (tabId: string) => {
   setActiveTab(tabId)
   console.log('Tab clicked:', tabId)
   
-  // Если кликнули на вкладку "Анкета партнера", переходим на отдельную страницу
   if (tabId === 'partner') {
     router.push({ name: ROUTES.PARTNER_FORM })
   }
@@ -105,8 +100,6 @@ const handleTabClick = (tabId: string) => {
 const handleActionClick = (actionId: string) => {
   handleProfileAction(actionId)
 }
-
-
 
 const handleInvestorResubmit = async () => {
   const result = await resubmitForm()
@@ -158,6 +151,4 @@ const handleRequisitesUpdate = async () => {
 .requisites-content {
   min-height: 400px;
 }
-
-
 </style>

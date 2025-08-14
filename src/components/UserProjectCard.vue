@@ -1,9 +1,7 @@
 <template>
   <div class="user-project-card">
     <div class="project-card-content">
-      <!-- Header with Status and Toggle -->
       <div class="flex justify-between items-center mb-3">
-        <!-- Status -->
         <div class="flex items-center gap-3">
           <div class="status-dot w-3 h-3 rounded-full bg-blue-500 flex-shrink-0 shadow-sm mr-1"></div>
           <span class="text-sm text-blue-600 font-medium">
@@ -11,7 +9,6 @@
           </span>
         </div>
         
-        <!-- Toggle Switch -->
         <div class="flex items-center gap-2">
           <span class="text-sm text-gray-500">Включить проект</span>
           <v-switch
@@ -26,14 +23,12 @@
         </div>
       </div>
       
-      <!-- Title -->
       <div class="mb-2">
         <h3 class="text-lg font-semibold text-gray-800">
           {{ project.title }}
         </h3>
       </div>
       
-      <!-- Date and ID row -->
       <div class="d-flex justify-space-between align-center mb-2">
         <div class="text-sm date-id-text">
           {{ project.date }}
@@ -52,7 +47,6 @@
         </div>
       </div>
       
-      <!-- Project Link -->
       <div class="mb-3 d-flex align-center gap-1">
         <span class="text-sm text-gray-600">
           Ссылка на проект {{ project.projectLink }}
@@ -68,9 +62,7 @@
         </v-btn>
       </div>
       
-      <!-- Metrics -->
       <div class="metrics-container flex items-center mb-3">
-        <!-- Clicks -->
         <div class="flex items-center gap-2">
           <v-tooltip location="top">
             <template v-slot:activator="{ props }">
@@ -83,7 +75,6 @@
           </v-tooltip>
         </div>
         
-        <!-- Comments -->
         <div class="flex items-center gap-2">
           <v-tooltip location="top">
             <template v-slot:activator="{ props }">
@@ -97,7 +88,6 @@
         </div>
       </div>
       
-      <!-- Action Button -->
       <div class="flex justify-end">
         <v-btn
           variant="outlined"
@@ -139,12 +129,9 @@ const handleToggleChange = (value: boolean) => {
   emit('toggle', props.project.id, value)
 }
 
-
-
 const copyToClipboard = async (text: string, message: string) => {
   try {
     await navigator.clipboard.writeText(text)
-    // В реальном приложении здесь можно показать уведомление
     console.log(message)
   } catch (err) {
     console.error('Failed to copy to clipboard:', err)
@@ -166,12 +153,12 @@ const copyToClipboard = async (text: string, message: string) => {
   background-color: white;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 16px; /* Уменьшили с 24px до 16px */
+  padding: 16px;
   height: 100%;
 }
 
 .date-id-text {
-  color: #9ca3af !important; /* Блеклый серый цвет */
+  color: #9ca3af !important;
 }
 
 .edit-btn {

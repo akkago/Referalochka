@@ -23,7 +23,6 @@ const emit = defineEmits<{
   addProject: []
 }>()
 
-// Methods
 const handleSearch = (query: string) => {
   emit('search', query)
 }
@@ -57,22 +56,22 @@ const handleAddProject = () => {
 .filters-row {
   display: flex;
   align-items: center;
-  gap: 16px; /* Отступы между элементами */
-  flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+  gap: 16px;
+  flex-wrap: nowrap;
 }
 
 .search-input {
-  min-width: 350px !important; /* Немного уменьшаем для размещения всех элементов */
+  min-width: 350px !important;
   max-width: 350px !important;
 }
 
 .filter-select {
-  min-width: 160px !important; /* Немного уменьшаем ширину */
+  min-width: 160px !important;
   max-width: 160px !important;
 }
 
 .filter-btn {
-  min-width: 160px !important; /* Немного уменьшаем ширину */
+  min-width: 160px !important;
   max-width: 160px !important;
   justify-content: flex-start !important;
 }
@@ -81,7 +80,7 @@ const handleAddProject = () => {
   margin-left: auto !important;
   background-color: #7587F4 !important;
   color: white !important;
-  white-space: nowrap !important; /* Запрещаем перенос текста в кнопке */
+  white-space: nowrap !important;
 }
 
 .add-project-btn:hover {

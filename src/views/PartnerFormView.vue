@@ -1,15 +1,13 @@
 <template>
   <div class="partner-form-view">
     <div class="pa-6">
-             <!-- Form Content -->
-       <div>
-         <!-- Tabs -->
-         <div class="mb-8">
-           <v-tabs
-             v-model="activeTab"
-             color="primary"
-             class="border-b border-gray-200"
-           >
+      <div>
+        <div class="mb-8">
+          <v-tabs
+            v-model="activeTab"
+            color="primary"
+            class="border-b border-gray-200"
+          >
             <v-tab
               value="investor"
               class="text-sm font-medium"
@@ -33,10 +31,9 @@
           </v-tabs>
         </div>
 
-                 <!-- Partner Form -->
-         <div class="bg-white rounded-3xl">
-           <PartnerFormCard @submit="handleSubmit" />
-         </div>
+        <div class="bg-white rounded-3xl">
+          <PartnerFormCard @submit="handleSubmit" />
+        </div>
       </div>
     </div>
   </div>
@@ -62,7 +59,6 @@ const navigateToInvestor = () => {
 }
 
 const navigateToRequisites = () => {
-  // Пока просто возвращаемся в профиль
   router.push({ name: ROUTES.PROFILE })
 }
 </script>

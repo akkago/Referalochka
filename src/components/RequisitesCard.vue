@@ -1,13 +1,12 @@
 <template>
   <div class="requisites-card">
-    <!-- Delete Modal -->
     <DeleteRequisitesModal
       :config="deleteModalConfig"
       @confirm="handleDeleteConfirm"
       @cancel="handleDeleteCancel"
       @close="handleDeleteClose"
     />
-    <!-- Header with title and update button -->
+    
     <div class="flex justify-between items-center mb-8">
       <h2 class="text-2xl font-bold text-gray-800">{{ REQUISITES_SECTIONS.COMPANY }}</h2>
       <v-btn
@@ -21,7 +20,6 @@
     </div>
 
     <v-form ref="form" v-model="isFormValid" class="space-y-8">
-      <!-- Company Details Section -->
       <div class="form-section">
         <h3 class="text-xl font-semibold text-gray-800 mb-6">{{ REQUISITES_SECTIONS.COMPANY }}</h3>
         
@@ -95,7 +93,6 @@
         </div>
       </div>
 
-      <!-- Head Details Section -->
       <div class="form-section">
         <h3 class="text-xl font-semibold text-gray-800 mb-6">{{ REQUISITES_SECTIONS.HEAD }}</h3>
         
@@ -131,12 +128,10 @@
         </div>
       </div>
 
-      <!-- Bank Requisites Section -->
       <div class="form-section">
         <h3 class="text-xl font-semibold text-gray-800 mb-6">{{ REQUISITES_SECTIONS.BANK }}</h3>
         
         <div class="space-y-6">
-          <!-- Existing Bank Requisites -->
           <div
             v-for="(requisite, index) in formData.bankRequisites"
             :key="requisite.id"
@@ -144,12 +139,12 @@
           >
             <div class="flex justify-between items-start mb-4">
               <div class="flex items-center gap-3">
-                                  <v-radio
-                    v-model="defaultRequisiteId"
-                    :value="requisite.id"
-                    :label="REQUISITES_FIELD_LABELS.BANK.USE_DEFAULT"
-                    color="primary"
-                  />
+                <v-radio
+                  v-model="defaultRequisiteId"
+                  :value="requisite.id"
+                  :label="REQUISITES_FIELD_LABELS.BANK.USE_DEFAULT"
+                  color="primary"
+                />
               </div>
               
               <v-btn
@@ -203,7 +198,6 @@
             </div>
           </div>
 
-          <!-- Add New Requisite Button -->
           <div class="text-center">
             <v-btn
               color="primary"
@@ -217,7 +211,6 @@
         </div>
       </div>
 
-      <!-- Footer Buttons -->
       <div class="flex justify-end gap-4 pt-8">
         <v-btn
           variant="outlined"
@@ -277,11 +270,9 @@ const emit = defineEmits<{
   update: []
 }>()
 
-// Form state
 const form = ref()
 const isFormValid = ref(false)
 
-// Form data
 const formData = ref<RequisitesData>({
   company: {
     fullName: '',
@@ -300,13 +291,10 @@ const formData = ref<RequisitesData>({
   bankRequisites: []
 })
 
-// Default requisite tracking
 const defaultRequisiteId = ref<string>('')
 
-// Delete modal state
 const { deleteModalConfig, openDeleteModal, closeDeleteModal, setDeleteModalCallbacks } = useDeleteModal()
 
-// Initialize form data
 const initializeFormData = () => {
   if (props.initialData) {
     formData.value = JSON.parse(JSON.stringify(props.initialData))
@@ -315,7 +303,6 @@ const initializeFormData = () => {
       defaultRequisiteId.value = defaultRequisite.id
     }
   } else {
-    // Set default values from mock data
     formData.value = {
       company: {
         fullName: 'Общество с ограниченной ответственностью «Сибирский Логистический Центр»',
@@ -354,14 +341,12 @@ const initializeFormData = () => {
   }
 }
 
-// Watch for default requisite changes
 watch(defaultRequisiteId, (newValue) => {
   formData.value.bankRequisites.forEach(requisite => {
     requisite.isDefault = requisite.id === newValue
   })
 })
 
-// Methods
 const addRequisite = (): void => {
   const newRequisite: BankRequisite = {
     id: `requisite-${Date.now()}`,
@@ -402,7 +387,6 @@ const removeRequisite = (id: string): void => {
   if (index !== -1) {
     formData.value.bankRequisites.splice(index, 1)
     
-    // If we removed the default requisite, set the first one as default
     if (defaultRequisiteId.value === id && formData.value.bankRequisites.length > 0) {
       defaultRequisiteId.value = formData.value.bankRequisites[0].id
       formData.value.bankRequisites[0].isDefault = true
@@ -426,7 +410,6 @@ const cancel = (): void => {
   emit('cancel')
 }
 
-// Initialize on mount
 onMounted(() => {
   initializeFormData()
 })
@@ -455,7 +438,6 @@ onMounted(() => {
   border: 1px solid #e5e7eb;
 }
 
-/* Custom radio button styling */
 .v-radio-group {
   margin-bottom: 0;
 }

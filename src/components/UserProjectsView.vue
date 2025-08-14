@@ -1,15 +1,12 @@
 <template>
   <div class="user-projects-view">
-    <!-- Page Header - над белой панелью -->
     <div class="pa-6 pb-2">
       <h1 class="text-2xl font-bold text-gray-800">
         {{ USER_PROJECTS_SECTIONS.TITLE }}
       </h1>
     </div>
     
-    <!-- White Panel with rounded top corners -->
     <div class="white-panel">
-      <!-- Filters and Search -->
       <div class="pa-6 pb-4">
         <UserProjectFilters
           :initial-filters="filters"
@@ -18,9 +15,7 @@
         />
       </div>
       
-      <!-- Projects Grid -->
       <div class="pa-6 pt-0">
-        <!-- Loading State -->
         <div v-if="isLoading" class="flex justify-center items-center py-12">
           <v-progress-circular
             indeterminate
@@ -29,7 +24,6 @@
           />
         </div>
         
-        <!-- Empty State -->
         <div v-else-if="filteredProjects.length === 0" class="text-center py-12">
           <v-icon size="64" color="grey" class="mb-4">
             mdi-folder-open
@@ -51,7 +45,6 @@
           </v-btn>
         </div>
         
-        <!-- Projects Grid -->
         <div v-else class="grid grid-cols-2 gap-6">
           <UserProjectCard
             v-for="project in filteredProjects"
@@ -78,7 +71,6 @@ import UserProjectCard from './UserProjectCard.vue'
 
 const router = useRouter()
 
-// Composable
 const {
   isLoading,
   projects,
@@ -90,13 +82,11 @@ const {
   addProject
 } = useUserProjects()
 
-// Computed
 const searchQuery = computed(() => filters.value.search.toLowerCase())
 
 const filteredProjects = computed(() => {
   let filtered = projects.value
 
-  // Search filter
   if (searchQuery.value) {
     filtered = filtered.filter(project =>
       project.title.toLowerCase().includes(searchQuery.value) ||
@@ -104,13 +94,9 @@ const filteredProjects = computed(() => {
     )
   }
 
-  // В реальном приложении здесь были бы дополнительные фильтры
-  // по стадии, отрасли, региону и типу
-
   return filtered
 })
 
-// Methods
 const handleFiltersChange = (newFilters: ProjectFiltersState) => {
   updateFilters(newFilters)
 }
@@ -135,10 +121,8 @@ const handleToggleProject = async (projectId: string, isEnabled: boolean) => {
 
 const handleFavoriteToggle = (projectId: string) => {
   console.log('Favorite toggled for project:', projectId)
-  // Здесь будет логика изменения избранного
 }
 
-// Lifecycle
 onMounted(() => {
   loadProjects()
 })
@@ -155,14 +139,13 @@ onMounted(() => {
 
 .white-panel {
   background-color: white;
-  border-radius: 16px 16px 0 0; /* Скругленные верхние углы */
-  margin: 0 24px; /* Отступы по бокам */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Легкая тень */
-  flex: 1; /* Растягиваем панель до низа */
-  overflow-y: auto; /* Скролл только внутри панели при необходимости */
+  border-radius: 16px 16px 0 0;
+  margin: 0 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  overflow-y: auto;
 }
 
-/* Принудительное отображение по два в ряд */
 .grid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;

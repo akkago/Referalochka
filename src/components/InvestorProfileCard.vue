@@ -1,8 +1,6 @@
 <template>
   <div class="investor-profile-card">
-    <!-- Empty State (when form is not filled) -->
     <div v-if="!isFormFilled" class="text-center">
-      <!-- Status Icon -->
       <div class="mb-6">
         <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-purple-100 mb-4">
           <v-icon
@@ -15,17 +13,14 @@
         </div>
       </div>
       
-      <!-- Title -->
       <h2 class="text-3xl font-bold text-gray-800 mb-4">
         {{ currentProfile.title }}
       </h2>
       
-      <!-- Description -->
       <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
         {{ currentProfile.description }}
       </p>
       
-      <!-- Action Buttons -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <v-btn
           v-for="action in currentProfile.actions"
@@ -47,9 +42,7 @@
       </div>
     </div>
 
-    <!-- Filled State (when form is filled) -->
     <div v-else class="filled-form-content">
-      <!-- Rejection Warning -->
       <div v-if="rejectionWarning?.isVisible" class="rejection-warning mb-6">
         <div class="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
           <v-icon color="error" class="mt-1">mdi-alert-circle</v-icon>
@@ -64,207 +57,151 @@
         </div>
       </div>
 
-      <!-- Form Content -->
       <div class="space-y-8">
-        <!-- Status Line -->
         <div class="mb-6">
           <div class="text-sm text-gray-600 bg-blue-50 px-4 py-2 rounded-lg">
             Статус инвестора действителен до: 01.10.2025
           </div>
         </div>
 
-                 <!-- General Information Section -->
-         <div class="form-section">
-           <div class="flex items-start gap-8">
-             <!-- Profile Label -->
-             <div class="flex-shrink-0 pt-6 w-1/3">
-               <h3 class="text-xl font-semibold text-gray-800">
-                 Профиль
-               </h3>
-             </div>
-             
-             <!-- Form Fields -->
-             <div class="flex-1 w-2/3">
-                               <!-- Name and Surname on one line -->
-                <div class="name-surname-row">
-                  <div class="field-group flex-1">
-                    <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.NAME }}
-                    </label>
-                    <v-text-field
-                      v-model="formData.generalInfo.name"
-                      placeholder="Введите имя"
-                      type="text"
-                      variant="outlined"
-                      density="comfortable"
-                      class="field-input"
-                    />
-                  </div>
-                  
-                  <div class="field-group flex-1">
-                    <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.SURNAME }}
-                    </label>
-                    <v-text-field
-                      v-model="formData.generalInfo.surname"
-                      placeholder="Введите фамилию"
-                      type="text"
-                      variant="outlined"
-                      density="comfortable"
-                      class="field-input"
-                    />
-                  </div>
+        <div class="form-section">
+          <div class="flex items-start gap-8">
+            <div class="flex-shrink-0 pt-6 w-1/3">
+              <h3 class="text-xl font-semibold text-gray-800">
+                Профиль
+              </h3>
+            </div>
+            
+            <div class="flex-1 w-2/3">
+              <div class="name-surname-row">
+                <div class="field-group flex-1">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.NAME }}
+                  </label>
+                  <v-text-field
+                    v-model="formData.generalInfo.name"
+                    placeholder="Введите имя"
+                    type="text"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
                 </div>
                 
-                <!-- Phone and Email on one line -->
-                <div class="phone-email-row">
-                 <div class="field-group flex-1">
-                   <label class="text-sm font-medium text-gray-700 mb-2">
-                     {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.PHONE }}
-                   </label>
-                   <v-text-field
-                     v-model="formData.generalInfo.phone"
-                     placeholder="+7-900-000-00-00"
-                     type="tel"
-                     variant="outlined"
-                     density="comfortable"
-                     class="field-input"
-                   />
-                 </div>
-                 
-                 <div class="field-group flex-1">
-                   <label class="text-sm font-medium text-gray-700 mb-2">
-                     {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.EMAIL }}
-                   </label>
-                   <v-text-field
-                     v-model="formData.generalInfo.email"
-                     placeholder="example@email.com"
-                     type="email"
-                     variant="outlined"
-                     density="comfortable"
-                     class="field-input"
-                   />
-                 </div>
-               </div>
-               
-                               <!-- Other fields in grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div class="field-group">
-                    <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.BRAND }}
-                    </label>
-                    <v-text-field
-                      v-model="formData.generalInfo.brand"
-                      placeholder="Введите название бренда"
-                      type="text"
-                      variant="outlined"
-                      density="comfortable"
-                      class="field-input"
-                    />
-                  </div>
-                  
-                  <div class="field-group">
-                    <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.COMPANY }}
-                    </label>
-                    <v-text-field
-                      v-model="formData.generalInfo.company"
-                      placeholder="Введите название компании"
-                      type="text"
-                      variant="outlined"
-                      density="comfortable"
-                      class="field-input"
-                    />
-                  </div>
-                  
-                  <div class="field-group">
-                    <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.INN }}
-                    </label>
-                    <v-text-field
-                      v-model="formData.generalInfo.inn"
-                      placeholder="Введите ИНН"
-                      type="text"
-                      variant="outlined"
-                      density="comfortable"
-                      class="field-input"
-                    />
-                  </div>
+                <div class="field-group flex-1">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.SURNAME }}
+                  </label>
+                  <v-text-field
+                    v-model="formData.generalInfo.surname"
+                    placeholder="Введите фамилию"
+                    type="text"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
                 </div>
+              </div>
+              
+              <div class="phone-email-row">
+                <div class="field-group flex-1">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.PHONE }}
+                  </label>
+                  <v-text-field
+                    v-model="formData.generalInfo.phone"
+                    placeholder="+7-900-000-00-00"
+                    type="tel"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+                
+                <div class="field-group flex-1">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.EMAIL }}
+                  </label>
+                  <v-text-field
+                    v-model="formData.generalInfo.email"
+                    placeholder="example@email.com"
+                    type="email"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="field-group">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.BRAND }}
+                  </label>
+                  <v-text-field
+                    v-model="formData.generalInfo.brand"
+                    placeholder="Введите название бренда"
+                    type="text"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+                
+                <div class="field-group">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.COMPANY }}
+                  </label>
+                  <v-text-field
+                    v-model="formData.generalInfo.company"
+                    placeholder="Введите название компании"
+                    type="text"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+                
+                <div class="field-group">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.GENERAL_INFO.INN }}
+                  </label>
+                  <v-text-field
+                    v-model="formData.generalInfo.inn"
+                    placeholder="Введите ИНН"
+                    type="text"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-                 <!-- Resources Section -->
-         <div class="form-section">
-           <div class="flex items-start gap-8">
-             <!-- Resources Label -->
-             <div class="flex-shrink-0 pt-6 w-1/3">
-               <h3 class="text-xl font-semibold text-gray-800">
-                 {{ FILLED_INVESTOR_FORM_SECTIONS.RESOURCES }}
-               </h3>
-             </div>
-             
-                           <!-- Resources Content -->
-              <div class="flex-1 w-2/3">
-                <div class="space-y-4">
-                  <!-- Existing Links as Input Fields -->
-                  <div v-if="resourceLinks.length > 0" class="space-y-4">
-                    <div
-                      v-for="(link, index) in resourceLinks"
-                      :key="index"
-                      class="flex gap-6"
-                    >
-                      <div class="field-group flex-1">
-                        <label class="text-sm font-medium text-gray-700 mb-2">
-                          {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_TYPE }}
-                        </label>
-                        <v-select
-                          v-model="link.type"
-                          :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
-                          placeholder="Выберите тип"
-                          variant="outlined"
-                          density="comfortable"
-                          class="field-input"
-                        />
-                      </div>
-                      
-                      <div class="field-group flex-1">
-                        <label class="text-sm font-medium text-gray-700 mb-2">
-                          {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_URL }}
-                        </label>
-                        <v-text-field
-                          v-model="link.url"
-                          placeholder="https://example.com"
-                          type="url"
-                          variant="outlined"
-                          density="comfortable"
-                          class="field-input"
-                        />
-                      </div>
-                      
-                      <div class="field-group flex-shrink-0 self-end">
-                        <v-btn
-                          icon
-                          variant="text"
-                          color="error"
-                          size="small"
-                          @click="removeResourceLink(index)"
-                        >
-                          <v-icon>mdi-delete</v-icon>
-                        </v-btn>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <!-- Website Type and URL on one line -->
-                  <div class="flex gap-6">
+        <div class="form-section">
+          <div class="flex items-start gap-8">
+            <div class="flex-shrink-0 pt-6 w-1/3">
+              <h3 class="text-xl font-semibold text-gray-800">
+                {{ FILLED_INVESTOR_FORM_SECTIONS.RESOURCES }}
+              </h3>
+            </div>
+            
+            <div class="flex-1 w-2/3">
+              <div class="space-y-4">
+                <div v-if="resourceLinks.length > 0" class="space-y-4">
+                  <div
+                    v-for="(link, index) in resourceLinks"
+                    :key="index"
+                    class="flex gap-6"
+                  >
                     <div class="field-group flex-1">
                       <label class="text-sm font-medium text-gray-700 mb-2">
                         {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_TYPE }}
                       </label>
                       <v-select
-                        v-model="newResourceLink.type"
+                        v-model="link.type"
                         :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
                         placeholder="Выберите тип"
                         variant="outlined"
@@ -278,7 +215,7 @@
                         {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_URL }}
                       </label>
                       <v-text-field
-                        v-model="newResourceLink.url"
+                        v-model="link.url"
                         placeholder="https://example.com"
                         type="url"
                         variant="outlined"
@@ -286,162 +223,198 @@
                         class="field-input"
                       />
                     </div>
-                  </div>
-                  
-                  <!-- Add Link Button -->
-                  <div class="flex justify-start">
-                    <v-btn
-                      color="grey"
-                      variant="outlined"
-                      size="large"
-                      class="w-full"
-                      @click="addResourceLink"
-                    >
-                      + Добавить ссылку
-                    </v-btn>
+                    
+                    <div class="field-group flex-shrink-0 self-end">
+                      <v-btn
+                        icon
+                        variant="text"
+                        color="error"
+                        size="small"
+                        @click="removeResourceLink(index)"
+                      >
+                        <v-icon>mdi-delete</v-icon>
+                      </v-btn>
+                    </div>
                   </div>
                 </div>
-              </div>
-           </div>
-         </div>
-
-                                   <!-- About Section -->
-          <div class="form-section">
-            <div class="flex items-start gap-8">
-              <!-- About Label -->
-              <div class="flex-shrink-0 pt-6 w-1/3">
-                <h3 class="text-xl font-semibold text-gray-800">
-                  {{ FILLED_INVESTOR_FORM_SECTIONS.ABOUT }}
-                </h3>
-              </div>
-              
-              <!-- About Content -->
-              <div class="flex-1 w-2/3">
-                <div class="space-y-6">
-                  <div class="field-group">
+                
+                <div class="flex gap-6">
+                  <div class="field-group flex-1">
                     <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.ABOUT.HEADLINE }}
+                      {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_TYPE }}
                     </label>
-                    <v-text-field
-                      v-model="formData.about.headline"
-                      placeholder="Краткое описание о себе"
-                      type="text"
+                    <v-select
+                      v-model="newResourceLink.type"
+                      :items="['Сайт', 'Блог', 'Социальная сеть', 'YouTube', 'Другое']"
+                      placeholder="Выберите тип"
                       variant="outlined"
                       density="comfortable"
                       class="field-input"
                     />
                   </div>
                   
-                  <div class="field-group">
+                  <div class="field-group flex-1">
                     <label class="text-sm font-medium text-gray-700 mb-2">
-                      {{ FILLED_INVESTOR_FORM_LABELS.ABOUT.DESCRIPTION }}
+                      {{ FILLED_INVESTOR_FORM_LABELS.RESOURCES.WEBSITE_URL }}
                     </label>
-                    <v-textarea
-                      v-model="formData.about.description"
-                      placeholder="Подробное описание о себе и опыте"
+                    <v-text-field
+                      v-model="newResourceLink.url"
+                      placeholder="https://example.com"
+                      type="url"
                       variant="outlined"
                       density="comfortable"
-                      rows="6"
                       class="field-input"
                     />
                   </div>
+                </div>
+                
+                <div class="flex justify-start">
+                  <v-btn
+                    color="grey"
+                    variant="outlined"
+                    size="large"
+                    class="w-full"
+                    @click="addResourceLink"
+                  >
+                    + Добавить ссылку
+                  </v-btn>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-                 <!-- Investments Section -->
-         <div class="form-section">
-           <h3 class="text-xl font-semibold text-gray-800 mb-6">
-             {{ FILLED_INVESTOR_FORM_SECTIONS.INVESTMENTS }}
-           </h3>
-           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-             <div class="field-group">
-               <label class="text-sm font-medium text-gray-700 mb-2">
-                 {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.FORMAT }}
-               </label>
-               <v-select
-                 v-model="formData.investments.format"
-                 :items="['Доля', 'Займ']"
-                 placeholder="Выберите формат"
-                 variant="outlined"
-                 density="comfortable"
-                 class="field-input"
-               />
-             </div>
-             
-             <div class="field-group">
-               <label class="text-sm font-medium text-gray-700 mb-2">
-                 {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.MIN }}
-               </label>
-               <v-text-field
-                 v-model="formData.investments.min"
-                 placeholder="Минимальная сумма"
-                 type="number"
-                 variant="outlined"
-                 density="comfortable"
-                 class="field-input"
-               />
-             </div>
-             
-             <div class="field-group">
-               <label class="text-sm font-medium text-gray-700 mb-2">
-                 {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.MAX }}
-               </label>
-               <v-text-field
-                 v-model="formData.investments.max"
-                 placeholder="Максимальная сумма"
-                 type="number"
-                 variant="outlined"
-                 density="comfortable"
-                 class="field-input"
-               />
-             </div>
-           </div>
-         </div>
+        <div class="form-section">
+          <div class="flex items-start gap-8">
+            <div class="flex-shrink-0 pt-6 w-1/3">
+              <h3 class="text-xl font-semibold text-gray-800">
+                {{ FILLED_INVESTOR_FORM_SECTIONS.ABOUT }}
+              </h3>
+            </div>
+            
+            <div class="flex-1 w-2/3">
+              <div class="space-y-6">
+                <div class="field-group">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.ABOUT.HEADLINE }}
+                  </label>
+                  <v-text-field
+                    v-model="formData.about.headline"
+                    placeholder="Краткое описание о себе"
+                    type="text"
+                    variant="outlined"
+                    density="comfortable"
+                    class="field-input"
+                  />
+                </div>
+                
+                <div class="field-group">
+                  <label class="text-sm font-medium text-gray-700 mb-2">
+                    {{ FILLED_INVESTOR_FORM_LABELS.ABOUT.DESCRIPTION }}
+                  </label>
+                  <v-textarea
+                    v-model="formData.about.description"
+                    placeholder="Подробное описание о себе и опыте"
+                    variant="outlined"
+                    density="comfortable"
+                    rows="6"
+                    class="field-input"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                 <!-- Categories Section -->
-         <div class="form-section">
-           <h3 class="text-xl font-semibold text-gray-800 mb-6">
-             {{ FILLED_INVESTOR_FORM_SECTIONS.CATEGORIES }}
-           </h3>
-           <div class="space-y-6">
-             <div class="field-group">
-               <label class="text-sm font-medium text-gray-700 mb-2">
-                 {{ FILLED_INVESTOR_FORM_LABELS.CATEGORIES.TAGS }}
-               </label>
-               <v-textarea
-                 v-model="formData.categories.tags"
-                 placeholder="Ключевые слова по вашей тематике"
-                 variant="outlined"
-                 density="comfortable"
-                 rows="4"
-                 class="field-input"
-               />
-             </div>
-             
-             <div class="field-group">
-               <label class="text-sm font-medium text-gray-700 mb-2">
-                 {{ FILLED_INVESTOR_FORM_LABELS.CATEGORIES.CATEGORIES }}
-               </label>
-               <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                 <div class="space-y-2">
-                   <v-checkbox
-                     v-for="category in INVESTMENT_CATEGORIES"
-                     :key="category"
-                     v-model="formData.categories.selectedCategories"
-                     :value="category"
-                     :label="category"
-                     color="primary"
-                   />
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
+        <div class="form-section">
+          <h3 class="text-xl font-semibold text-gray-800 mb-6">
+            {{ FILLED_INVESTOR_FORM_SECTIONS.INVESTMENTS }}
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="field-group">
+              <label class="text-sm font-medium text-gray-700 mb-2">
+                {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.FORMAT }}
+              </label>
+              <v-select
+                v-model="formData.investments.format"
+                :items="['Доля', 'Займ']"
+                placeholder="Выберите формат"
+                variant="outlined"
+                density="comfortable"
+                class="field-input"
+              />
+            </div>
+            
+            <div class="field-group">
+              <label class="text-sm font-medium text-gray-700 mb-2">
+                {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.MIN }}
+              </label>
+              <v-text-field
+                v-model="formData.investments.min"
+                placeholder="Минимальная сумма"
+                type="number"
+                variant="outlined"
+                density="comfortable"
+                class="field-input"
+              />
+            </div>
+            
+            <div class="field-group">
+              <label class="text-sm font-medium text-gray-700 mb-2">
+                {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.MAX }}
+              </label>
+              <v-text-field
+                v-model="formData.investments.max"
+                placeholder="Максимальная сумма"
+                type="number"
+                variant="outlined"
+                density="comfortable"
+                class="field-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="text-xl font-semibold text-gray-800 mb-6">
+            {{ FILLED_INVESTOR_FORM_SECTIONS.CATEGORIES }}
+          </h3>
+          <div class="space-y-6">
+            <div class="field-group">
+              <label class="text-sm font-medium text-gray-700 mb-2">
+                {{ FILLED_INVESTOR_FORM_LABELS.CATEGORIES.TAGS }}
+              </label>
+              <v-textarea
+                v-model="formData.categories.tags"
+                placeholder="Ключевые слова по вашей тематике"
+                variant="outlined"
+                density="comfortable"
+                rows="4"
+                class="field-input"
+              />
+            </div>
+            
+            <div class="field-group">
+              <label class="text-sm font-medium text-gray-700 mb-2">
+                {{ FILLED_INVESTOR_FORM_LABELS.CATEGORIES.CATEGORIES }}
+              </label>
+              <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                <div class="space-y-2">
+                  <v-checkbox
+                    v-for="category in INVESTMENT_CATEGORIES"
+                    :key="category"
+                    v-model="formData.categories.selectedCategories"
+                    :value="category"
+                    :label="category"
+                    color="primary"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Action Buttons -->
       <div class="flex justify-end gap-4 pt-8 border-t border-gray-200">
         <v-btn
           color="primary"
@@ -466,7 +439,6 @@ import {
   INVESTMENT_CATEGORIES,
   REJECTION_WARNING
 } from '@/constants/investorForm'
-import { formatCurrency } from '@/utils/formatters'
 
 interface Props {
   formData?: FilledInvestorFormData
@@ -487,7 +459,6 @@ const emit = defineEmits<Emits>()
 
 const { currentProfile } = useProfile()
 
-// Resource links management
 const newResourceLink = ref({
   type: '',
   url: ''
@@ -495,7 +466,6 @@ const newResourceLink = ref({
 
 const resourceLinks = ref<Array<{ type: string; url: string }>>([])
 
-// Determine if form is filled based on whether formData is provided
 const isFormFilled = computed(() => {
   return !!props.formData
 })
@@ -515,7 +485,6 @@ const addResourceLink = (): void => {
       type: newResourceLink.value.type,
       url: newResourceLink.value.url
     })
-    // Очищаем поля после добавления
     newResourceLink.value.type = ''
     newResourceLink.value.url = ''
   }
@@ -531,12 +500,10 @@ const removeResourceLink = (index: number): void => {
   padding: 2rem;
 }
 
-/* Custom purple background for icon */
 .bg-purple-100 {
   background-color: #f3e8ff;
 }
 
-/* Filled form styles */
 .filled-form-content {
   min-height: 400px;
 }
@@ -559,7 +526,6 @@ const removeResourceLink = (index: number): void => {
   width: 100%;
 }
 
-/* Custom row styles for better spacing */
 .name-surname-row,
 .phone-email-row {
   display: flex;

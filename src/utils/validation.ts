@@ -1,16 +1,13 @@
-// Валидация email
 export const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
 }
 
-// Валидация телефона (российский формат)
 export const validatePhone = (phone: string): boolean => {
   const phoneRegex = /^\+7\s?\(\d{3}\)\s?\d{3}-\d{2}-\d{2}$/
   return phoneRegex.test(phone)
 }
 
-// Валидация даты (формат ДД.ММ.ГГГГ)
 export const validateDate = (date: string): boolean => {
   const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/
   if (!dateRegex.test(date)) return false
@@ -23,22 +20,18 @@ export const validateDate = (date: string): boolean => {
          dateObj.getFullYear() === year
 }
 
-// Валидация серии паспорта (4 цифры)
 export const validatePassportSeries = (series: string): boolean => {
   return /^\d{4}$/.test(series)
 }
 
-// Валидация номера паспорта (6 цифр)
 export const validatePassportNumber = (number: string): boolean => {
   return /^\d{6}$/.test(number)
 }
 
-// Валидация почтового индекса (6 цифр)
 export const validatePostalCode = (code: string): boolean => {
   return /^\d{6}$/.test(code)
 }
 
-// Валидация URL
 export const validateUrl = (url: string): boolean => {
   try {
     new URL(url)
@@ -48,27 +41,23 @@ export const validateUrl = (url: string): boolean => {
   }
 }
 
-// Валидация ИНН
 export const validateInn = (inn: string): boolean => {
-  return /^\d{10}(\d{2})?$/.test(inn) // 10 или 12 цифр
+  return /^\d{10}(\d{2})?$/.test(inn)
 }
 
-// Валидация обязательного поля
 export const validateRequired = (value: any): boolean => {
   return value !== null && value !== undefined && value !== ''
 }
 
-// Валидация файла
 export const validateFile = (file: File | null): boolean => {
   if (!file) return false
   
-  const maxSize = 10 * 1024 * 1024 // 10MB
+  const maxSize = 10 * 1024 * 1024
   const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
   
   return file.size <= maxSize && allowedTypes.includes(file.type)
 }
 
-// Получение сообщения об ошибке
 export const getErrorMessage = (fieldName: string, validationType: string): string => {
   const messages: Record<string, string> = {
     required: `${fieldName} обязателен`,
@@ -86,7 +75,6 @@ export const getErrorMessage = (fieldName: string, validationType: string): stri
   return messages[validationType] || 'Некорректное значение'
 }
 
-// Создание правила валидации
 export const createValidationRule = (validationType: string, fieldName: string) => {
   return (value: any) => {
     if (!validateRequired(value)) {

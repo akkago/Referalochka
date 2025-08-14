@@ -75,7 +75,6 @@ const handleAddProject = () => {
   emit('add-project')
 }
 
-// Watch for external filter changes
 watch(() => props.initialFilters, (newFilters) => {
   if (newFilters) {
     Object.assign(filters, newFilters)
@@ -91,18 +90,18 @@ watch(() => props.initialFilters, (newFilters) => {
 .filters-row {
   display: flex;
   align-items: center;
-  gap: 16px; /* Отступы между элементами */
-  flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+  gap: 16px;
+  flex-wrap: nowrap;
   width: 100%;
 }
 
 .search-input {
-  flex: 2 !important; /* Занимает в 2 раза больше пространства */
+  flex: 2 !important;
   min-width: 300px !important;
 }
 
 .filter-select {
-  flex: 1 !important; /* Занимает доступное пространство */
+  flex: 1 !important;
   min-width: 120px !important;
 }
 
@@ -110,7 +109,7 @@ watch(() => props.initialFilters, (newFilters) => {
   margin-left: auto !important;
   background-color: #7587F4 !important;
   color: white !important;
-  white-space: nowrap !important; /* Запрещаем перенос текста в кнопке */
+  white-space: nowrap !important;
 }
 
 .add-project-btn:hover {

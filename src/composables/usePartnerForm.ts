@@ -4,12 +4,10 @@ import { partnerForm, partnerResourceLinks, partnerCategories } from '@/data/moc
 import { createValidationRule } from '@/utils/validation'
 
 export function usePartnerForm() {
-  // Form validation
   const form = ref()
   const isFormValid = ref(false)
   const activeTab = ref('partner')
 
-  // Form data
   const formData = reactive<Record<string, any>>({
     name: '',
     surname: '',
@@ -23,15 +21,12 @@ export function usePartnerForm() {
     tags: ''
   })
 
-  // Resource links
   const resourceLinksData = ref<PartnerResourceLink[]>([...partnerResourceLinks])
   const newLinkType = ref('')
   const newLinkUrl = ref('')
 
-  // Partner categories
   const categoriesData = ref<PartnerCategory[]>([...partnerCategories])
 
-  // Field validation rules
   const getFieldRules = (field: any) => {
     const rules: any[] = []
     
@@ -46,7 +41,6 @@ export function usePartnerForm() {
     return rules
   }
 
-  // Add new resource link
   const addLink = () => {
     if (newLinkType.value && newLinkUrl.value) {
       resourceLinksData.value.push({
@@ -59,7 +53,6 @@ export function usePartnerForm() {
     }
   }
 
-  // Remove resource link
   const removeLink = (id: string) => {
     const index = resourceLinksData.value.findIndex(link => link.id === id)
     if (index > -1) {
@@ -67,7 +60,6 @@ export function usePartnerForm() {
     }
   }
 
-  // Form submission
   const handleSubmit = async () => {
     const { valid } = await form.value.validate()
     
@@ -85,7 +77,6 @@ export function usePartnerForm() {
     return { success: false, data: null }
   }
 
-  // Reset form
   const resetForm = () => {
     Object.keys(formData).forEach(key => {
       formData[key] = ''
@@ -99,7 +90,6 @@ export function usePartnerForm() {
     }
   }
 
-  // Get form progress
   const getFormProgress = computed(() => {
     const totalFields = partnerForm.sections.reduce((total, section) => {
       return total + section.fields.length
@@ -112,7 +102,6 @@ export function usePartnerForm() {
     return Math.round((filledFields / totalFields) * 100)
   })
 
-  // Check if section is complete
   const isSectionComplete = (sectionId: string) => {
     const section = partnerForm.sections.find(s => s.id === sectionId)
     if (!section) return false
@@ -127,7 +116,6 @@ export function usePartnerForm() {
   }
 
   return {
-    // State
     form,
     isFormValid,
     formData,
@@ -137,11 +125,7 @@ export function usePartnerForm() {
     newLinkType,
     newLinkUrl,
     categoriesData,
-
-    // Computed
     getFormProgress,
-
-    // Methods
     getFieldRules,
     addLink,
     removeLink,
