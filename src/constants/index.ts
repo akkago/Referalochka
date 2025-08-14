@@ -114,3 +114,44 @@ export const TRANSITION_COST_SETTINGS = {
     }
   }
 } as const
+
+export const PROJECT_FILTERS = {
+  STAGE: 'Стадия проекта',
+  INDUSTRY: 'Отрасль',
+  REGION: 'Регион',
+  TYPE: 'Тип'
+} as const
+
+export const PROJECT_STAGES = [
+  'Все стадии',
+  'Идея',
+  'Разработка',
+  'Запуск',
+  'Масштабирование'
+] as const
+
+export const PROJECT_INDUSTRIES = [
+  'Все отрасли',
+  'Промышленность',
+  'Экология',
+  'Технологии',
+  'Услуги',
+  'Образование',
+  'Здоровье'
+] as const
+
+export const PROJECT_REGIONS = [
+  'Все регионы',
+  'Москва',
+  'Санкт-Петербург',
+  'Казань',
+  'Екатеринбург',
+  'Новосибирск'
+] as const
+
+export const PROJECT_TYPES = [
+  'Все типы',
+  'Стартап',
+  'Бизнес',
+  'Инновации'
+] as const

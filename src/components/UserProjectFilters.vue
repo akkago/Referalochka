@@ -1,89 +1,22 @@
 <template>
-  <div class="filters-container">
-    <div class="filters-row">
-      <!-- Search -->
-      <v-text-field
-        v-model="filters.search"
-        :placeholder="USER_PROJECTS_SECTIONS.SEARCH_PLACEHOLDER"
-        prepend-inner-icon="mdi-magnify"
-        variant="outlined"
-        density="compact"
-        hide-details
-        class="search-input"
-        @update:model-value="handleSearchChange"
-      />
-      
-      <!-- Stage Filter -->
-      <v-select
-        v-model="filters.stage"
-        :items="PROJECT_STAGES"
-        :label="USER_PROJECTS_FILTERS.STAGE"
-        variant="outlined"
-        density="compact"
-        hide-details
-        class="filter-select"
-        @update:model-value="handleFilterChange"
-      />
-      
-      <!-- Industry Filter -->
-      <v-select
-        v-model="filters.industry"
-        :items="PROJECT_INDUSTRIES"
-        :label="USER_PROJECTS_FILTERS.INDUSTRY"
-        variant="outlined"
-        density="compact"
-        hide-details
-        class="filter-select"
-        @update:model-value="handleFilterChange"
-      />
-      
-      <!-- Region Filter -->
-      <v-select
-        v-model="filters.region"
-        :items="PROJECT_REGIONS"
-        :label="USER_PROJECTS_FILTERS.REGION"
-        variant="outlined"
-        density="compact"
-        hide-details
-        class="filter-select"
-        @update:model-value="handleFilterChange"
-      />
-      
-      <!-- Type Filter -->
-      <v-select
-        v-model="filters.type"
-        :items="PROJECT_TYPES"
-        :label="USER_PROJECTS_FILTERS.TYPE"
-        variant="outlined"
-        density="compact"
-        hide-details
-        class="filter-select"
-        @update:model-value="handleFilterChange"
-      />
-      
-      <!-- Add Project Button -->
-      <v-btn
-        color="primary"
-        class="add-project-btn"
-        @click="handleAddProject"
-      >
-        {{ USER_PROJECTS_SECTIONS.ADD_PROJECT }}
-      </v-btn>
-    </div>
-  </div>
+  <CommonProjectFilters
+    :search-placeholder="USER_PROJECTS_SECTIONS.SEARCH_PLACEHOLDER"
+    :add-button-text="USER_PROJECTS_SECTIONS.ADD_PROJECT"
+    :initial-filters="filters"
+    @search="handleSearchChange"
+    @stage-change="handleStageChange"
+    @industry-change="handleIndustryChange"
+    @region-change="handleRegionChange"
+    @type-change="handleTypeChange"
+    @add-project="handleAddProject"
+  />
 </template>
 
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
 import type { ProjectFiltersState } from '@/types'
-import {
-  USER_PROJECTS_SECTIONS,
-  USER_PROJECTS_FILTERS,
-  PROJECT_STAGES,
-  PROJECT_INDUSTRIES,
-  PROJECT_REGIONS,
-  PROJECT_TYPES
-} from '@/constants/userProjects'
+import { USER_PROJECTS_SECTIONS } from '@/constants/userProjects'
+import CommonProjectFilters from './CommonProjectFilters.vue'
 
 interface Props {
   initialFilters?: Partial<ProjectFiltersState>
@@ -102,19 +35,35 @@ const emit = defineEmits<Emits>()
 
 const filters = reactive<ProjectFiltersState>({
   search: '',
-  stage: PROJECT_STAGES[0],
-  industry: PROJECT_INDUSTRIES[0],
-  region: PROJECT_REGIONS[0],
-  type: PROJECT_TYPES[0],
+  stage: '',
+  industry: '',
+  region: '',
+  type: '',
   ...props.initialFilters
 })
 
-const handleSearchChange = (value: string) => {
-  filters.search = value
+const handleSearchChange = (query: string) => {
+  filters.search = query
   emitFiltersChange()
 }
 
-const handleFilterChange = () => {
+const handleStageChange = (stage: string) => {
+  filters.stage = stage
+  emitFiltersChange()
+}
+
+const handleIndustryChange = (industry: string) => {
+  filters.industry = industry
+  emitFiltersChange()
+}
+
+const handleRegionChange = (region: string) => {
+  filters.region = region
+  emitFiltersChange()
+}
+
+const handleTypeChange = (type: string) => {
+  filters.type = type
   emitFiltersChange()
 }
 
@@ -144,16 +93,17 @@ watch(() => props.initialFilters, (newFilters) => {
   align-items: center;
   gap: 16px; /* Отступы между элементами */
   flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+  width: 100%;
 }
 
 .search-input {
-  min-width: 350px !important; /* Ширина поля поиска */
-  max-width: 350px !important;
+  flex: 2 !important; /* Занимает в 2 раза больше пространства */
+  min-width: 300px !important;
 }
 
 .filter-select {
-  min-width: 160px !important; /* Ширина селектов */
-  max-width: 160px !important;
+  flex: 1 !important; /* Занимает доступное пространство */
+  min-width: 120px !important;
 }
 
 .add-project-btn {

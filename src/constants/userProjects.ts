@@ -4,13 +4,6 @@ export const USER_PROJECTS_SECTIONS = {
   SEARCH_PLACEHOLDER: 'Поиск'
 } as const
 
-export const USER_PROJECTS_FILTERS = {
-  STAGE: 'Стадия проекта',
-  INDUSTRY: 'Отрасль',
-  REGION: 'Регион',
-  TYPE: 'Тип'
-} as const
-
 export const USER_PROJECT_STATUSES = {
   MODERATION: {
     value: 'moderation',
@@ -47,36 +40,4 @@ export const USER_PROJECT_METRICS = {
   SHARES: 'Количество комментариев'
 } as const
 
-export const PROJECT_STAGES = [
-  'Все стадии',
-  'Идея',
-  'Разработка',
-  'Запуск',
-  'Масштабирование'
-] as const
 
-export const PROJECT_INDUSTRIES = [
-  'Все отрасли',
-  'Промышленность',
-  'Экология',
-  'Технологии',
-  'Услуги',
-  'Образование',
-  'Здоровье'
-] as const
-
-export const PROJECT_REGIONS = [
-  'Все регионы',
-  'Москва',
-  'Санкт-Петербург',
-  'Казань',
-  'Екатеринбург',
-  'Новосибирск'
-] as const
-
-export const PROJECT_TYPES = [
-  'Все типы',
-  'Стартап',
-  'Бизнес',
-  'Инновации'
-] as const
