@@ -7,6 +7,13 @@ export function useUser(user: User) {
     return formatCurrency(user.balance)
   })
 
+  const formattedBalanceWithoutSymbol = computed(() => {
+    return new Intl.NumberFormat('ru-RU', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(user.balance)
+  })
+
   const userTypeLabel = computed(() => {
     return user.type === 'individual' ? 'Физическое лицо' : 'Юридическое лицо'
   })
@@ -17,6 +24,7 @@ export function useUser(user: User) {
 
   return {
     formattedBalance,
+    formattedBalanceWithoutSymbol,
     userTypeLabel,
     userInitials
   }

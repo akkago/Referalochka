@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
-    <div class="d-flex align-center gap-4 flex-wrap">
+    <div class="d-flex align-center gap-2 flex-wrap">
       <!-- Search -->
       <v-text-field
         v-model="searchQuery"

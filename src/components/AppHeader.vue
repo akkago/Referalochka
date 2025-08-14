@@ -6,14 +6,32 @@
   >
     <v-spacer />
     
-    <div class="d-flex align-center gap-4">
-      <!-- Balance -->
-      <div class="text-right">
-        <div class="text-sm text-gray-500">Баланс</div>
+    <div class="d-flex align-center gap-3">
+      <!-- Balance (first) with icon -->
+      <div class="d-flex align-center gap-2">
+        <v-icon size="20" class="text-gray-600">mdi-wallet</v-icon>
         <div class="text-lg font-semibold text-gray-800">
-          {{ formattedBalance }} ₽
+          {{ formattedBalance }}
         </div>
       </div>
+      
+      <!-- Balance (second - duplicate) with icon -->
+      <div class="d-flex align-center gap-2">
+        <v-icon size="20" class="text-gray-600">mdi-currency-rub</v-icon>
+        <div class="text-lg font-semibold text-gray-800">
+          {{ formattedBalanceWithoutSymbol }} P
+        </div>
+      </div>
+      
+      <!-- Heart Icon -->
+      <v-btn
+        icon
+        variant="text"
+        size="small"
+        class="text-gray-600"
+      >
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
       
       <!-- Notifications -->
       <v-btn
@@ -25,8 +43,8 @@
         <v-icon>mdi-bell</v-icon>
       </v-btn>
       
-      <!-- User Avatar -->
-      <div class="d-flex align-center gap-3">
+      <!-- User Profile with Dropdown -->
+      <div class="d-flex align-center gap-2">
         <v-avatar
           size="40"
           color="blue"
@@ -43,6 +61,16 @@
             {{ userTypeLabel }}
           </div>
         </div>
+        
+        <!-- Dropdown Arrow -->
+        <v-btn
+          icon
+          variant="text"
+          size="small"
+          class="text-gray-600"
+        >
+          <v-icon>mdi-chevron-down</v-icon>
+        </v-btn>
       </div>
     </div>
   </v-app-bar>
@@ -57,5 +85,5 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { formattedBalance, userTypeLabel, userInitials } = useUser(props.user)
+const { formattedBalance, formattedBalanceWithoutSymbol, userTypeLabel, userInitials } = useUser(props.user)
 </script>
