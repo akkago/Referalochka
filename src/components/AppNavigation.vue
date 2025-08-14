@@ -9,7 +9,8 @@
       <div class="d-flex justify-space-between align-center mb-6">
         <div 
           v-if="!isCollapsed" 
-          class="text-h6 font-bold text-gray-800"
+          class="app-title cursor-pointer hover:text-blue-600 transition-colors"
+          @click="goToHome"
         >
           {{ APP_NAME }}
         </div>
@@ -123,9 +124,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useNavigation } from '@/composables/useNavigation'
-import { APP_NAME } from '@/constants'
+import { APP_NAME, ROUTES } from '@/constants'
 
+const router = useRouter()
 const { updatedNavigationItems, navigateTo } = useNavigation()
 
 const isCollapsed = ref(false)
@@ -147,6 +150,10 @@ const handleNavigationClick = (id: string) => {
   navigateTo(id)
 }
 
+const goToHome = () => {
+  router.push({ name: ROUTES.PROJECTS })
+}
+
 const toggleCollapse = () => {
   isCollapsed.value = !isCollapsed.value
   // Сохраняем состояние в localStorage
@@ -163,6 +170,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #7587F4;
+}
+
 .v-list-item {
   min-height: 48px;
   padding: 12px 16px;
