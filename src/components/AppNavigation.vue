@@ -4,7 +4,7 @@
     class="bg-white border-r border-gray-200 transition-all duration-300"
     :width="isCollapsed ? 80 : 280"
   >
-    <div class="pa-4">
+    <div class="pa-4 d-flex flex-column h-100">
       <!-- Header with collapse button -->
       <div class="d-flex justify-space-between align-center mb-6">
         <div 
@@ -28,11 +28,12 @@
         </v-btn>
       </div>
       
-      <nav class="space-y-2">
+      <!-- Main Navigation -->
+      <nav class="space-y-2 flex-grow-1">
         <!-- Развёрнутое состояние -->
         <v-list-item
           v-if="!isCollapsed"
-          v-for="item in updatedNavigationItems"
+          v-for="item in mainNavigationItems"
           :key="item.id"
           :class="[
             'rounded-lg mb-1 transition-all duration-200',
@@ -59,7 +60,48 @@
         <!-- Свёрнутое состояние -->
         <div
           v-if="isCollapsed"
-          v-for="item in updatedNavigationItems"
+          v-for="item in mainNavigationItems"
+          :key="`collapsed-${item.id}`"
+          :class="[
+            'collapsed-nav-item rounded-lg mb-1 transition-all duration-200 cursor-pointer',
+            item.isActive 
+              ? 'bg-blue-50 text-blue-600' 
+              : 'text-gray-600 hover:bg-gray-50'
+          ]"
+          :title="item.title"
+          @click="handleNavigationClick(item.id)"
+        >
+          <v-icon size="20">
+            {{ item.icon }}
+          </v-icon>
+        </div>
+      </nav>
+      
+      <!-- Bottom Navigation -->
+      <nav class="space-y-2 mt-auto">
+        <!-- Развёрнутое состояние -->
+        <v-list-item
+          v-if="!isCollapsed"
+          v-for="item in bottomNavigationItems"
+          :key="item.id"
+          :class="[
+            'rounded-lg mb-1 transition-all duration-200',
+            item.isActive 
+              ? 'bg-blue-50 text-blue-600' 
+              : 'text-gray-600 hover:bg-gray-50'
+          ]"
+          :prepend-icon="item.icon"
+          @click="handleNavigationClick(item.id)"
+        >
+          <v-list-item-title>
+            {{ item.title }}
+          </v-list-item-title>
+        </v-list-item>
+        
+        <!-- Свёрнутое состояние -->
+        <div
+          v-if="isCollapsed"
+          v-for="item in bottomNavigationItems"
           :key="`collapsed-${item.id}`"
           :class="[
             'collapsed-nav-item rounded-lg mb-1 transition-all duration-200 cursor-pointer',
@@ -80,13 +122,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useNavigation } from '@/composables/useNavigation'
 import { APP_NAME } from '@/constants'
 
 const { updatedNavigationItems, navigateTo } = useNavigation()
 
 const isCollapsed = ref(false)
+
+// Разделяем элементы навигации на основные и нижние
+const mainNavigationItems = computed(() => {
+  return updatedNavigationItems.value.filter(item => 
+    !['help', 'settings'].includes(item.id)
+  )
+})
+
+const bottomNavigationItems = computed(() => {
+  return updatedNavigationItems.value.filter(item => 
+    ['help', 'settings'].includes(item.id)
+  )
+})
 
 const handleNavigationClick = (id: string) => {
   navigateTo(id)
