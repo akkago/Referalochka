@@ -12,26 +12,38 @@ export function useNavigation() {
   
   // Computed
   const activeNavigationItem = computed(() => {
-    return navigationItems.find(item => {
-      if (currentRoute.value === ROUTES.PROJECTS) {
-        return item.id === 'search'
-      }
-      if (currentRoute.value === ROUTES.USER_PROJECTS) {
-        return item.id === 'my-projects'
-      }
-      if (currentRoute.value === ROUTES.PROFILE) {
-        return item.id === 'profile'
-      }
-
-      return item.isActive
-    })
+    // Если мы на главной странице проектов, активен поиск
+    if (currentRoute.value === ROUTES.PROJECTS || currentRoute.value === undefined) {
+      return navigationItems.find(item => item.id === 'search')
+    }
+    
+    // Для других маршрутов
+    const routeToItemMap: Record<string, string> = {
+      [ROUTES.USER_PROJECTS]: 'my-projects',
+      [ROUTES.PROFILE]: 'profile',
+      [ROUTES.DOCUMENTS]: 'documents',
+      [ROUTES.EMPLOYEES]: 'employees'
+    }
+    
+    const targetItemId = routeToItemMap[currentRoute.value]
+    if (targetItemId) {
+      return navigationItems.find(item => item.id === targetItemId)
+    }
+    
+    // По умолчанию возвращаем первый элемент
+    return navigationItems[0]
   })
   
   const updatedNavigationItems = computed(() => {
-    return navigationItems.map(item => ({
-      ...item,
-      isActive: item.id === activeNavigationItem.value?.id
-    }))
+    const activeItem = activeNavigationItem.value
+    
+    return navigationItems.map(item => {
+      const isActive = item.id === activeItem?.id
+      return {
+        ...item,
+        isActive
+      }
+    })
   })
   
   // Methods
@@ -46,9 +58,14 @@ export function useNavigation() {
       case 'profile':
         router.push({ name: ROUTES.PROFILE })
         break
+      case 'documents':
+        router.push({ name: ROUTES.DOCUMENTS })
+        break
+      case 'employees':
+        router.push({ name: ROUTES.EMPLOYEES })
+        break
 
       default:
-        console.log('Navigation to:', itemId)
         // Здесь можно добавить другие маршруты
     }
   }

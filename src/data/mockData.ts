@@ -14,8 +14,7 @@ export const navigationItems: NavigationItem[] = [
   {
     id: 'search',
     title: 'Поиск проектов',
-    icon: 'mdi-magnify',
-    isActive: true
+    icon: 'mdi-magnify'
   },
   {
     id: 'my-projects',

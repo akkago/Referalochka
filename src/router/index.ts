@@ -9,6 +9,8 @@ import UserProjectsView from '@/views/UserProjectsView.vue'
 import AddProjectView from '@/views/AddProjectView.vue'
 import EditProjectView from '@/views/EditProjectView.vue'
 import TransitionCostSettingsView from '@/views/TransitionCostSettingsView.vue'
+import DocumentsView from '@/views/DocumentsView.vue'
+import EmployeesView from '@/views/EmployeesView.vue'
 import { ROUTES } from '@/constants'
 
 const router = createRouter({
@@ -92,6 +94,22 @@ const router = createRouter({
       component: RequisitesView,
       meta: {
         title: 'Реквизиты'
+      }
+    },
+    {
+      path: '/documents',
+      name: ROUTES.DOCUMENTS,
+      component: DocumentsView,
+      meta: {
+        title: 'Документы'
+      }
+    },
+    {
+      path: '/employees',
+      name: ROUTES.EMPLOYEES,
+      component: EmployeesView,
+      meta: {
+        title: 'Сотрудники'
       }
     },
     {

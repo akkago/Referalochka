@@ -96,7 +96,6 @@ const toggleCollapse = () => {
   isCollapsed.value = !isCollapsed.value
   // Сохраняем состояние в localStorage
   localStorage.setItem('sidebarCollapsed', isCollapsed.value.toString())
-  console.log('Toggle collapse:', isCollapsed.value)
 }
 
 // Загружаем состояние при монтировании компонента
@@ -116,6 +115,21 @@ onMounted(() => {
 
 .v-list-item:hover {
   transform: translateX(2px);
+}
+
+/* Принудительные стили для активного элемента в развёрнутом состоянии */
+.v-navigation-drawer:deep(.v-list-item.bg-blue-50) {
+  background-color: #eff6ff !important; /* bg-blue-50 */
+  color: #2563eb !important; /* text-blue-600 */
+  border-left: 4px solid #3b82f6 !important; /* border-blue-500 */
+}
+
+.v-navigation-drawer:deep(.v-list-item.bg-blue-50 .v-list-item__prepend .v-icon) {
+  color: #2563eb !important; /* text-blue-600 */
+}
+
+.v-navigation-drawer:deep(.v-list-item.bg-blue-50 .v-list-item-title) {
+  color: #2563eb !important; /* text-blue-600 */
 }
 
 /* Стили для свёрнутого состояния */
@@ -140,6 +154,13 @@ onMounted(() => {
   color: inherit !important;
 }
 
+/* Принудительные стили для активного элемента в свёрнутом состоянии */
+.collapsed-nav-item.bg-blue-50 {
+  background-color: #eff6ff !important; /* bg-blue-50 */
+  color: #2563eb !important; /* text-blue-600 */
+  border-left: 4px solid #3b82f6 !important; /* border-blue-500 */
+}
+
 /* Специфичные стили для иконок в свёрнутом состоянии */
 .collapsed-nav-item:not(.bg-blue-50) .v-icon {
   color: #6b7280 !important; /* text-gray-600 */
@@ -156,5 +177,32 @@ onMounted(() => {
 
 .collapsed-nav-item:hover.bg-blue-50 .v-icon {
   color: #1d4ed8 !important; /* text-blue-700 */
+}
+</style>
+
+<style>
+/* Глобальные стили для принудительного применения */
+.v-list-item.bg-blue-50 {
+  background-color: #eff6ff !important;
+  color: #2563eb !important;
+  border-left: 4px solid #3b82f6 !important;
+}
+
+.v-list-item.bg-blue-50 .v-icon {
+  color: #2563eb !important;
+}
+
+.v-list-item.bg-blue-50 .v-list-item-title {
+  color: #2563eb !important;
+}
+
+.collapsed-nav-item.bg-blue-50 {
+  background-color: #eff6ff !important;
+  color: #2563eb !important;
+  border-left: 4px solid #3b82f6 !important;
+}
+
+.collapsed-nav-item.bg-blue-50 .v-icon {
+  color: #2563eb !important;
 }
 </style>

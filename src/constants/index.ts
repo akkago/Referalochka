@@ -38,7 +38,9 @@ export const ROUTES = {
   APPLICATION: 'application',
   INVESTOR_FORM: 'investor-form',
   PARTNER_FORM: 'partner-form',
-  REQUISITES: 'requisites'
+  REQUISITES: 'requisites',
+  DOCUMENTS: 'documents',
+  EMPLOYEES: 'employees'
 } as const
 
 export const PROFILE_TABS = {
