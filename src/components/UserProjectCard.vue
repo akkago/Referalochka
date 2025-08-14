@@ -13,12 +13,15 @@
         
         <!-- Toggle Switch -->
         <div class="flex items-center gap-2">
-          <span class="text-sm text-gray-600">Включить проект</span>
+          <span class="text-sm text-gray-500">Включить проект</span>
           <v-switch
             v-model="isEnabled"
             color="primary"
             hide-details
+            inset
+            density="compact"
             @change="handleToggleChange"
+            class="toggle-switch"
           />
         </div>
       </div>
@@ -66,7 +69,7 @@
       </div>
       
       <!-- Metrics -->
-      <div class="flex items-center gap-8 mb-3">
+      <div class="metrics-container flex items-center mb-3">
         <!-- Clicks -->
         <div class="flex items-center gap-2">
           <v-tooltip location="top">
@@ -202,5 +205,29 @@ const copyToClipboard = async (text: string, message: string) => {
 .copy-btn:hover {
   opacity: 1;
   color: #3b82f6 !important;
+}
+
+.toggle-switch {
+  opacity: 1 !important;
+  transform: scale(0.8) !important;
+}
+
+.toggle-switch .v-switch__track {
+  background-color: #9ca3af !important;
+  height: 16px !important;
+}
+
+.toggle-switch .v-switch__thumb {
+  background-color: #6b7280 !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.toggle-switch.v-input--density-compact .v-switch__track {
+  background-color: #9ca3af !important;
+}
+
+.metrics-container > div:first-child {
+  margin-right: 32px !important;
 }
 </style>
