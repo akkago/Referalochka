@@ -1,22 +1,25 @@
 <template>
   <div class="user-projects-view">
-    <div class="pa-6">
-      <!-- Page Header -->
-      <div class="mb-6">
-        <h1 class="text-2xl font-bold text-gray-800 border-b-2 border-blue-500 pb-2 inline-block">
-          {{ USER_PROJECTS_SECTIONS.TITLE }}
-        </h1>
+    <!-- Page Header - над белой панелью -->
+    <div class="pa-6 pb-2">
+      <h1 class="text-2xl font-bold text-gray-800">
+        {{ USER_PROJECTS_SECTIONS.TITLE }}
+      </h1>
+    </div>
+    
+    <!-- White Panel with rounded top corners -->
+    <div class="white-panel">
+      <!-- Filters and Search -->
+      <div class="pa-6 pb-4">
+        <UserProjectFilters
+          :initial-filters="filters"
+          @filters-change="handleFiltersChange"
+          @add-project="handleAddProject"
+        />
       </div>
       
-      <!-- Filters and Search -->
-      <UserProjectFilters
-        :initial-filters="filters"
-        @filters-change="handleFiltersChange"
-        @add-project="handleAddProject"
-      />
-      
       <!-- Projects Grid -->
-      <div class="mt-8">
+      <div class="pa-6 pt-0">
         <!-- Loading State -->
         <div v-if="isLoading" class="flex justify-center items-center py-12">
           <v-progress-circular
@@ -49,13 +52,14 @@
         </div>
         
         <!-- Projects Grid -->
-        <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div v-else class="grid grid-cols-2 gap-6">
           <UserProjectCard
             v-for="project in filteredProjects"
             :key="project.id"
             :project="project"
             @edit="handleEditProject"
             @toggle="handleToggleProject"
+            @favorite-toggle="handleFavoriteToggle"
           />
         </div>
       </div>
@@ -129,6 +133,11 @@ const handleToggleProject = async (projectId: string, isEnabled: boolean) => {
   }
 }
 
+const handleFavoriteToggle = (projectId: string) => {
+  console.log('Favorite toggled for project:', projectId)
+  // Здесь будет логика изменения избранного
+}
+
 // Lifecycle
 onMounted(() => {
   loadProjects()
@@ -137,7 +146,26 @@ onMounted(() => {
 
 <style scoped>
 .user-projects-view {
-  min-height: 100vh;
+  height: calc(100vh - 64px);
   background-color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.white-panel {
+  background-color: white;
+  border-radius: 16px 16px 0 0; /* Скругленные верхние углы */
+  margin: 0 24px; /* Отступы по бокам */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Легкая тень */
+  flex: 1; /* Растягиваем панель до низа */
+  overflow-y: auto; /* Скролл только внутри панели при необходимости */
+}
+
+/* Принудительное отображение по два в ряд */
+.grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5rem !important;
 }
 </style>

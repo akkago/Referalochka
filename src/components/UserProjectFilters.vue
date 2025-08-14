@@ -1,79 +1,72 @@
 <template>
-  <div class="user-project-filters">
-    <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
+  <div class="filters-container">
+    <div class="filters-row">
       <!-- Search -->
-      <div class="flex-1 min-w-0">
-        <v-text-field
-          v-model="filters.search"
-          :placeholder="USER_PROJECTS_SECTIONS.SEARCH_PLACEHOLDER"
-          prepend-inner-icon="mdi-magnify"
-          variant="outlined"
-          density="compact"
-          hide-details
-          class="max-w-md"
-          @update:model-value="handleSearchChange"
-        />
-      </div>
+      <v-text-field
+        v-model="filters.search"
+        :placeholder="USER_PROJECTS_SECTIONS.SEARCH_PLACEHOLDER"
+        prepend-inner-icon="mdi-magnify"
+        variant="outlined"
+        density="compact"
+        hide-details
+        class="search-input"
+        @update:model-value="handleSearchChange"
+      />
       
-      <!-- Filters -->
-      <div class="flex flex-wrap gap-3">
-        <!-- Stage Filter -->
-        <v-select
-          v-model="filters.stage"
-          :items="PROJECT_STAGES"
-          :label="USER_PROJECTS_FILTERS.STAGE"
-          variant="outlined"
-          density="compact"
-          hide-details
-          class="min-w-40"
-          @update:model-value="handleFilterChange"
-        />
-        
-        <!-- Industry Filter -->
-        <v-select
-          v-model="filters.industry"
-          :items="PROJECT_INDUSTRIES"
-          :label="USER_PROJECTS_FILTERS.INDUSTRY"
-          variant="outlined"
-          density="compact"
-          hide-details
-          class="min-w-40"
-          @update:model-value="handleFilterChange"
-        />
-        
-        <!-- Region Filter -->
-        <v-select
-          v-model="filters.region"
-          :items="PROJECT_REGIONS"
-          :label="USER_PROJECTS_FILTERS.REGION"
-          variant="outlined"
-          density="compact"
-          hide-details
-          class="min-w-40"
-          @update:model-value="handleFilterChange"
-        />
-        
-        <!-- Type Filter -->
-        <v-select
-          v-model="filters.type"
-          :items="PROJECT_TYPES"
-          :label="USER_PROJECTS_FILTERS.TYPE"
-          variant="outlined"
-          density="compact"
-          hide-details
-          class="min-w-40"
-          @update:model-value="handleFilterChange"
-        />
-      </div>
+      <!-- Stage Filter -->
+      <v-select
+        v-model="filters.stage"
+        :items="PROJECT_STAGES"
+        :label="USER_PROJECTS_FILTERS.STAGE"
+        variant="outlined"
+        density="compact"
+        hide-details
+        class="filter-select"
+        @update:model-value="handleFilterChange"
+      />
+      
+      <!-- Industry Filter -->
+      <v-select
+        v-model="filters.industry"
+        :items="PROJECT_INDUSTRIES"
+        :label="USER_PROJECTS_FILTERS.INDUSTRY"
+        variant="outlined"
+        density="compact"
+        hide-details
+        class="filter-select"
+        @update:model-value="handleFilterChange"
+      />
+      
+      <!-- Region Filter -->
+      <v-select
+        v-model="filters.region"
+        :items="PROJECT_REGIONS"
+        :label="USER_PROJECTS_FILTERS.REGION"
+        variant="outlined"
+        density="compact"
+        hide-details
+        class="filter-select"
+        @update:model-value="handleFilterChange"
+      />
+      
+      <!-- Type Filter -->
+      <v-select
+        v-model="filters.type"
+        :items="PROJECT_TYPES"
+        :label="USER_PROJECTS_FILTERS.TYPE"
+        variant="outlined"
+        density="compact"
+        hide-details
+        class="filter-select"
+        @update:model-value="handleFilterChange"
+      />
       
       <!-- Add Project Button -->
       <v-btn
         color="primary"
-        variant="elevated"
+        class="add-project-btn"
         @click="handleAddProject"
-        class="whitespace-nowrap"
       >
-        <v-icon start>mdi-plus</v-icon>
         {{ USER_PROJECTS_SECTIONS.ADD_PROJECT }}
       </v-btn>
     </div>
@@ -142,8 +135,35 @@ watch(() => props.initialFilters, (newFilters) => {
 </script>
 
 <style scoped>
-.user-project-filters {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid #e5e7eb;
+.filters-container {
+  padding: 0;
+}
+
+.filters-row {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Отступы между элементами */
+  flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+}
+
+.search-input {
+  min-width: 350px !important; /* Ширина поля поиска */
+  max-width: 350px !important;
+}
+
+.filter-select {
+  min-width: 160px !important; /* Ширина селектов */
+  max-width: 160px !important;
+}
+
+.add-project-btn {
+  margin-left: auto !important;
+  background-color: #7587F4 !important;
+  color: white !important;
+  white-space: nowrap !important; /* Запрещаем перенос текста в кнопке */
+}
+
+.add-project-btn:hover {
+  background-color: #6b7ae8 !important;
 }
 </style>

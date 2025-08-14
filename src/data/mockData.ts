@@ -869,7 +869,8 @@ export const userProjects: UserProject[] = [
     projectLink: 'http://linkprogect1.ru',
     views: 254,
     shares: 7,
-    isEnabled: false
+    isEnabled: false,
+    isFavorite: true
   },
   {
     id: '000343',
@@ -880,7 +881,8 @@ export const userProjects: UserProject[] = [
     projectLink: 'http://linkprogect2.ru',
     views: 0,
     shares: 0,
-    isEnabled: false
+    isEnabled: false,
+    isFavorite: false
   },
   {
     id: '000344',
@@ -891,7 +893,8 @@ export const userProjects: UserProject[] = [
     projectLink: 'http://linkprogect3.ru',
     views: 0,
     shares: 0,
-    isEnabled: false
+    isEnabled: false,
+    isFavorite: false
   },
   {
     id: '000345',
@@ -902,7 +905,8 @@ export const userProjects: UserProject[] = [
     projectLink: 'http://linkprogect4.ru',
     views: 149,
     shares: 12,
-    isEnabled: false
+    isEnabled: false,
+    isFavorite: false
   }
 ]
 

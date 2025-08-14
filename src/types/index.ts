@@ -284,6 +284,7 @@ export interface UserProject {
   views: number
   shares: number
   isEnabled: boolean
+  isFavorite: boolean
 }
 
 export interface ProjectFilter {

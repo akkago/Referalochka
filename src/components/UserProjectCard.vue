@@ -1,22 +1,14 @@
 <template>
   <div class="user-project-card">
-    <div class="bg-white border border-gray-200 rounded-lg p-6">
-      <!-- Header -->
-      <div class="flex justify-between items-start mb-4">
-        <!-- Status and Title -->
-        <div class="flex-1">
-          <div class="flex items-center gap-2 mb-2">
-            <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-            <span class="text-sm text-blue-600 font-medium">
-              {{ project.statusText }}
-            </span>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-1">
-            {{ project.title }}
-          </h3>
-          <p class="text-sm text-gray-500">
-            {{ project.date }}
-          </p>
+    <div class="project-card-content">
+      <!-- Header with Status and Toggle -->
+      <div class="flex justify-between items-center mb-3">
+        <!-- Status -->
+        <div class="flex items-center gap-3">
+          <div class="status-dot w-3 h-3 rounded-full bg-blue-500 flex-shrink-0 shadow-sm mr-1"></div>
+          <span class="text-sm text-blue-600 font-medium">
+            {{ project.statusText }}
+          </span>
         </div>
         
         <!-- Toggle Switch -->
@@ -31,64 +23,73 @@
         </div>
       </div>
       
-      <!-- Project Info -->
-      <div class="space-y-3 mb-4">
-        <!-- Project ID -->
-        <div class="flex items-center justify-between">
-          <span class="text-sm text-gray-600">ID: {{ project.id }}</span>
-          <v-btn
-            icon
-            variant="text"
-            size="small"
-            @click="copyToClipboard(project.id, 'ID скопирован')"
-            class="text-gray-500 hover:text-gray-700"
-          >
-            <v-icon size="small">mdi-content-copy</v-icon>
-          </v-btn>
+      <!-- Title -->
+      <div class="mb-2">
+        <h3 class="text-lg font-semibold text-gray-800">
+          {{ project.title }}
+        </h3>
+      </div>
+      
+      <!-- Date and ID row -->
+      <div class="d-flex justify-space-between align-center mb-2">
+        <div class="text-sm date-id-text">
+          {{ project.date }}
         </div>
-        
-        <!-- Project Link -->
-        <div class="flex items-center justify-between">
-          <span class="text-sm text-gray-600">
-            Ссылка на проект {{ project.projectLink }}
-          </span>
+        <div class="text-sm date-id-text d-flex align-center gap-1">
+          ID: {{ project.id }}
           <v-btn
             icon
             variant="text"
-            size="small"
-            @click="copyToClipboard(project.projectLink, 'Ссылка скопирована')"
-            class="text-gray-500 hover:text-gray-700"
+            size="x-small"
+            @click="copyToClipboard(project.id, 'ID скопирован')"
+            class="copy-btn"
           >
             <v-icon size="small">mdi-content-copy</v-icon>
           </v-btn>
         </div>
       </div>
       
+      <!-- Project Link -->
+      <div class="mb-3 d-flex align-center gap-1">
+        <span class="text-sm text-gray-600">
+          Ссылка на проект {{ project.projectLink }}
+        </span>
+        <v-btn
+          icon
+          variant="text"
+          size="x-small"
+          @click="copyToClipboard(project.projectLink, 'Ссылка скопирована')"
+          class="copy-btn"
+        >
+          <v-icon size="small">mdi-content-copy</v-icon>
+        </v-btn>
+      </div>
+      
       <!-- Metrics -->
-      <div class="flex items-center gap-6 mb-4">
-        <!-- Views -->
+      <div class="flex items-center gap-8 mb-3">
+        <!-- Clicks -->
         <div class="flex items-center gap-2">
           <v-tooltip location="top">
             <template v-slot:activator="{ props }">
               <div v-bind="props" class="flex items-center gap-1 cursor-pointer">
-                <v-icon size="small" class="text-gray-500">mdi-eye</v-icon>
+                <v-icon size="small" class="text-gray-500">mdi-cursor-pointer</v-icon>
                 <span class="text-sm text-gray-700">{{ project.views }}</span>
               </div>
             </template>
-            <span>{{ USER_PROJECT_METRICS.VIEWS }}</span>
+            <span>Количество кликов</span>
           </v-tooltip>
         </div>
         
-        <!-- Shares -->
+        <!-- Comments -->
         <div class="flex items-center gap-2">
           <v-tooltip location="top">
             <template v-slot:activator="{ props }">
               <div v-bind="props" class="flex items-center gap-1 cursor-pointer">
-                <v-icon size="small" class="text-gray-500">mdi-share-variant</v-icon>
+                <v-icon size="small" class="text-gray-500">mdi-comment-outline</v-icon>
                 <span class="text-sm text-gray-700">{{ project.shares }}</span>
               </div>
             </template>
-            <span>{{ USER_PROJECT_METRICS.SHARES }}</span>
+            <span>Количество комментариев</span>
           </v-tooltip>
         </div>
       </div>
@@ -97,12 +98,11 @@
       <div class="flex justify-end">
         <v-btn
           variant="outlined"
-          color="gray"
           size="small"
           @click="handleEdit"
-          class="px-4"
+          class="px-4 edit-btn"
         >
-          {{ USER_PROJECT_ACTIONS.EDIT }}
+          Редактировать
         </v-btn>
       </div>
     </div>
@@ -112,7 +112,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { UserProject } from '@/types'
-import { USER_PROJECT_ACTIONS, USER_PROJECT_METRICS } from '@/constants/userProjects'
 
 interface Props {
   project: UserProject
@@ -121,6 +120,7 @@ interface Props {
 interface Emits {
   (e: 'edit', projectId: string): void
   (e: 'toggle', projectId: string, isEnabled: boolean): void
+  (e: 'favorite-toggle', projectId: string): void
 }
 
 const props = defineProps<Props>()
@@ -135,6 +135,8 @@ const handleEdit = () => {
 const handleToggleChange = (value: boolean) => {
   emit('toggle', props.project.id, value)
 }
+
+
 
 const copyToClipboard = async (text: string, message: string) => {
   try {
@@ -155,5 +157,50 @@ const copyToClipboard = async (text: string, message: string) => {
 .user-project-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.project-card-content {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px; /* Уменьшили с 24px до 16px */
+  height: 100%;
+}
+
+.date-id-text {
+  color: #9ca3af !important; /* Блеклый серый цвет */
+}
+
+.edit-btn {
+  background-color: transparent !important;
+  color: #6b7280 !important;
+  border-color: #d1d5db !important;
+}
+
+.edit-btn:hover {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border-color: #9ca3af !important;
+}
+
+.status-dot {
+  background-color: #3b82f6 !important;
+  border: 1px solid #3b82f6 !important;
+  min-width: 12px !important;
+  min-height: 12px !important;
+  display: block !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.copy-btn {
+  color: #6b7280 !important;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+  color: #3b82f6 !important;
 }
 </style>
