@@ -326,53 +326,74 @@
           </div>
         </div>
 
-        <div class="form-section">
-          <h3 class="text-xl font-semibold text-gray-800 mb-6">
-            {{ FILLED_INVESTOR_FORM_SECTIONS.INVESTMENTS }}
-          </h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="field-group">
-              <label class="text-sm font-medium text-gray-700 mb-2">
-                {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.FORMAT }}
-              </label>
-              <v-select
-                v-model="formData.investments.format"
-                :items="['Доля', 'Займ']"
-                placeholder="Выберите формат"
-                variant="outlined"
-                density="comfortable"
-                class="field-input"
-              />
+                 <div class="form-section">
+           <h3 class="text-xl font-semibold text-gray-800 mb-6">
+             {{ FILLED_INVESTOR_FORM_SECTIONS.INVESTMENTS }}
+           </h3>
+                       <div class="space-y-6">
+              <div class="field-group">
+                <div class="flex items-center gap-4">
+                  <label class="text-sm font-medium text-gray-700 whitespace-nowrap w-1/3">
+                    {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.FORMAT }}
+                  </label>
+                  <div class="w-2/3">
+                    <v-radio-group
+                      v-model="formData.investments.format"
+                      inline
+                      hide-details
+                      color="blue"
+                      class="field-input"
+                    >
+                      <v-radio
+                        value="Доля"
+                        label="Доля"
+                        class="mr-4"
+                        color="blue"
+                      />
+                      <v-radio
+                        value="Займ"
+                        label="Займ"
+                        color="blue"
+                      />
+                    </v-radio-group>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="field-group">
+                <div class="flex items-center gap-4">
+                  <label class="text-sm font-medium text-gray-700 whitespace-nowrap w-1/3">
+                    Размер инвестиций
+                  </label>
+                  <div class="w-2/3">
+                    <div class="flex gap-4">
+                      <div class="flex-1">
+                        <v-text-field
+                          v-model="formData.investments.min"
+                          placeholder="От"
+                          type="number"
+                          variant="outlined"
+                          density="comfortable"
+                          class="field-input"
+                          hide-details
+                        />
+                      </div>
+                      <div class="flex-1">
+                        <v-text-field
+                          v-model="formData.investments.max"
+                          placeholder="До"
+                          type="number"
+                          variant="outlined"
+                          density="comfortable"
+                          class="field-input"
+                          hide-details
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            
-            <div class="field-group">
-              <label class="text-sm font-medium text-gray-700 mb-2">
-                {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.MIN }}
-              </label>
-              <v-text-field
-                v-model="formData.investments.min"
-                placeholder="Минимальная сумма"
-                type="number"
-                variant="outlined"
-                density="comfortable"
-                class="field-input"
-              />
-            </div>
-            
-            <div class="field-group">
-              <label class="text-sm font-medium text-gray-700 mb-2">
-                {{ FILLED_INVESTOR_FORM_LABELS.INVESTMENTS.MAX }}
-              </label>
-              <v-text-field
-                v-model="formData.investments.max"
-                placeholder="Максимальная сумма"
-                type="number"
-                variant="outlined"
-                density="comfortable"
-                class="field-input"
-              />
-            </div>
-          </div>
         </div>
 
         <div class="form-section">
