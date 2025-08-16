@@ -365,32 +365,33 @@
                   <label class="text-sm font-medium text-gray-700 whitespace-nowrap w-1/3">
                     Размер инвестиций
                   </label>
-                  <div class="w-2/3">
-                    <div class="flex gap-4">
-                      <div class="flex-1">
-                        <v-text-field
-                          v-model="formData.investments.min"
-                          placeholder="От"
-                          type="number"
-                          variant="outlined"
-                          density="comfortable"
-                          class="field-input"
-                          hide-details
-                        />
-                      </div>
-                      <div class="flex-1">
-                        <v-text-field
-                          v-model="formData.investments.max"
-                          placeholder="До"
-                          type="number"
-                          variant="outlined"
-                          density="comfortable"
-                          class="field-input"
-                          hide-details
-                        />
-                      </div>
-                    </div>
-                  </div>
+                                     <div class="w-2/3">
+                     <div class="flex items-center gap-4">
+                       <div class="w-32">
+                         <v-text-field
+                           v-model="formData.investments.min"
+                           placeholder="От"
+                           type="number"
+                           variant="outlined"
+                           density="comfortable"
+                           class="field-input"
+                           hide-details
+                         />
+                       </div>
+                       <div class="w-32">
+                         <v-text-field
+                           v-model="formData.investments.max"
+                           placeholder="До"
+                           type="number"
+                           variant="outlined"
+                           density="comfortable"
+                           class="field-input"
+                           hide-details
+                         />
+                       </div>
+                       <span class="text-sm text-gray-600 whitespace-nowrap">руб.</span>
+                     </div>
+                   </div>
                 </div>
               </div>
             </div>
